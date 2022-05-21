@@ -65,7 +65,7 @@ namespace lsp
                     S_ALL           = S_DP_CURVE | S_EQ_CURVE
                 };
 
-                typedef struct comp_band_t
+                typedef struct dyna_band_t
                 {
                     dspu::Sidechain         sSC;                // Sidechain module
                     dspu::Equalizer         sEQ[2];             // Sidechain equalizers
@@ -113,15 +113,26 @@ namespace lsp
                     plug::IPort            *pSolo;              // Soloing
                     plug::IPort            *pMute;              // Muting
 
-
+                    plug::IPort            *pDotOn[meta::mb_dyna_processor::DOTS];              // Dot enable
+                    plug::IPort            *pThreshold[meta::mb_dyna_processor::DOTS];          // Threshold levels
+                    plug::IPort            *pGain[meta::mb_dyna_processor::DOTS];               // Gain levels
+                    plug::IPort            *pKnee[meta::mb_dyna_processor::DOTS];               // Knees levels
+                    plug::IPort            *pAttackOn[meta::mb_dyna_processor::DOTS];           // Attack enable
+                    plug::IPort            *pAttackLvl[meta::mb_dyna_processor::DOTS];          // Attack levels
+                    plug::IPort            *pAttackTime[meta::mb_dyna_processor::RANGES];       // Attack time
+                    plug::IPort            *pReleaseOn[meta::mb_dyna_processor::DOTS];          // Release enable
+                    plug::IPort            *pReleaseLvl[meta::mb_dyna_processor::DOTS];         // Release levels
+                    plug::IPort            *pReleaseTime[meta::mb_dyna_processor::RANGES];      // Release time
+                    plug::IPort            *pLowRatio;          // Low Ratio
+                    plug::IPort            *pHighRatio;         // High Ratio
+                    plug::IPort            *pMakeup;            // Overall Makeup gain
 
                     plug::IPort            *pFreqEnd;           // Frequency range end
                     plug::IPort            *pCurveGraph;        // Processor curve graph
-                    plug::IPort            *pRelLevelOut;       // Release level out
                     plug::IPort            *pEnvLvl;            // Envelope level meter
                     plug::IPort            *pCurveLvl;          // Reduction curve level meter
                     plug::IPort            *pMeterGain;         // Reduction gain meter
-                } comp_band_t;
+                } dyna_band_t;
 
                 typedef struct split_t
                 {
@@ -139,9 +150,9 @@ namespace lsp
                     dspu::Delay             sDelay;             // Delay for lookahead compensation purpose
                     dspu::Equalizer         sDryEq;             // Dry equalizer
 
-                    comp_band_t             vBands[meta::mb_dyna_processor::BANDS_MAX];     // Processor bands
+                    dyna_band_t             vBands[meta::mb_dyna_processor::BANDS_MAX];     // Processor bands
                     split_t                 vSplit[meta::mb_dyna_processor::BANDS_MAX-1];   // Split bands
-                    comp_band_t            *vPlan[meta::mb_dyna_processor::BANDS_MAX];      // Execution plan (band indexes)
+                    dyna_band_t            *vPlan[meta::mb_dyna_processor::BANDS_MAX];      // Execution plan (band indexes)
                     size_t                  nPlanSize;              // Plan size
 
                     float                  *vIn;                // Input data buffer
@@ -212,7 +223,7 @@ namespace lsp
                 plug::IPort            *pEnvBoost;              // Envelope adjust
 
             protected:
-                static bool compare_bands_for_sort(const comp_band_t *b1, const comp_band_t *b2);
+                static bool compare_bands_for_sort(const dyna_band_t *b1, const dyna_band_t *b2);
 
             public:
                 explicit mb_dyna_processor(const meta::plugin_t *metadata, bool sc, size_t mode);

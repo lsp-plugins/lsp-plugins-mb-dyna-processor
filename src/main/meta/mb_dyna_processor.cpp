@@ -71,13 +71,6 @@ namespace lsp
             { NULL, NULL }
         };
 
-        static const port_item_t mb_global_dyna_modes[] =
-        {
-            { "Classic",        "mb_comp.classic" },
-            { "Modern",         "mb_comp.modern" },
-            { NULL, NULL }
-        };
-
         static const port_item_t mb_dyna_sc_bands[] =
         {
             { "Split",          "mb_dyna_proc.split" },
@@ -181,7 +174,6 @@ namespace lsp
                 \
                 METER("fre" id, "Frequency range end" label, U_HZ,  mb_dyna_processor::OUT_FREQ), \
                 MESH("ccg" id, "Compression curve graph" label, 2, mb_dyna_processor::CURVE_MESH_SIZE), \
-                METER_OUT_GAIN("rl" id, "Release level" label, 20.0f), \
                 METER_OUT_GAIN("elm" id, "Envelope level meter" label, GAIN_AMP_P_36_DB), \
                 METER_OUT_GAIN("clm" id, "Curve level meter" label, GAIN_AMP_P_36_DB), \
                 METER_OUT_GAIN("rlm" id, "Reduction level meter" label, GAIN_AMP_P_72_DB)
