@@ -71,52 +71,60 @@ namespace lsp
             { NULL, NULL }
         };
 
+        static const port_item_t mb_global_dyna_modes[] =
+        {
+            { "Classic",        "mb_dyna_processor.classic" },
+            { "Modern",         "mb_dyna_processor.modern" },
+            { NULL, NULL }
+        };
+
         static const port_item_t mb_dyna_sc_bands[] =
         {
-            { "Split",          "mb_dyna_proc.split" },
-            { "Band 0",         "mb_dyna_proc.band0" },
-            { "Band 1",         "mb_dyna_proc.band1" },
-            { "Band 2",         "mb_dyna_proc.band2" },
-            { "Band 3",         "mb_dyna_proc.band3" },
-            { "Band 4",         "mb_dyna_proc.band4" },
-            { "Band 5",         "mb_dyna_proc.band5" },
-            { "Band 6",         "mb_dyna_proc.band6" },
-            { "Band 7",         "mb_dyna_proc.band7" },
+            { "Split",          "mb_dyna_processor.split" },
+            { "Band 0",         "mb_dyna_processor.band0" },
+            { "Band 1",         "mb_dyna_processor.band1" },
+            { "Band 2",         "mb_dyna_processor.band2" },
+            { "Band 3",         "mb_dyna_processor.band3" },
+            { "Band 4",         "mb_dyna_processor.band4" },
+            { "Band 5",         "mb_dyna_processor.band5" },
+            { "Band 6",         "mb_dyna_processor.band6" },
+            { "Band 7",         "mb_dyna_processor.band7" },
             { NULL, NULL }
         };
 
         static const port_item_t mb_dyna_sc_lr_bands[] =
         {
-            { "Split Left",     "mb_dyna_proc.split_left" },
-            { "Split Right",    "mb_dyna_proc.split_right" },
-            { "Band 0",         "mb_dyna_proc.band0" },
-            { "Band 1",         "mb_dyna_proc.band1" },
-            { "Band 2",         "mb_dyna_proc.band2" },
-            { "Band 3",         "mb_dyna_proc.band3" },
-            { "Band 4",         "mb_dyna_proc.band4" },
-            { "Band 5",         "mb_dyna_proc.band5" },
-            { "Band 6",         "mb_dyna_proc.band6" },
-            { "Band 7",         "mb_dyna_proc.band7" },
+            { "Split Left",     "mb_dyna_processor.split_left" },
+            { "Split Right",    "mb_dyna_processor.split_right" },
+            { "Band 0",         "mb_dyna_processor.band0" },
+            { "Band 1",         "mb_dyna_processor.band1" },
+            { "Band 2",         "mb_dyna_processor.band2" },
+            { "Band 3",         "mb_dyna_processor.band3" },
+            { "Band 4",         "mb_dyna_processor.band4" },
+            { "Band 5",         "mb_dyna_processor.band5" },
+            { "Band 6",         "mb_dyna_processor.band6" },
+            { "Band 7",         "mb_dyna_processor.band7" },
             { NULL, NULL }
         };
 
         static const port_item_t mb_dyna_sc_ms_bands[] =
         {
-            { "Split Mid",      "mb_dyna_proc.split_middle" },
-            { "Split Side",     "mb_dyna_proc.split_side" },
-            { "Band 0",         "mb_dyna_proc.band0" },
-            { "Band 1",         "mb_dyna_proc.band1" },
-            { "Band 2",         "mb_dyna_proc.band2" },
-            { "Band 3",         "mb_dyna_proc.band3" },
-            { "Band 4",         "mb_dyna_proc.band4" },
-            { "Band 5",         "mb_dyna_proc.band5" },
-            { "Band 6",         "mb_dyna_proc.band6" },
-            { "Band 7",         "mb_dyna_proc.band7" },
+            { "Split Mid",      "mb_dyna_processor.split_middle" },
+            { "Split Side",     "mb_dyna_processor.split_side" },
+            { "Band 0",         "mb_dyna_processor.band0" },
+            { "Band 1",         "mb_dyna_processor.band1" },
+            { "Band 2",         "mb_dyna_processor.band2" },
+            { "Band 3",         "mb_dyna_processor.band3" },
+            { "Band 4",         "mb_dyna_processor.band4" },
+            { "Band 5",         "mb_dyna_processor.band5" },
+            { "Band 6",         "mb_dyna_processor.band6" },
+            { "Band 7",         "mb_dyna_processor.band7" },
             { NULL, NULL }
         };
 
         #define MB_COMMON(bands) \
                 BYPASS, \
+                COMBO("mode", "Dynamic Processor mode", 1, mb_global_dyna_modes), \
                 AMP_GAIN("g_in", "Input gain", mb_dyna_processor::IN_GAIN_DFL, 10.0f), \
                 AMP_GAIN("g_out", "Output gain", mb_dyna_processor::OUT_GAIN_DFL, 10.0f), \
                 AMP_GAIN("g_dry", "Dry gain", 0.0f, 10.0f), \
@@ -165,14 +173,12 @@ namespace lsp
                 MB_DYNA_POINT(3, 0.0f, id, label, GAIN_AMP_M_48_DB), \
                 LOG_CONTROL("llr" id, "Low-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
                 LOG_CONTROL("hlr" id, "High-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
-                LOG_CONTROL("omk" id, "Overall makeup gain" label, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
+                LOG_CONTROL("mk" id, "Makeup gain" label, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
                 SWITCH("cmv" id, "Curve modelling visibility" label, 1.0f), \
-                SWITCH("slv" id, "Sidechain level visibility" label, 1.0f), \
-                SWITCH("elv" id, "Envelope level visibility" label, 1.0f), \
-                SWITCH("grv" id, "Gain reduction visibility" label, 1.0f), \
                 HUE_CTL("hue" id, "Hue " label, float(x) / float(total)), \
                 \
                 METER("fre" id, "Frequency range end" label, U_HZ,  mb_dyna_processor::OUT_FREQ), \
+                MESH("cmg" id, "Curve modelling graph" label, 2, mb_dyna_processor::CURVE_MESH_SIZE), \
                 MESH("ccg" id, "Compression curve graph" label, 2, mb_dyna_processor::CURVE_MESH_SIZE), \
                 METER_OUT_GAIN("elm" id, "Envelope level meter" label, GAIN_AMP_P_36_DB), \
                 METER_OUT_GAIN("clm" id, "Curve level meter" label, GAIN_AMP_P_36_DB), \

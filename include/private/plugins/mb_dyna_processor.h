@@ -60,9 +60,10 @@ namespace lsp
                 enum sync_t
                 {
                     S_DP_CURVE      = 1 << 0,
-                    S_EQ_CURVE      = 1 << 1,
+                    S_DP_MODEL      = 1 << 1,
+                    S_EQ_CURVE      = 1 << 2,
 
-                    S_ALL           = S_DP_CURVE | S_EQ_CURVE
+                    S_ALL           = S_DP_CURVE | S_DP_MODEL | S_EQ_CURVE
                 };
 
                 typedef struct dyna_band_t
@@ -128,6 +129,7 @@ namespace lsp
                     plug::IPort            *pMakeup;            // Overall Makeup gain
 
                     plug::IPort            *pFreqEnd;           // Frequency range end
+                    plug::IPort            *pModelGraph;        // Processor curve modelling graph
                     plug::IPort            *pCurveGraph;        // Processor curve graph
                     plug::IPort            *pEnvLvl;            // Envelope level meter
                     plug::IPort            *pCurveLvl;          // Reduction curve level meter
