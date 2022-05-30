@@ -122,6 +122,20 @@ namespace lsp
             { NULL, NULL }
         };
 
+        static const port_item_t mb_dyna_lr_tabs[] =
+        {
+            { "Left",           "mb_dyna_processor.proc_left" },
+            { "Right",          "mb_dyna_processor.proc_right" },
+            { NULL, NULL }
+        };
+
+        static const port_item_t mb_dyna_ms_tabs[] =
+        {
+            { "Mid",            "mb_dyna_processor.proc_mid" },
+            { "Side",           "mb_dyna_processor.proc_side" },
+            { NULL, NULL }
+        };
+
         #define MB_COMMON(bands) \
                 BYPASS, \
                 COMBO("mode", "Dynamic Processor mode", 1, mb_global_dyna_modes), \
@@ -284,6 +298,7 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_COMMON(mb_dyna_sc_lr_bands),
+            COMBO("csel", "Channel selector", 0, mb_dyna_lr_tabs),
             MB_CHANNEL("_l", " Left"),
             MB_CHANNEL("_r", " Right"),
             MB_FFT_METERS("_l", " Left"),
@@ -332,6 +347,7 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_COMMON(mb_dyna_sc_ms_bands),
+            COMBO("csel", "Channel selector", 0, mb_dyna_ms_tabs),
             MB_CHANNEL("_m", " Mid"),
             MB_CHANNEL("_s", " Side"),
             MB_FFT_METERS("_m", " Mid"),
@@ -441,6 +457,7 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             PORTS_STEREO_SIDECHAIN,
             MB_COMMON(mb_dyna_sc_lr_bands),
+            COMBO("csel", "Channel selector", 0, mb_dyna_lr_tabs),
             MB_CHANNEL("_l", " Left"),
             MB_CHANNEL("_r", " Right"),
             MB_FFT_METERS("_l", " Left"),
@@ -490,6 +507,7 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             PORTS_STEREO_SIDECHAIN,
             MB_COMMON(mb_dyna_sc_ms_bands),
+            COMBO("csel", "Channel selector", 0, mb_dyna_ms_tabs),
             MB_CHANNEL("_m", " Mid"),
             MB_CHANNEL("_s", " Side"),
             MB_FFT_METERS("_m", " Mid"),

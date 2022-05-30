@@ -486,8 +486,16 @@ namespace lsp
             pShiftGain              = TRACE_PORT(ports[port_id++]);
             pZoom                   = TRACE_PORT(ports[port_id++]);
             pEnvBoost               = TRACE_PORT(ports[port_id++]);
+
+            // Skip band selector
             TRACE_PORT(ports[port_id]);
-            port_id++;         // Skip band selector
+            port_id++;
+            // Skip channel selector for MS and LR versions
+            if ((nMode == MBDP_LR) || (nMode == MBDP_MS))
+            {
+                TRACE_PORT(ports[port_id]);
+                port_id++;
+            }
 
             lsp_trace("Binding channel ports");
             for (size_t i=0; i<channels; ++i)
@@ -1257,7 +1265,7 @@ namespace lsp
                             // Output curve level
                             float lvl = dsp::abs_max(vEnv, to_process);
                             b->pEnvLvl->set_value(lvl);
-                            b->pMeterGain->set_value(b->sProc.reduction(lvl));
+                            b->pMeterGain->set_value(dsp::abs_max(b->vVCA, to_process));
                             lvl = b->sProc.curve(lvl) * b->fMakeup;
                             b->pCurveLvl->set_value(lvl);
 
@@ -1485,8 +1493,6 @@ namespace lsp
                                 // Copy frequency points
                                 dsp::copy(mesh->pvData[0], vCurve, meta::mb_dyna_processor::CURVE_MESH_SIZE);
                                 b->sProc.model(mesh->pvData[1], vCurve, meta::mb_dyna_processor::CURVE_MESH_SIZE);
-                                if (b->fMakeup != GAIN_AMP_0_DB)
-                                    dsp::mul_k2(mesh->pvData[1], b->fMakeup, meta::mb_dyna_processor::CURVE_MESH_SIZE);
 
                                 // Mark mesh containing data
                                 mesh->data(2, meta::mb_dyna_processor::CURVE_MESH_SIZE);
