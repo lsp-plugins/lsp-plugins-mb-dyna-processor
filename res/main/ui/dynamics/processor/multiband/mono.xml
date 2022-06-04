@@ -286,7 +286,7 @@
 							<cell cols="2" pad.h="6" bg.color="bg_schema">
 								<grid rows="2" cols="1" hspacing="4">
 									<button
-										id="ce_${i}"
+										id="pe_${i}"
 										text="labels.chan.on"
 										height="19"
 										hfill="true"
@@ -478,7 +478,35 @@
 								<align halign="-1">
 									<label text="labels.plug.dyna_processor" halign="-1" pad.h="6" height.max="20" bg.color="bg_schema_name" vreduce="true"/>
 								</align>
-								<hsep vreduse="true"/>
+								<hsep vreduce="true"/>
+								
+								<hbox bg.color="bg_schema" spacing="6">
+									<ui:with pad.v="4">
+										<button
+											id="pe_${i}"
+											text="labels.chan.on"
+											ui:inject="Button_Cycle_8"
+											hfill="true"
+											height="19"
+											pad.l="6"
+											down.color.hue=":hue_${i}"
+											down.hover.color.hue=":hue_${i}"
+											text.down.color.hue=":hue_${i}"
+											text.down.hover.color.hue=":hue_${i}"
+											border.down.color.hue=":hue_${i}"
+											border.down.hover.color.hue=":hue_${i}"/>
+										<button id="bs_${i}" text="labels.chan.S_olo" ui:inject="Button_green_8" hfill="true" height="19" />
+										<button
+											id="bm_${i}"
+											text="labels.chan.M_ute"
+											ui:inject="Button_red_8"
+											hfill="true"
+											pad.r="6"
+											height="19" />
+										<void hexpand="true" />
+									</ui:with>
+								</hbox>
+								<void bg.color="bg" height="4" vreduce="true"/>
 	
 								<!-- Processor settings -->
 								<grid rows="13" cols="13" spacing="0" bg.color="bg_schema">
@@ -568,23 +596,23 @@
 									<marker v="0 db" ox="1" oy="0" width="2" color="graph_prim"/>
 
 									<!-- Meshes -->
-									<mesh id="cmg_${i}" width="2" color="graph_mesh" smooth="true" visibility="${bvis} and :cmv_${i}"/>
-									<mesh id="ccg_${i}" width="3" color="graph_mesh" smooth="true" visibility="${bvis}"/>
+									<mesh id="cmg_${i}" width="2" color="graph_mesh" smooth="true" visibility="${bvis} and :pe_${i} and :cmv_${i}"/>
+									<mesh id="ccg_${i}" width="3" color="graph_mesh" smooth="true" visibility="${bvis} and :pe_${i} "/>
 									
 									<!-- Markers -->
 									<ui:for id="c" first="0" last="3">
 										<ui:set id="x" value="${c}_${i}" />
 										<marker id="al${x}" width="2" color="attack" smooth="true"
-											visibility="${bvis} and :cmv_${i} and :ae${x}"/>
+											visibility="${bvis} and :pe_${i} and :cmv_${i} and :ae${x}"/>
 										<text x=":al${x}" y="24 db" text="${c}" color="attack" halign="-1" valign="-1"
-											visibility="${bvis} and :cmv_${i} and :ae${x}"/>
+											visibility="${bvis} and :pe_${i} and :cmv_${i} and :ae${x}"/>
 									</ui:for>
 									<ui:for id="c" first="0" last="3">
 										<ui:set id="x" value="${c}_${i}" />
 										<marker id="rl${x}" width="2" color="release" smooth="true"
-											visibility="${bvis} and :cmv_${i} and :re${x}"/>
+											visibility="${bvis} and :pe_${i} and :cmv_${i} and :re${x}"/>
 										<text x=":rl${x}" y="-72 db" text="${c}" color="release" halign="-1" valign="1"
-											visibility="${bvis} and :cmv_${i} and :re${x}"/>
+											visibility="${bvis} and :pe_${i} and :cmv_${i} and :re${x}"/>
 									</ui:for>
 			
 									<!-- Dots -->
@@ -592,16 +620,16 @@
 										<ui:set id="x" value="${c}_${i}" />
 										<dot x.id="tl${x}" y.id="gl${x}" z.id="kn${x}" x.editable="true" y.editable="true" z.editable="true"
 											color="graph_mesh" hover.color="graph_mesh" bcolor="graph_mesh" hover.bcolor="graph_mesh" pointer="drag"
-											visibility="${bvis} and :pe${x}"/>
+											visibility="${bvis} and :pe_${i} and :pe${x}"/>
 									</ui:for>
 									<ui:for id="c" first="0" last="3">
 										<ui:set id="x" value="${c}_${i}" />
 										<text x=":tl${x}" y=":gl${x}" text="${c}"
 											color="graph_mesh" halign="-1" valign="1"
-											visibility="${bvis} and :pe${x}"/>
+											visibility="${bvis} and :pe_${i} and :pe${x}"/>
 									</ui:for>
 									
-									<dot x.id="elm_${i}" y.id="clm_${i}" color="graph_mesh" bcolor="graph_mesh" visibility="${bvis}" />
+									<dot x.id="elm_${i}" y.id="clm_${i}" color="graph_mesh" bcolor="graph_mesh" visibility="${bvis} and :pe_${i}" />
 
 									<!-- Text -->
 									<text x="0 db" y="0 db" text="0" halign="1" valign="1"/>
