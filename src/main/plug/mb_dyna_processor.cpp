@@ -490,12 +490,6 @@ namespace lsp
             // Skip band selector
             TRACE_PORT(ports[port_id]);
             port_id++;
-            // Skip channel selector for MS and LR versions
-            if ((nMode == MBDP_LR) || (nMode == MBDP_MS))
-            {
-                TRACE_PORT(ports[port_id]);
-                port_id++;
-            }
 
             lsp_trace("Binding channel ports");
             for (size_t i=0; i<channels; ++i)

@@ -94,45 +94,47 @@ namespace lsp
 
         static const port_item_t mb_dyna_sc_lr_bands[] =
         {
-            { "Split Left",     "mb_dyna_processor.split_left" },
-            { "Split Right",    "mb_dyna_processor.split_right" },
-            { "Band 0",         "mb_dyna_processor.band0" },
-            { "Band 1",         "mb_dyna_processor.band1" },
-            { "Band 2",         "mb_dyna_processor.band2" },
-            { "Band 3",         "mb_dyna_processor.band3" },
-            { "Band 4",         "mb_dyna_processor.band4" },
-            { "Band 5",         "mb_dyna_processor.band5" },
-            { "Band 6",         "mb_dyna_processor.band6" },
-            { "Band 7",         "mb_dyna_processor.band7" },
+            { "Split Left",     "mb_dyna_processor.split_left"      },
+            { "Split Right",    "mb_dyna_processor.split_right"     },
+            { "Band 0 Left",    "mb_dyna_processor.band0_left"      },
+            { "Band 0 Right",   "mb_dyna_processor.band0_right"     },
+            { "Band 1 Left",    "mb_dyna_processor.band1_left"      },
+            { "Band 1 Right",   "mb_dyna_processor.band1_right"     },
+            { "Band 2 Left",    "mb_dyna_processor.band2_left"      },
+            { "Band 2 Right",   "mb_dyna_processor.band2_right"     },
+            { "Band 3 Left",    "mb_dyna_processor.band3_left"      },
+            { "Band 3 Right",   "mb_dyna_processor.band3_right"     },
+            { "Band 4 Left",    "mb_dyna_processor.band4_left"      },
+            { "Band 4 Right",   "mb_dyna_processor.band4_right"     },
+            { "Band 5 Left",    "mb_dyna_processor.band5_left"      },
+            { "Band 5 Right",   "mb_dyna_processor.band5_right"     },
+            { "Band 6 Left",    "mb_dyna_processor.band6_left"      },
+            { "Band 6 Right",   "mb_dyna_processor.band6_right"     },
+            { "Band 7 Left",    "mb_dyna_processor.band7_left"      },
+            { "Band 7 Right",   "mb_dyna_processor.band7_right"     },
             { NULL, NULL }
         };
 
         static const port_item_t mb_dyna_sc_ms_bands[] =
         {
-            { "Split Mid",      "mb_dyna_processor.split_middle" },
-            { "Split Side",     "mb_dyna_processor.split_side" },
-            { "Band 0",         "mb_dyna_processor.band0" },
-            { "Band 1",         "mb_dyna_processor.band1" },
-            { "Band 2",         "mb_dyna_processor.band2" },
-            { "Band 3",         "mb_dyna_processor.band3" },
-            { "Band 4",         "mb_dyna_processor.band4" },
-            { "Band 5",         "mb_dyna_processor.band5" },
-            { "Band 6",         "mb_dyna_processor.band6" },
-            { "Band 7",         "mb_dyna_processor.band7" },
-            { NULL, NULL }
-        };
-
-        static const port_item_t mb_dyna_lr_tabs[] =
-        {
-            { "Left",           "mb_dyna_processor.proc_left" },
-            { "Right",          "mb_dyna_processor.proc_right" },
-            { NULL, NULL }
-        };
-
-        static const port_item_t mb_dyna_ms_tabs[] =
-        {
-            { "Mid",            "mb_dyna_processor.proc_mid" },
-            { "Side",           "mb_dyna_processor.proc_side" },
+            { "Split Mid",      "mb_dyna_processor.split_middle"    },
+            { "Split Side",     "mb_dyna_processor.split_side"      },
+            { "Band 0 Mid",     "mb_dyna_processor.band0_middle"    },
+            { "Band 0 Side",    "mb_dyna_processor.band0_side"      },
+            { "Band 1 Mid",     "mb_dyna_processor.band1_middle"    },
+            { "Band 1 Side",    "mb_dyna_processor.band1_side"      },
+            { "Band 2 Mid",     "mb_dyna_processor.band2_middle"    },
+            { "Band 2 Side",    "mb_dyna_processor.band2_side"      },
+            { "Band 3 Mid",     "mb_dyna_processor.band3_middle"    },
+            { "Band 3 Side",    "mb_dyna_processor.band3_side"      },
+            { "Band 4 Mid",     "mb_dyna_processor.band4_middle"    },
+            { "Band 4 Side",    "mb_dyna_processor.band4_side"      },
+            { "Band 5 Mid",     "mb_dyna_processor.band5_middle"    },
+            { "Band 5 Side",    "mb_dyna_processor.band5_side"      },
+            { "Band 6 Mid",     "mb_dyna_processor.band6_middle"    },
+            { "Band 6 Side",    "mb_dyna_processor.band6_side"      },
+            { "Band 7 Mid",     "mb_dyna_processor.band7_middle"    },
+            { "Band 7 Side",    "mb_dyna_processor.band7_side"      },
             { NULL, NULL }
         };
 
@@ -298,7 +300,6 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_COMMON(mb_dyna_sc_lr_bands),
-            COMBO("csel", "Channel selector", 0, mb_dyna_lr_tabs),
             MB_CHANNEL("_l", " Left"),
             MB_CHANNEL("_r", " Right"),
             MB_FFT_METERS("_l", " Left"),
@@ -347,7 +348,6 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_COMMON(mb_dyna_sc_ms_bands),
-            COMBO("csel", "Channel selector", 0, mb_dyna_ms_tabs),
             MB_CHANNEL("_m", " Mid"),
             MB_CHANNEL("_s", " Side"),
             MB_FFT_METERS("_m", " Mid"),
