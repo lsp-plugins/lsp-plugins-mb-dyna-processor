@@ -553,8 +553,8 @@
 										</cell>
 										<ui:with pad.h="6" pad.v="4" size="20">
 											<knob id="tl${x}" scolor="(:pe${x} igt 0) ? 'threshold' : 'threshold_inactive'" bg.bright="(:pe${x} igt 0) ? 1 : :const_bg_darken"/>
-											<knob id="gl${x}" scolor="(:pe${x} igt 0) ? 'kscale' : 'kscale_inactive'" bg.bright="(:pe${x} igt 0) ? 1 : :const_bg_darken"/>
-											<knob id="kn${x}" scolor="(:pe${x} igt 0) ? 'kscale' : 'kscale_inactive'" bg.bright="(:pe${x} igt 0) ? 1 : :const_bg_darken"/>
+											<knob id="gl${x}" scolor="(:pe${x} igt 0) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}" bg.bright="(:pe${x} igt 0) ? 1 : :const_bg_darken"/>
+											<knob id="kn${x}" scolor="(:pe${x} igt 0) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}" bg.bright="(:pe${x} igt 0) ? 1 : :const_bg_darken"/>
 											<knob id="al${x}" scolor="(:ae${x} igt 0) ? 'attack_1' : 'attack_inactive'" bg.bright="(:ae${x} igt 0) ? 1 : :const_bg_darken"/>
 											<knob id="at${x}" scolor="(:ae${x} igt 0) ? 'attack_2' : 'attack_inactive'" bg.bright="(:ae${x} igt 0) ? 1 : :const_bg_darken"/>
 											<knob id="rl${x}" scolor="(:re${x} igt 0) ? 'release_1' : 'release_inactive'" bg.bright="(:re${x} igt 0) ? 1 : :const_bg_darken"/>
@@ -695,9 +695,9 @@
 									<label text="labels.attack"/>
 									<label text="labels.release"/>
 								
-									<knob id="llr_${i}" size="20" scolor="kscale"/>
-									<knob id="hlr_${i}" size="20" scolor="kscale"/>
-									<knob id="mk_${i}" size="20" scolor="kscale"/>
+									<knob id="llr_${i}" size="20" scolor="cycle" scolor.hue=":hue_${i}" />
+									<knob id="hlr_${i}" size="20" scolor="cycle" scolor.hue=":hue_${i}" />
+									<knob id="mk_${i}" size="20" scolor="cycle" scolor.hue=":hue_${i}" />
 									<knob id="atd_${i}" size="20" scolor="attack"/>
 									<knob id="rtd_${i}" size="20" scolor="release"/>
 									
