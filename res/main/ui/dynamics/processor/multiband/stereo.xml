@@ -185,16 +185,20 @@
 								<align halign="-1" pad.t="4" pad.l="6">
 									<label text="labels.fft.fft_in"/>
 								</align>
-								<hbox spacing="4" pad.v="4" pad.h="6" hfill="false"><button id="ife_l" text="labels.chan.L_eft" size="19" ui:inject="Button_left_8"/>
-									<button id="ife_r" text="labels.chan.R_ight" size="19" ui:inject="Button_right_8"/></hbox>
+								<hbox spacing="4" pad.v="4" pad.h="6" hfill="false">
+									<button id="ife_l" text="labels.chan.L_eft" size="19" ui:inject="Button_left_8"/>
+									<button id="ife_r" text="labels.chan.R_ight" size="19" ui:inject="Button_right_8"/>
+								</hbox>
 
 								<cell cols="2"><hsep pad.v="2" bg.color="bg" vreduce="true"/></cell>
 
 								<align halign="-1" pad.t="4" pad.l="6">
 									<label text="labels.fft.fft_out" halign="0"/>
 								</align>
-								<hbox spacing="4" pad.v="4" pad.h="6" hfill="false"><button id="ofe_l" text="labels.chan.L_eft" size="19" ui:inject="Button_left_8"/>
-									<button id="ofe_r" text="labels.chan.R_ight" size="19" ui:inject="Button_right_8"/></hbox>
+								<hbox spacing="4" pad.v="4" pad.h="6" hfill="false">
+									<button id="ofe_l" text="labels.chan.L_eft" size="19" ui:inject="Button_left_8"/>
+									<button id="ofe_r" text="labels.chan.R_ight" size="19" ui:inject="Button_right_8"/>
+								</hbox>
 
 								<cell cols="2"><hsep pad.v="2" bg.color="bg" vreduce="true"/></cell>
 							</grid>
@@ -349,7 +353,7 @@
 										<align halign="-1">
 											<label text="labels.sidechain" pad.h="6" height.max="20" bg.color="bg_schema_name" vreduce="true"/>
 										</align>
-										<hsep vreduse="true"/>
+										<hsep vreduce="true"/>
 	
 										<grid rows="4" cols="8" spacing="0" expand="true">
 											<label text="labels.mode" pad.v="4" vreduce="true"/>

@@ -55,33 +55,33 @@
 						hlcolor="graph_marker_cycle"
 						rcolor="graph_marker_cycle"
 						hrcolor="graph_marker_cycle">
-						<marker v="10" color.hue=":hue_0l" hcolor.hue=":hue_0l" rborder="16" rcolor.hue=":hue_0l" hrborder="16" hrcolor.hue=":hue_0l"/>
-						<marker v="10" color.hue=":hue_0r" hcolor.hue=":hue_0r" rborder="16" rcolor.hue=":hue_0r" hrborder="16" hrcolor.hue=":hue_0r"/>
-						<marker id="fre_0l" color.hue=":hue_0l" hcolor.hue=":hue_0l" lborder="16" lcolor.hue=":hue_0l" hlborder="16" hlcolor.hue=":hue_0l"/>
-						<marker id="fre_0r" color.hue=":hue_0r" hcolor.hue=":hue_0r" lborder="16" lcolor.hue=":hue_0r" hlborder="16" hlcolor.hue=":hue_0r"/>
+						<marker v="10" color.hue=":hue_0m" hcolor.hue=":hue_0m" rborder="16" rcolor.hue=":hue_0m" hrborder="16" hrcolor.hue=":hue_0m"/>
+						<marker v="10" color.hue=":hue_0s" hcolor.hue=":hue_0s" rborder="16" rcolor.hue=":hue_0s" hrborder="16" hrcolor.hue=":hue_0s"/>
+						<marker id="fre_0l" color.hue=":hue_0m" hcolor.hue=":hue_0m" lborder="16" lcolor.hue=":hue_0m" hlborder="16" hlcolor.hue=":hue_0m"/>
+						<marker id="fre_0r" color.hue=":hue_0s" hcolor.hue=":hue_0s" lborder="16" lcolor.hue=":hue_0s" hlborder="16" hlcolor.hue=":hue_0s"/>
 						<ui:for id="i" first="1" last="7">
-							<marker id="sf_${i}l" visibility=":cbe_${i}l" editable="true" color.hue=":hue_${i}l" hcolor.hue=":hue_${i}l" rborder="16" rcolor.hue=":hue_${i}l" hrborder="16" hrcolor.hue=":hue_${i}l" pointer="hsize"/>
-							<marker id="sf_${i}r" visibility=":cbe_${i}r" editable="true" color.hue=":hue_${i}r" hcolor.hue=":hue_${i}r" rborder="16" rcolor.hue=":hue_${i}r" hrborder="16" hrcolor.hue=":hue_${i}r" pointer="hsize"/>
-							<marker id="fre_${i}l" visibility=":cbe_${i}l" color.hue=":hue_${i}l" hcolor.hue=":hue_${i}l" lborder="16" lcolor.hue=":hue_${i}l" hlborder="16" hlcolor.hue=":hue_${i}l"/>
-							<marker id="fre_${i}r" visibility=":cbe_${i}r" color.hue=":hue_${i}r" hcolor.hue=":hue_${i}r" lborder="16" lcolor.hue=":hue_${i}r" hlborder="16" hlcolor.hue=":hue_${i}r"/>
+							<marker id="sf_${i}m" visibility=":cbe_${i}m" editable="true" color.hue=":hue_${i}m" hcolor.hue=":hue_${i}m" rborder="16" rcolor.hue=":hue_${i}m" hrborder="16" hrcolor.hue=":hue_${i}m" pointer="hsize"/>
+							<marker id="sf_${i}s" visibility=":cbe_${i}s" editable="true" color.hue=":hue_${i}s" hcolor.hue=":hue_${i}s" rborder="16" rcolor.hue=":hue_${i}s" hrborder="16" hrcolor.hue=":hue_${i}s" pointer="hsize"/>
+							<marker id="fre_${i}m" visibility=":cbe_${i}m" color.hue=":hue_${i}m" hcolor.hue=":hue_${i}m" lborder="16" lcolor.hue=":hue_${i}m" hlborder="16" hlcolor.hue=":hue_${i}m"/>
+							<marker id="fre_${i}s" visibility=":cbe_${i}s" color.hue=":hue_${i}s" hcolor.hue=":hue_${i}s" lborder="16" lcolor.hue=":hue_${i}s" hlborder="16" hlcolor.hue=":hue_${i}s"/>
 						</ui:for>
 					</ui:with>
 
 					<!-- Meshes -->
-					<mesh id="bfc_0l" width="2" fill="true" smooth="true" color="graph_mesh_cycle" color.hue=":hue_0l" fcolor="graph_mesh_cycle" fcolor.hue=":hue_0l" fcolor.a="0.9" visibility=":flt_l"/>
-					<mesh id="bfc_0r" width="2" fill="true" smooth="true" color="graph_mesh_cycle" color.hue=":hue_0r" fcolor="graph_mesh_cycle" fcolor.hue=":hue_0r" fcolor.a="0.9" visibility=":flt_r"/>
+					<mesh id="bfc_0m" width="2" fill="true" smooth="true" color="graph_mesh_cycle" color.hue=":hue_0m" fcolor="graph_mesh_cycle" fcolor.hue=":hue_0m" fcolor.a="0.9" visibility=":flt_m"/>
+					<mesh id="bfc_0s" width="2" fill="true" smooth="true" color="graph_mesh_cycle" color.hue=":hue_0s" fcolor="graph_mesh_cycle" fcolor.hue=":hue_0s" fcolor.a="0.9" visibility=":flt_s"/>
 
 					<ui:for id="i" first="1" last="7">
-						<mesh id="bfc_${i}l" width="2" fill="true" smooth="true" color="graph_mesh_cycle" color.hue=":hue_${i}l" fcolor="graph_mesh_cycle" fcolor.hue=":hue_${i}l" fcolor.a="0.9" visibility=":flt_l and :cbe_${i}l"/>
-						<mesh id="bfc_${i}r" width="2" fill="true" smooth="true" color="graph_mesh_cycle" color.hue=":hue_${i}r" fcolor="graph_mesh_cycle" fcolor.hue=":hue_${i}r" fcolor.a="0.9" visibility=":flt_r and :cbe_${i}r"/>
+						<mesh id="bfc_${i}m" width="2" fill="true" smooth="true" color="graph_mesh_cycle" color.hue=":hue_${i}m" fcolor="graph_mesh_cycle" fcolor.hue=":hue_${i}m" fcolor.a="0.9" visibility=":flt_m and :cbe_${i}m"/>
+						<mesh id="bfc_${i}s" width="2" fill="true" smooth="true" color="graph_mesh_cycle" color.hue=":hue_${i}s" fcolor="graph_mesh_cycle" fcolor.hue=":hue_${i}s" fcolor.a="0.9" visibility=":flt_s and :cbe_${i}s"/>
 					</ui:for>
-					<mesh id="ifg_l" width="3" color="left_in" visibility=":ife_l"/>
-					<mesh id="ifg_r" width="3" color="right_in" visibility=":ife_r"/>
-					<mesh id="ofg_l" width="3" color="left" visibility=":ofe_l"/>
-					<mesh id="ofg_r" width="3" color="right" visibility=":ofe_r"/>
+					<mesh id="ifg_m" width="3" color="mid_in" visibility=":ife_m"/>
+					<mesh id="ifg_s" width="3" color="side_in" visibility=":ife_s"/>
+					<mesh id="ofg_m" width="3" color="mid" visibility=":ofe_m"/>
+					<mesh id="ofg_s" width="3" color="side" visibility=":ofe_s"/>
 
-					<mesh id="ag_l" width="3" color="left" smooth="true"/>
-					<mesh id="ag_r" width="3" color="right" smooth="true"/>
+					<mesh id="ag_m" width="3" color="mid" smooth="true"/>
+					<mesh id="ag_s" width="3" color="side" smooth="true"/>
 
 					<!-- Boundaries -->
 					<marker v="1" ox="2" oy="0" color="graph_prim" visibility="false"/>
@@ -193,8 +193,8 @@
 									<label text="labels.fft.fft_in"/>
 								</align>
 								<hbox spacing="4" pad.v="4" pad.h="6" hfill="false">
-									<button id="ife_l" text="labels.chan.L_eft" size="19" ui:inject="Button_left_8"/>
-									<button id="ife_r" text="labels.chan.R_ight" size="19" ui:inject="Button_right_8"/>
+									<button id="ife_m" text="labels.chan.M_id" size="19" ui:inject="Button_mid_8"/>
+									<button id="ife_s" text="labels.chan.S_ide" size="19" ui:inject="Button_side_8"/>
 								</hbox>
 
 								<cell cols="2"><hsep pad.v="2" bg.color="bg" vreduce="true"/></cell>
@@ -203,8 +203,8 @@
 									<label text="labels.fft.fft_out" halign="0"/>
 								</align>
 								<hbox spacing="4" pad.v="4" pad.h="6" hfill="false">
-									<button id="ofe_l" text="labels.chan.L_eft" size="19" ui:inject="Button_left_8"/>
-									<button id="ofe_r" text="labels.chan.R_ight" size="19" ui:inject="Button_right_8"/>
+									<button id="ofe_m" text="labels.chan.M_id" size="19" ui:inject="Button_mid_8"/>
+									<button id="ofe_s" text="labels.chan.S_ide" size="19" ui:inject="Button_side_8"/>
 								</hbox>
 
 								<cell cols="2"><hsep pad.v="2" bg.color="bg" vreduce="true"/></cell>
@@ -237,8 +237,8 @@
 					<combo id="envb" pad.r="8"/>
 					<label text="labels.filters" pad.l="6"/>
 					<hbox spacing="4" pad.h="6">
-						<button id="flt_l" text="labels.chan.L_eft" size="22" ui:inject="Button_left"/>
-						<button id="flt_r" text="labels.chan.R_ight" size="22" ui:inject="Button_right"/>
+						<button id="flt_m" text="labels.chan.M_id" size="22" ui:inject="Button_mid"/>
+						<button id="flt_s" text="labels.chan.S_ide" size="22" ui:inject="Button_side"/>
 					</hbox>
 				</hbox>
 			</align>
@@ -250,7 +250,7 @@
 			<cgroup id="bsel" embed.h=":bsel ilt 2" embed.b=":bsel ilt 2">
 				<!-- Main part (2 pages) -->
 				<ui:for id="c" first="0" count="2" >
-					<ui:eval id="channel" value="(:c ieq 0) ? 'num_id_L_eft' : 'num_id_R_ight' "/>
+					<ui:eval id="channel" value="(:c ieq 0) ? 'num_id_M_id' : 'num_id_S_ide' "/>
 				
 					<grid rows="7" cols="25" transpose="true">
 						<!-- Labels -->
@@ -269,7 +269,7 @@
 	
 						<!-- Bands -->
 						<ui:for id="i" first="0" last="7">
-							<ui:set id="ch" value="${i}${(:c ieq 0) ? 'l' : 'r'}"/>
+							<ui:set id="ch" value="${i}${(:c ieq 0) ? 'm' : 's'}"/>
 	
 							<ui:with bright="((${i} ieq 0) or :cbe_${ch}) ? 1 : 0.75" bg.bright="((${i} ieq 0) or :cbe_${ch}) ? 1.0 : :const_bg_darken">
 								<!-- Column 1 -->
@@ -375,7 +375,7 @@
 				<!-- Band settings -->
 				<ui:for id="xc" first="0" count="16" >
 					<ui:eval id="i" value=":xc idiv 2"/>
-					<ui:set id="ch" value="${i}${(:xc imod 2) ? 'r' : 'l'}"/>
+					<ui:set id="ch" value="${i}${(:xc imod 2) ? 's' : 'm'}"/>
 
 					<grid rows="2" cols="3" spacing="4" bg.color="bg">
 						<!-- Sidechain setup and processor settings -->
@@ -533,20 +533,20 @@
 								<hbox bg.color="bg_schema" spacing="6">
 									<ui:with pad.v="4">
 										<button
-											id="pe_${i}l"
-											text="labels.chan.left_on"
-											ui:inject="Button_left_8"
+											id="pe_${i}m"
+											text="labels.chan.mid_on"
+											ui:inject="Button_mid_8"
 											hfill="true"
 											height="19"
 											pad.l="6" />
 										<button
-											id="bs_${i}l"
+											id="bs_${i}m"
 											text="labels.chan.S_olo"
 											ui:inject="Button_green_8"
 											hfill="true"
 											height="19" />
 										<button
-											id="bm_${i}l"
+											id="bm_${i}m"
 											text="labels.chan.M_ute"
 											ui:inject="Button_red_8"
 											hfill="true"
@@ -554,20 +554,20 @@
 											height="19" />
 										
 										<button
-											id="pe_${i}r"
-											text="labels.chan.right_on"
-											ui:inject="Button_right_8"
+											id="pe_${i}s"
+											text="labels.chan.side_on"
+											ui:inject="Button_side_8"
 											hfill="true"
 											height="19"
 											pad.l="6" />
 										<button
-											id="bs_${i}r"
+											id="bs_${i}s"
 											text="labels.chan.S_olo"
 											ui:inject="Button_green_8"
 											hfill="true"
 											height="19" />
 										<button
-											id="bm_${i}r"
+											id="bm_${i}s"
 											text="labels.chan.M_ute"
 											ui:inject="Button_red_8"
 											hfill="true"
@@ -638,8 +638,8 @@
 							<void bg.color="bg" height="4" vreduce="true"/>
 
 							<group ui:inject="GraphGroup" ipadding="0" expand="true" fill="true" text.show="false">
-								<ui:eval id="bvisl" value="(:i > 0) ? ':cbe_' scat :i scat 'l' : 'true'" />
-								<ui:eval id="bvisr" value="(:i > 0) ? ':cbe_' scat :i scat 'r' : 'true'" />
+								<ui:eval id="bvism" value="(:i > 0) ? ':cbe_' scat :i scat 'm' : 'true'" />
+								<ui:eval id="bviss" value="(:i > 0) ? ':cbe_' scat :i scat 's' : 'true'" />
 								<graph width.min="256" height.min="256" expand="false">
 									<origin hpos="-1" vpos="-1" visible="false"/>
 
@@ -667,64 +667,64 @@
 									<marker v="0 db" ox="1" oy="0" width="2" color="graph_prim"/>
 
 									<!-- Meshes -->
-									<mesh id="cmg_${i}l" width="2" color="left" smooth="true" visibility="${bvisl} and :pe_${i}l and :cmv_${i}l"/>
-									<mesh id="cmg_${i}r" width="2" color="right" smooth="true" visibility="${bvisr} and :pe_${i}r and :cmv_${i}r"/>
-									<mesh id="ccg_${i}l" width="3" color="left" smooth="true" visibility="${bvisl} and :pe_${i}l "/>
-									<mesh id="ccg_${i}r" width="3" color="right" smooth="true" visibility="${bvisr} and :pe_${i}r "/>
+									<mesh id="cmg_${i}m" width="2" color="mid" smooth="true" visibility="${bvism} and :pe_${i}m and :cmv_${i}m"/>
+									<mesh id="cmg_${i}s" width="2" color="side" smooth="true" visibility="${bviss} and :pe_${i}s and :cmv_${i}s"/>
+									<mesh id="ccg_${i}m" width="3" color="mid" smooth="true" visibility="${bvism} and :pe_${i}m "/>
+									<mesh id="ccg_${i}s" width="3" color="side" smooth="true" visibility="${bviss} and :pe_${i}s "/>
 									
 									<!-- Markers -->
 									<ui:for id="c" first="0" last="3">
 										<ui:set id="x" value="${c}_${i}" />
-										<marker id="al${x}l" width="2" color="attack_1" smooth="true"
-											visibility="${bvisl} and :pe_${i}l and :cmv_${i}l and :ae${x}l"/>
-										<text x=":al${x}l" y="24 db" 
-											text="graph.values.idL_eft" text:id="${c}" color="attack_1" halign="-1" valign="-1"
-											visibility="${bvisl} and :pe_${i}l and :cmv_${i}l and :ae${x}l"/>
-										<marker id="al${x}r" width="2" color="attack_2" smooth="true"
-											visibility="${bvisr} and :pe_${i}r and :cmv_${i}r and :ae${x}r"/>
-										<text x=":al${x}r" y="24 db" 
-											text="graph.values.idR_ight" text:id="${c}" color="attack_2" halign="-1" valign="-1"
-											visibility="${bvisr} and :pe_${i}r and :cmv_${i}r and :ae${x}r"/>
+										<marker id="al${x}m" width="2" color="attack_1" smooth="true"
+											visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :ae${x}m"/>
+										<text x=":al${x}m" y="24 db" 
+											text="graph.values.idM_id" text:id="${c}" color="attack_1" halign="-1" valign="-1"
+											visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :ae${x}m"/>
+										<marker id="al${x}s" width="2" color="attack_2" smooth="true"
+											visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :ae${x}s"/>
+										<text x=":al${x}s" y="24 db" 
+											text="graph.values.idS_ide" text:id="${c}" color="attack_2" halign="-1" valign="-1"
+											visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :ae${x}s"/>
 									</ui:for>
 									<ui:for id="c" first="0" last="3">
 										<ui:set id="x" value="${c}_${i}" />
-										<marker id="rl${x}l" width="2" color="release_1" smooth="true"
-											visibility="${bvisl} and :pe_${i}l and :cmv_${i}l and :re${x}l"/>
-										<text x=":rl${x}l" y="-72 db" 
-											text="graph.values.idL_eft" text:id="${c}" color="release_1" halign="-1" valign="1"
-											visibility="${bvisl} and :pe_${i}l and :cmv_${i}l and :re${x}l"/>
+										<marker id="rl${x}m" width="2" color="release_1" smooth="true"
+											visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :re${x}m"/>
+										<text x=":rl${x}m" y="-72 db" 
+											text="graph.values.idM_id" text:id="${c}" color="release_1" halign="-1" valign="1"
+											visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :re${x}m"/>
 										
-										<marker id="rl${x}r" width="2" color="release_2" smooth="true"
-											visibility="${bvisr} and :pe_${i}r and :cmv_${i}r and :re${x}r"/>
-										<text x=":rl${x}r" y="-72 db" 
-											text="graph.values.idR_ight" text:id="${c}" color="release_2" halign="-1" valign="1"
-											visibility="${bvisr} and :pe_${i}r and :cmv_${i}r and :re${x}r"/>
+										<marker id="rl${x}s" width="2" color="release_2" smooth="true"
+											visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :re${x}s"/>
+										<text x=":rl${x}s" y="-72 db" 
+											text="graph.values.idS_ide" text:id="${c}" color="release_2" halign="-1" valign="1"
+											visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :re${x}s"/>
 									</ui:for>
 			
 									<!-- Dots -->
 									<ui:for id="c" first="0" last="3">
 										<ui:set id="x" value="${c}_${i}" />
-										<dot x.id="tl${x}l" y.id="gl${x}l" z.id="kn${x}l" x.editable="true" y.editable="true" z.editable="true"
-											color="left" hover.color="left" bcolor="left" hover.bcolor="left" pointer="drag"
-											visibility="${bvisl} and :pe_${i}l and :pe${x}l"/>
-										<dot x.id="tl${x}r" y.id="gl${x}r" z.id="kn${x}r" x.editable="true" y.editable="true" z.editable="true"
-											color="right" hover.color="right" bcolor="right" hover.bcolor="right" pointer="drag"
-											visibility="${bvisr} and :pe_${i}r and :pe${x}r"/>
+										<dot x.id="tl${x}m" y.id="gl${x}m" z.id="kn${x}m" x.editable="true" y.editable="true" z.editable="true"
+											color="mid" hover.color="mid" bcolor="mid" hover.bcolor="mid" pointer="drag"
+											visibility="${bvism} and :pe_${i}m and :pe${x}m"/>
+										<dot x.id="tl${x}s" y.id="gl${x}s" z.id="kn${x}s" x.editable="true" y.editable="true" z.editable="true"
+											color="side" hover.color="side" bcolor="side" hover.bcolor="side" pointer="drag"
+											visibility="${bviss} and :pe_${i}s and :pe${x}s"/>
 									</ui:for>
 									<ui:for id="c" first="0" last="3">
 										<ui:set id="x" value="${c}_${i}" />
-										<text x=":tl${x}l" y=":gl${x}l"
-											text="graph.values.idL_eft" text:id="${c}"
-											color="left" halign="-1" valign="1"
-											visibility="${bvisl} and :pe_${i}l and :pe${x}l"/>
-										<text x=":tl${x}r" y=":gl${x}r"
-											text="graph.values.idR_ight" text:id="${c}"
-											color="right" halign="-1" valign="1"
-											visibility="${bvisr} and :pe_${i}r and :pe${x}r"/>
+										<text x=":tl${x}m" y=":gl${x}m"
+											text="graph.values.idM_id" text:id="${c}"
+											color="mid" halign="-1" valign="1"
+											visibility="${bvism} and :pe_${i}m and :pe${x}m"/>
+										<text x=":tl${x}s" y=":gl${x}s"
+											text="graph.values.idS_ide" text:id="${c}"
+											color="side" halign="-1" valign="1"
+											visibility="${bviss} and :pe_${i}s and :pe${x}s"/>
 									</ui:for>
 									
-									<dot x.id="elm_${i}l" y.id="clm_${i}l" color="left" bcolor="left" visibility="${bvisl} and :pe_${i}l" />
-									<dot x.id="elm_${i}r" y.id="clm_${i}r" color="right" bcolor="right" visibility="${bvisr} and :pe_${i}r" />
+									<dot x.id="elm_${i}m" y.id="clm_${i}m" color="mid" bcolor="mid" visibility="${bvism} and :pe_${i}m" />
+									<dot x.id="elm_${i}s" y.id="clm_${i}s" color="side" bcolor="side" visibility="${bviss} and :pe_${i}s" />
 
 									<!-- Text -->
 									<text x="0 db" y="0 db" text="0" halign="1" valign="1"/>
@@ -757,8 +757,8 @@
 							<void bg.color="bg" height="4" vreduce="true"/>
 							<label text="labels.gain_" bg.color="bg_schema" pad.v="4"/>
 							<ledmeter vexpand="true" height.min="256" angle="1">
-								<ledchannel id="rlm_${i}l" min="-72 db" max="24 db" log="true" balance="0 db" balance.visibility="true" type="peak" value.color="bright_blue"/>
-								<ledchannel id="rlm_${i}r" min="-72 db" max="24 db" log="true" balance="0 db" balance.visibility="true" type="peak" value.color="bright_blue"/>
+								<ledchannel id="rlm_${i}m" min="-72 db" max="24 db" log="true" balance="0 db" balance.visibility="true" type="peak" value.color="bright_blue"/>
+								<ledchannel id="rlm_${i}s" min="-72 db" max="24 db" log="true" balance="0 db" balance.visibility="true" type="peak" value.color="bright_blue"/>
 							</ledmeter>
 						</vbox>
 						
@@ -768,8 +768,8 @@
 								<cell cols="6">
 									<hbox spacing="4" vexpand="false" bg.color="bg_schema" pad.h="6" pad.b="4" pad.t="4">
 										<void hexpand="true" />
-										<button id="cmv_${i}l" height="22" width="48" text="labels.chan.left" ui:inject="Button_left"/>
-										<button id="cmv_${i}r" height="22" width="48" text="labels.chan.right" ui:inject="Button_right"/>
+										<button id="cmv_${i}m" height="22" width="48" text="labels.chan.mid" ui:inject="Button_mid"/>
+										<button id="cmv_${i}s" height="22" width="48" text="labels.chan.side" ui:inject="Button_side"/>
 									</hbox>
 								</cell>
 								<cell cols="6"><hsep bg.color="bg" pad.v="2" vreduce="true"/></cell>
