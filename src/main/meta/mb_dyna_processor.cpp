@@ -556,7 +556,7 @@ namespace lsp
             "Multiband Dynamic Processor",
             B_MB_DYNAMICS,
             "--------",
-            "This plugin performs multiband dynamic processing of input signsl. Flexible sidechain\n"
+            "This plugin performs multiband dynamic processing of input signal. Flexible sidechain\n"
             "control configuration provided. As opposite to most available multiband\n"
             "processors, this dynamic processor provides numerous special functions: 'modern'\n"
             "operating mode, 'Sidechain boost', 'Lookahead' option and up to 8 frequency\n"
@@ -566,14 +566,14 @@ namespace lsp
         // Multiband Dynamic Processor
         const meta::plugin_t  mb_dyna_processor_mono =
         {
-            "Multi-band Dybamikprozessor Mono x8",
+            "Multi-band Dynamikprozessor Mono x8",
             "Multiband Dynamic Processor Mono x8",
             "MBK8M",
             &developers::v_sadovnikov,
             "mb_dyna_processor_mono",
             LSP_LV2_URI("mb_dyna_processor_mono"),
             LSP_LV2UI_URI("mb_dyna_processor_mono"),
-            "----",
+            "mdp0",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 0,
             LSP_LADSPA_URI("mb_dyna_processor_mono"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
@@ -588,14 +588,14 @@ namespace lsp
 
         const meta::plugin_t  mb_dyna_processor_stereo =
         {
-            "Multi-band Dybamikprozessor Stereo x8",
+            "Multi-band Dynamikprozessor Stereo x8",
             "Multiband Dynamic Processor Stereo x8",
             "MBK8S",
             &developers::v_sadovnikov,
             "mb_dyna_processor_stereo",
             LSP_LV2_URI("mb_dyna_processor_stereo"),
             LSP_LV2UI_URI("mb_dyna_processor_stereo"),
-            "----",
+            "mdp1",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 1,
             LSP_LADSPA_URI("mb_dyna_processor_stereo"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
@@ -610,14 +610,14 @@ namespace lsp
 
         const meta::plugin_t  mb_dyna_processor_lr =
         {
-            "Multi-band Dybamikprozessor LeftRight x8",
+            "Multi-band Dynamikprozessor LeftRight x8",
             "Multiband Dynamic Processor LeftRight x8",
             "MBK8LR",
             &developers::v_sadovnikov,
             "mb_dyna_processor_lr",
             LSP_LV2_URI("mb_dyna_processor_lr"),
             LSP_LV2UI_URI("mb_dyna_processor_lr"),
-            "----",
+            "mdp2",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 2,
             LSP_LADSPA_URI("mb_dyna_processor_lr"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
@@ -632,14 +632,14 @@ namespace lsp
 
         const meta::plugin_t  mb_dyna_processor_ms =
         {
-            "Multi-band Dybamikprozessor MidSide x8",
+            "Multi-band Dynamikprozessor MidSide x8",
             "Multiband Dynamic Processor MidSide x8",
             "MBK8MS",
             &developers::v_sadovnikov,
             "mb_dyna_processor_ms",
             LSP_LV2_URI("mb_dyna_processor_ms"),
             LSP_LV2UI_URI("mb_dyna_processor_ms"),
-            "----",
+            "mdp3",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 3,
             LSP_LADSPA_URI("mb_dyna_processor_ms"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
@@ -655,14 +655,14 @@ namespace lsp
 
         const meta::plugin_t  sc_mb_dyna_processor_mono =
         {
-            "Sidechain Multi-band Dybamikprozessor Mono x8",
+            "Sidechain Multi-band Dynamikprozessor Mono x8",
             "Sidechain Multiband Dynamic Processor Mono x8",
             "SCMBK8M",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_mono",
             LSP_LV2_URI("sc_mb_dyna_processor_mono"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_mono"),
-            "----",
+            "mdp4",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 4,
             LSP_LADSPA_URI("sc_mb_dyna_processor_mono"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
@@ -677,14 +677,14 @@ namespace lsp
 
         const meta::plugin_t  sc_mb_dyna_processor_stereo =
         {
-            "Sidechain Multi-band Dybamikprozessor Stereo x8",
+            "Sidechain Multi-band Dynamikprozessor Stereo x8",
             "Sidechain Multiband Dynamic Processor Stereo x8",
             "SCMBK8S",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_stereo",
             LSP_LV2_URI("sc_mb_dyna_processor_stereo"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_stereo"),
-            "----",
+            "mdp5",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 5,
             LSP_LADSPA_URI("sc_mb_dyna_processor_stereo"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
@@ -699,14 +699,14 @@ namespace lsp
 
         const meta::plugin_t  sc_mb_dyna_processor_lr =
         {
-            "Sidechain Multi-band Dybamikprozessor LeftRight x8",
+            "Sidechain Multi-band Dynamikprozessor LeftRight x8",
             "Sidechain Multiband Dynamic Processor LeftRight x8",
             "SCMBK8LR",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_lr",
             LSP_LV2_URI("sc_mb_dyna_processor_lr"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_lr"),
-            "----",
+            "mdp6",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 6,
             LSP_LADSPA_URI("sc_mb_dyna_processor_lr"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
@@ -721,14 +721,14 @@ namespace lsp
 
         const meta::plugin_t  sc_mb_dyna_processor_ms =
         {
-            "Sidechain Multi-band Dybamikprozessor MidSide x8",
+            "Sidechain Multi-band Dynamikprozessor MidSide x8",
             "Sidechain Multiband Dynamic Processor MidSide x8",
             "SCMBK8MS",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_ms",
             LSP_LV2_URI("sc_mb_dyna_processor_ms"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_ms"),
-            "----",
+            "mdp7",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 7,
             LSP_LADSPA_URI("sc_mb_dyna_processor_ms"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
