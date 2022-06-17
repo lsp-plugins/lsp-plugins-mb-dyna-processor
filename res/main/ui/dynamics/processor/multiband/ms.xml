@@ -584,7 +584,8 @@
 													pad.h="6"
 													bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
 													bg.bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
-													width.min="30"/>
+													width.min="30"
+													same.line="true" />
 											</vbox>
 										</cell>
 										<cell>
@@ -619,7 +620,8 @@
 													pad.h="6"
 													bg.bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"
 													bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"
-													width.min="30"/>
+													width.min="30"
+													same.line="true" />
 											</vbox>
 										</cell>
 									</grid>
@@ -920,11 +922,11 @@
 											<knob id="atd_${ch}" size="20" scolor="((${i} ieq 0) or :cbe_${ch}) ?  'attack' : 'attack_inactive'"/>
 											<knob id="rtd_${ch}" size="20" scolor="((${i} ieq 0) or :cbe_${ch}) ?  'release' : 'release_inactive'"/>
 
-											<value id="llr_${ch}"/>
-											<value id="hlr_${ch}"/>
-											<value id="mk_${ch}"/>
-											<value id="atd_${ch}"/>
-											<value id="rtd_${ch}"/>
+											<value id="llr_${ch}" same.line="true" />
+											<value id="hlr_${ch}" same.line="true" />
+											<value id="mk_${ch}" same.line="true" />
+											<value id="atd_${ch}" same.line="true" />
+											<value id="rtd_${ch}" same.line="true" />
 										</ui:with>
 									</ui:attributes>
 								</grid>
