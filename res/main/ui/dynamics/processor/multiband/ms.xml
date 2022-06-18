@@ -765,7 +765,7 @@
 							<vbox>
 								<void bg.color="bg" height="4" vreduce="true"/>
 
-								<group ui:inject="GraphGroup" ipadding="0" expand="true" fill="true" text.show="false" hmin="285">
+								<group ui:inject="GraphGroup" ipadding="0" expand="true" fill="true" text.show="false" hmin="301">
 									<ui:eval id="bvism" value="(:i > 0) ? ':cbe_' scat :i scat 'm' : 'true'"/>
 									<ui:eval id="bviss" value="(:i > 0) ? ':cbe_' scat :i scat 's' : 'true'"/>
 									<graph width.min="256" height.min="256" expand="false">
@@ -924,9 +924,9 @@
 
 											<value id="llr_${ch}" same.line="true" />
 											<value id="hlr_${ch}" same.line="true" />
-											<value id="mk_${ch}" same.line="true" />
-											<value id="atd_${ch}" same.line="true" />
-											<value id="rtd_${ch}" same.line="true" />
+											<value id="mk_${ch}" same.line="true" wmin="48"/>
+											<value id="atd_${ch}" same.line="true" wmin="46"/>
+											<value id="rtd_${ch}" same.line="true" wmin="46"/>
 										</ui:with>
 									</ui:attributes>
 								</grid>

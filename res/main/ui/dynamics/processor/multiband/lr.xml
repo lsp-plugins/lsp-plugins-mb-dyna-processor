@@ -3,7 +3,7 @@
 		<grid rows="2" cols="5" vspacing="4" hspacing="4" expand="true">
 
 			<group ui:inject="GraphGroup" ipadding="0" expand="true" fill="true" text="labels.graphs.spectrum">
-				<graph width.min="640" height.min="320" expand="true" fill="true">
+				<graph width.min="716" height.min="320" expand="true" fill="true">
 					<origin hpos="-1" vpos="-1" visible="false"/>
 
 					<!-- Additional grid -->
@@ -346,7 +346,6 @@
 								<value id="scp_${ch}" pad.b="4" width.min="32" detailed="false"/>
 								<knob id="atd_${ch}" size="16" pad.t="4" ssize="3" scolor="((${i} ieq 0) or :cbe_${ch}) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${ch}"/>
 								<value id="atd_${ch}" pad.b="4" detailed="false"/>
-								<!-- ?????????????? -->
 								<knob id="llr_${ch}" size="16" pad.t="4" ssize="3" scolor="((${i} ieq 0) or :cbe_${ch}) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${ch}"/>
 								<value id="llr_${ch}" pad.b="4" detailed="false"/>
 							</ui:with>
@@ -447,7 +446,7 @@
 											<vbox vreduce="true">
 												<void bg.color="bg" height="4"/>
 												<align halign="-1" vreduce="true">
-													<label text="labels.rightchain" pad.h="6" height.max="20" bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken" bg.color="bg_schema_name" bg.bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken"/>
+													<label text="labels.sidechain" pad.h="6" height.max="20" bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken" bg.color="bg_schema_name" bg.bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken"/>
 												</align>
 												<hsep vreduce="true"/>
 											</vbox>
@@ -765,9 +764,9 @@
 							<vbox>
 								<void bg.color="bg" height="4" vreduce="true"/>
 
-								<group ui:inject="GraphGroup" ipadding="0" expand="true" fill="true" text.show="false" hmin="285">
-									<ui:eval id="bvism" value="(:i > 0) ? ':cbe_' scat :i scat 'l' : 'true'"/>
-									<ui:eval id="bviss" value="(:i > 0) ? ':cbe_' scat :i scat 'r' : 'true'"/>
+								<group ui:inject="GraphGroup" ipadding="0" expand="true" fill="true" text.show="false" hmin="301">
+									<ui:eval id="bvisl" value="(:i > 0) ? ':cbe_' scat :i scat 'l' : 'true'"/>
+									<ui:eval id="bvisr" value="(:i > 0) ? ':cbe_' scat :i scat 'r' : 'true'"/>
 									<graph width.min="256" height.min="256" expand="false">
 										<origin hpos="-1" vpos="-1" visible="false"/>
 
@@ -795,42 +794,42 @@
 										<marker v="0 db" ox="1" oy="0" width="2" color="graph_prim"/>
 
 										<!-- Meshes -->
-										<mesh id="cmg_${i}l" width="2" color="left" smooth="true" visibility="${bvism} and :pe_${i}l and :cmv_${i}l"/>
-										<mesh id="cmg_${i}r" width="2" color="right" smooth="true" visibility="${bviss} and :pe_${i}r and :cmv_${i}r"/>
-										<mesh id="ccg_${i}l" width="3" color="left" smooth="true" visibility="${bvism} and :pe_${i}l "/>
-										<mesh id="ccg_${i}r" width="3" color="right" smooth="true" visibility="${bviss} and :pe_${i}r "/>
+										<mesh id="cmg_${i}l" width="2" color="left" smooth="true" visibility="${bvisl} and :pe_${i}l and :cmv_${i}l"/>
+										<mesh id="cmg_${i}r" width="2" color="right" smooth="true" visibility="${bvisr} and :pe_${i}r and :cmv_${i}r"/>
+										<mesh id="ccg_${i}l" width="3" color="left" smooth="true" visibility="${bvisl} and :pe_${i}l "/>
+										<mesh id="ccg_${i}r" width="3" color="right" smooth="true" visibility="${bvisr} and :pe_${i}r "/>
 
 										<!-- Markers -->
 										<ui:for id="c" first="0" last="3">
 											<ui:set id="x" value="${c}_${i}"/>
-											<marker id="al${x}l" width="2" color="attack_1" smooth="true" visibility="${bvism} and :pe_${i}l and :cmv_${i}l and :ae${x}l"/>
-											<text x=":al${x}l" y="24 db" text="graph.values.idL_eft" text:id="${c}" color="attack_1" halign="-1" valign="-1" visibility="${bvism} and :pe_${i}l and :cmv_${i}l and :ae${x}l"/>
-											<marker id="al${x}r" width="2" color="attack_2" smooth="true" visibility="${bviss} and :pe_${i}r and :cmv_${i}r and :ae${x}r"/>
-											<text x=":al${x}r" y="24 db" text="graph.values.idR_ight" text:id="${c}" color="attack_2" halign="-1" valign="-1" visibility="${bviss} and :pe_${i}r and :cmv_${i}r and :ae${x}r"/>
+											<marker id="al${x}l" width="2" color="attack_1" smooth="true" visibility="${bvisl} and :pe_${i}l and :cmv_${i}l and :ae${x}l"/>
+											<text x=":al${x}l" y="24 db" text="graph.values.idL_eft" text:id="${c}" color="attack_1" halign="-1" valign="-1" visibility="${bvisl} and :pe_${i}l and :cmv_${i}l and :ae${x}l"/>
+											<marker id="al${x}r" width="2" color="attack_2" smooth="true" visibility="${bvisr} and :pe_${i}r and :cmv_${i}r and :ae${x}r"/>
+											<text x=":al${x}r" y="24 db" text="graph.values.idR_ight" text:id="${c}" color="attack_2" halign="-1" valign="-1" visibility="${bvisr} and :pe_${i}r and :cmv_${i}r and :ae${x}r"/>
 										</ui:for>
 										<ui:for id="c" first="0" last="3">
 											<ui:set id="x" value="${c}_${i}"/>
-											<marker id="rl${x}l" width="2" color="release_1" smooth="true" visibility="${bvism} and :pe_${i}l and :cmv_${i}l and :re${x}l"/>
-											<text x=":rl${x}l" y="-72 db" text="graph.values.idL_eft" text:id="${c}" color="release_1" halign="-1" valign="1" visibility="${bvism} and :pe_${i}l and :cmv_${i}l and :re${x}l"/>
+											<marker id="rl${x}l" width="2" color="release_1" smooth="true" visibility="${bvisl} and :pe_${i}l and :cmv_${i}l and :re${x}l"/>
+											<text x=":rl${x}l" y="-72 db" text="graph.values.idL_eft" text:id="${c}" color="release_1" halign="-1" valign="1" visibility="${bvisl} and :pe_${i}l and :cmv_${i}l and :re${x}l"/>
 
-											<marker id="rl${x}r" width="2" color="release_2" smooth="true" visibility="${bviss} and :pe_${i}r and :cmv_${i}r and :re${x}r"/>
-											<text x=":rl${x}r" y="-72 db" text="graph.values.idR_ight" text:id="${c}" color="release_2" halign="-1" valign="1" visibility="${bviss} and :pe_${i}r and :cmv_${i}r and :re${x}r"/>
+											<marker id="rl${x}r" width="2" color="release_2" smooth="true" visibility="${bvisr} and :pe_${i}r and :cmv_${i}r and :re${x}r"/>
+											<text x=":rl${x}r" y="-72 db" text="graph.values.idR_ight" text:id="${c}" color="release_2" halign="-1" valign="1" visibility="${bvisr} and :pe_${i}r and :cmv_${i}r and :re${x}r"/>
 										</ui:for>
 
 										<!-- Dots -->
 										<ui:for id="c" first="0" last="3">
 											<ui:set id="x" value="${c}_${i}"/>
-											<dot x.id="tl${x}l" y.id="gl${x}l" z.id="kn${x}l" x.editable="true" y.editable="true" z.editable="true" color="left" hover.color="left" bcolor="left" hover.bcolor="left" pointer="drag" visibility="${bvism} and :pe_${i}l and :pe${x}l"/>
-											<dot x.id="tl${x}r" y.id="gl${x}r" z.id="kn${x}r" x.editable="true" y.editable="true" z.editable="true" color="right" hover.color="right" bcolor="right" hover.bcolor="right" pointer="drag" visibility="${bviss} and :pe_${i}r and :pe${x}r"/>
+											<dot x.id="tl${x}l" y.id="gl${x}l" z.id="kn${x}l" x.editable="true" y.editable="true" z.editable="true" color="left" hover.color="left" bcolor="left" hover.bcolor="left" pointer="drag" visibility="${bvisl} and :pe_${i}l and :pe${x}l"/>
+											<dot x.id="tl${x}r" y.id="gl${x}r" z.id="kn${x}r" x.editable="true" y.editable="true" z.editable="true" color="right" hover.color="right" bcolor="right" hover.bcolor="right" pointer="drag" visibility="${bvisr} and :pe_${i}r and :pe${x}r"/>
 										</ui:for>
 										<ui:for id="c" first="0" last="3">
 											<ui:set id="x" value="${c}_${i}"/>
-											<text x=":tl${x}l" y=":gl${x}l" text="graph.values.idL_eft" text:id="${c}" color="left" halign="-1" valign="1" visibility="${bvism} and :pe_${i}l and :pe${x}l"/>
-											<text x=":tl${x}r" y=":gl${x}r" text="graph.values.idR_ight" text:id="${c}" color="right" halign="-1" valign="1" visibility="${bviss} and :pe_${i}r and :pe${x}r"/>
+											<text x=":tl${x}l" y=":gl${x}l" text="graph.values.idL_eft" text:id="${c}" color="left" halign="-1" valign="1" visibility="${bvisl} and :pe_${i}l and :pe${x}l"/>
+											<text x=":tl${x}r" y=":gl${x}r" text="graph.values.idR_ight" text:id="${c}" color="right" halign="-1" valign="1" visibility="${bvisr} and :pe_${i}r and :pe${x}r"/>
 										</ui:for>
 
-										<dot x.id="elm_${i}l" y.id="clm_${i}l" color="left" bcolor="left" visibility="${bvism} and :pe_${i}l"/>
-										<dot x.id="elm_${i}r" y.id="clm_${i}r" color="right" bcolor="right" visibility="${bviss} and :pe_${i}r"/>
+										<dot x.id="elm_${i}l" y.id="clm_${i}l" color="left" bcolor="left" visibility="${bvisl} and :pe_${i}l"/>
+										<dot x.id="elm_${i}r" y.id="clm_${i}r" color="right" bcolor="right" visibility="${bvisr} and :pe_${i}r"/>
 
 										<!-- Text -->
 										<text x="0 db" y="0 db" text="0" halign="1" valign="1"/>
@@ -924,9 +923,9 @@
 
 											<value id="llr_${ch}" same.line="true" />
 											<value id="hlr_${ch}" same.line="true" />
-											<value id="mk_${ch}" same.line="true" />
-											<value id="atd_${ch}" same.line="true" />
-											<value id="rtd_${ch}" same.line="true" />
+											<value id="mk_${ch}" same.line="true" wmin="48"/>
+											<value id="atd_${ch}" same.line="true" wmin="46"/>
+											<value id="rtd_${ch}" same.line="true" wmin="46"/>
 										</ui:with>
 									</ui:attributes>
 								</grid>
