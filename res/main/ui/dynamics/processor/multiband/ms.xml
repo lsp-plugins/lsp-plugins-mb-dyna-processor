@@ -468,13 +468,11 @@
 										</cell>
 
 										<ui:attributes bg.color="bg_schema" bg.bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken">
-											<cell>
-												<vbox >
-													<label text="labels.sc.reactivity" pad.h="6" pad.v="4" vreduce="true"/>
-													<knob id="scr_${ch}" size="16" ssize="3" scolor="((${i} ieq 0) or :cbe_${ch}) ?  'cycle' : 'cycle_inactive'" pad.t="4" scolor.hue=":hue_${ch}"/>
-													<value id="scr_${ch}" sline="true"/>
-												</vbox>
-											</cell>
+											<vbox>
+												<label text="labels.sc.reactivity" pad.h="6" pad.v="4" vreduce="true"/>
+												<knob id="scr_${ch}" size="16" ssize="3" scolor="((${i} ieq 0) or :cbe_${ch}) ?  'cycle' : 'cycle_inactive'" pad.t="4" scolor.hue=":hue_${ch}"/>
+												<value id="scr_${ch}" sline="true"/>
+											</vbox>
 										</ui:attributes>
 
 										<cell cols="3">
@@ -482,13 +480,11 @@
 										</cell>
 
 										<ui:attributes bg.color="bg_schema" bg.bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken">
-											<cell>
-												<vbox >
-													<label text="labels.sc.lookahead" pad.h="6" pad.v="4" vreduce="true"/>
-													<knob id="sla_${ch}" size="16" ssize="3" scolor="((${i} ieq 0) or :cbe_${ch}) ?  'cycle' : 'cycle_inactive'" pad.t="4" scolor.hue=":hue_${ch}"/>
-													<value id="sla_${ch}" sline="true"/>
-												</vbox>
-											</cell>
+											<vbox>
+												<label text="labels.sc.lookahead" pad.h="6" pad.v="4" vreduce="true"/>
+												<knob id="sla_${ch}" size="16" ssize="3" scolor="((${i} ieq 0) or :cbe_${ch}) ?  'cycle' : 'cycle_inactive'" pad.t="4" scolor.hue=":hue_${ch}"/>
+												<value id="sla_${ch}" sline="true"/>
+											</vbox>
 										</ui:attributes>
 
 										<cell rows="2">
@@ -525,105 +521,99 @@
 										</ui:attributes>
 
 										<ui:attributes bg.color="bg_schema" bg.bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken">
-											<cell>
-												<vbox >
-													<label text="labels.setup" pad.h="6" pad.t="4" fill="false" vreduce="true"/>
+											<vbox>
+												<label text="labels.setup" pad.h="6" pad.t="4" fill="false" vreduce="true"/>
 
-													<vbox fill="false" spacing="1">
-														<ui:with pad.h="6" pad.b="4">
-															<combo id="scm_${ch}" fill="true"/>
-															<combo id="scs_${ch}" fill="true"/>
-															<button
-																text="labels.chan.external_sc"
-																id="sce_${ch}"
-																ui:inject="Button_Cycle"
-																hfill="true"
-																height="19"
-																down.color.hue=":hue_${ch}"
-																down.hover.color.hue=":hue_${ch}"
-																text.down.color.hue=":hue_${ch}"
-																text.down.hover.color.hue=":hue_${ch}"
-																border.down.color.hue=":hue_${ch}"
-																border.down.hover.color.hue=":hue_${ch}"
-																visibility="ex :sce_${ch}"/>
-														</ui:with>
-													</vbox>
+												<vbox fill="false" spacing="1">
+													<ui:with pad.h="6" pad.b="4">
+														<combo id="scm_${ch}" fill="true"/>
+														<combo id="scs_${ch}" fill="true"/>
+														<button
+															text="labels.chan.external_sc"
+															id="sce_${ch}"
+															ui:inject="Button_Cycle"
+															hfill="true"
+															height="19"
+															down.color.hue=":hue_${ch}"
+															down.hover.color.hue=":hue_${ch}"
+															text.down.color.hue=":hue_${ch}"
+															text.down.hover.color.hue=":hue_${ch}"
+															border.down.color.hue=":hue_${ch}"
+															border.down.hover.color.hue=":hue_${ch}"
+															visibility="ex :sce_${ch}"/>
+													</ui:with>
 												</vbox>
-											</cell>
+											</vbox>
 										</ui:attributes>
 
-										<cell>
-											<vbox bg.color="bg_schema">
-												<button
-													text="labels.flt.LCF"
-													pad.h="6"
-													id="sclc_${ch}"
-													ui:inject="Button_Cycle"
-													hfill="true"
-													height="19"
-													down.color.hue=":hue_${ch}"
-													down.hover.color.hue=":hue_${ch}"
-													text.down.color.hue=":hue_${ch}"
-													text.down.hover.color.hue=":hue_${ch}"
-													border.down.color.hue=":hue_${ch}"
-													border.down.hover.color.hue=":hue_${ch}"
-													bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
-													bg.bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"/>
-												<knob
-													id="sclf_${ch}"
-													size="16"
-													ssize="3"
-													scolor="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ? 'cycle' : 'cycle_inactive'"
-													pad.v="4"
-													pad.l="4"
-													scolor.hue=":hue_${ch}"
-													bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
-													bg.bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"/>
-												<value
-													id="sclf_${ch}"
-													pad.h="6"
-													bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
-													bg.bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
-													width.min="30"
-													same.line="true" />
-											</vbox>
-										</cell>
-										<cell>
-											<vbox bg.color="bg_schema">
-												<button
-													text="labels.flt.HCF"
-													pad.h="6"
-													id="schc_${ch}"
-													ui:inject="Button_Cycle"
-													hfill="true"
-													height="19"
-													down.color.hue=":hue_${ch}"
-													down.hover.color.hue=":hue_${ch}"
-													text.down.color.hue=":hue_${ch}"
-													text.down.hover.color.hue=":hue_${ch}"
-													border.down.color.hue=":hue_${ch}"
-													border.down.hover.color.hue=":hue_${ch}"
-													bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
-													bg.bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"/>
-												<knob
-													id="schf_${ch}"
-													size="16"
-													ssize="3"
-													scolor="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 'cycle' : 'cycle_inactive'"
-													pad.v="4"
-													pad.l="4"
-													scolor.hue=":hue_${ch}"
-													bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
-													bg.bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"/>
-												<value
-													id="schf_${ch}"
-													pad.h="6"
-													bg.bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"
-													bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"
-													width.min="30"
-													same.line="true" />
-											</vbox>
-										</cell>
+										<vbox bg.color="bg_schema">
+											<button
+												text="labels.flt.LCF"
+												pad.h="6"
+												id="sclc_${ch}"
+												ui:inject="Button_Cycle"
+												hfill="true"
+												height="19"
+												down.color.hue=":hue_${ch}"
+												down.hover.color.hue=":hue_${ch}"
+												text.down.color.hue=":hue_${ch}"
+												text.down.hover.color.hue=":hue_${ch}"
+												border.down.color.hue=":hue_${ch}"
+												border.down.hover.color.hue=":hue_${ch}"
+												bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
+												bg.bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"/>
+											<knob
+												id="sclf_${ch}"
+												size="16"
+												ssize="3"
+												scolor="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ? 'cycle' : 'cycle_inactive'"
+												pad.v="4"
+												pad.l="4"
+												scolor.hue=":hue_${ch}"
+												bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
+												bg.bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"/>
+											<value
+												id="sclf_${ch}"
+												pad.h="6"
+												bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
+												bg.bright="((:sclc_${ch} and :cbe_${ch}) or (:sclc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
+												width.min="30"
+												same.line="true" />
+										</vbox>
+										<vbox bg.color="bg_schema">
+											<button
+												text="labels.flt.HCF"
+												pad.h="6"
+												id="schc_${ch}"
+												ui:inject="Button_Cycle"
+												hfill="true"
+												height="19"
+												down.color.hue=":hue_${ch}"
+												down.hover.color.hue=":hue_${ch}"
+												text.down.color.hue=":hue_${ch}"
+												text.down.hover.color.hue=":hue_${ch}"
+												border.down.color.hue=":hue_${ch}"
+												border.down.hover.color.hue=":hue_${ch}"
+												bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
+												bg.bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"/>
+											<knob
+												id="schf_${ch}"
+												size="16"
+												ssize="3"
+												scolor="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 'cycle' : 'cycle_inactive'"
+												pad.v="4"
+												pad.l="4"
+												scolor.hue=":hue_${ch}"
+												bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ?  1 : :const_bg_darken"
+												bg.bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"/>
+											<value
+												id="schf_${ch}"
+												pad.h="6"
+												bg.bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"
+												bright="((:schc_${ch} and :cbe_${ch}) or (:schc_${ch} and :cbe_${ch} ine 0)) ? 1 : :const_bg_darken"
+												width.min="30"
+												same.line="true" />
+										</vbox>
 									</grid>
 								</vbox>
 
