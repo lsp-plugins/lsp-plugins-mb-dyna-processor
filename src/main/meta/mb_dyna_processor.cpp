@@ -555,7 +555,7 @@ namespace lsp
             "mb_dyna_processor",
             "Multiband Dynamic Processor",
             B_MB_DYNAMICS,
-            "azs0a9LFIGI",
+            "6ZuW28u1qns",
             "This plugin performs multiband dynamic processing of input signal. Flexible sidechain\n"
             "control configuration provided. As opposite to most available multiband\n"
             "processors, this dynamic processor provides numerous special functions: 'modern'\n"
