@@ -1,0 +1,7 @@
+{
+	"mb_dyna_processor": {
+		"name": "Plugin Template",
+		"description": "This plugin performs multiband dynamic processing of input signal. Flexible sidechain\ncontrol configuration provided. As opposite to most available multiband\nprocessors, this dynamic processor provides numerous special functions: 'modern'\noperating mode, 'Sidechain boost', 'Lookahead' option and up to 8 frequency\nbands for processing."
+	}
+}
+
