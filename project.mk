@@ -24,7 +24,7 @@ ARTIFACT_NAME               = lsp-plugins-mb-dyna-processor
 ARTIFACT_TYPE               = plug
 ARTIFACT_DESC               = LSP Multiband Dynamic Processor Plugin Series
 ARTIFACT_HEADERS            = lsp-plug.in
-ARTIFACT_VERSION            = 1.0.1
+ARTIFACT_VERSION            = 1.0.2-devel
 
 
 
