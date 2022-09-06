@@ -26,7 +26,7 @@
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MAJOR       1
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MINOR       0
-#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       0
+#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       1
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION  \
     LSP_MODULE_VERSION( \
@@ -45,10 +45,10 @@ namespace lsp
 
         static const port_item_t mb_dyna_sc_modes[] =
         {
-            { "Peak",           "sidechain.peak"           },
-            { "RMS",            "sidechain.rms"            },
-            { "Low-Pass",       "sidechain.lowpass"        },
-            { "Uniform",        "sidechain.uniform"        },
+            { "Peak",           "sidechain.peak"            },
+            { "RMS",            "sidechain.rms"             },
+            { "LPF",            "sidechain.lpf"             },
+            { "SMA",            "sidechain.sma"             },
             { NULL, NULL }
         };
 
@@ -555,7 +555,7 @@ namespace lsp
             "mb_dyna_processor",
             "Multiband Dynamic Processor",
             B_MB_DYNAMICS,
-            "azs0a9LFIGI",
+            "6ZuW28u1qns",
             "This plugin performs multiband dynamic processing of input signal. Flexible sidechain\n"
             "control configuration provided. As opposite to most available multiband\n"
             "processors, this dynamic processor provides numerous special functions: 'modern'\n"
