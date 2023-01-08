@@ -572,7 +572,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor Mono x8",
             "Multiband Dynamic Processor Mono x8",
-            "MBK8M",
+            "MBDP8M",
             &developers::v_sadovnikov,
             "mb_dyna_processor_mono",
             LSP_LV2_URI("mb_dyna_processor_mono"),
@@ -596,7 +596,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor Stereo x8",
             "Multiband Dynamic Processor Stereo x8",
-            "MBK8S",
+            "MBDP8S",
             &developers::v_sadovnikov,
             "mb_dyna_processor_stereo",
             LSP_LV2_URI("mb_dyna_processor_stereo"),
@@ -620,7 +620,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor LeftRight x8",
             "Multiband Dynamic Processor LeftRight x8",
-            "MBK8LR",
+            "MBDP8LR",
             &developers::v_sadovnikov,
             "mb_dyna_processor_lr",
             LSP_LV2_URI("mb_dyna_processor_lr"),
@@ -644,7 +644,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor MidSide x8",
             "Multiband Dynamic Processor MidSide x8",
-            "MBK8MS",
+            "MBDP8MS",
             &developers::v_sadovnikov,
             "mb_dyna_processor_ms",
             LSP_LV2_URI("mb_dyna_processor_ms"),
@@ -669,7 +669,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor Mono x8",
             "Sidechain Multiband Dynamic Processor Mono x8",
-            "SCMBK8M",
+            "SCMBDP8M",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_mono",
             LSP_LV2_URI("sc_mb_dyna_processor_mono"),
@@ -693,7 +693,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor Stereo x8",
             "Sidechain Multiband Dynamic Processor Stereo x8",
-            "SCMBK8S",
+            "SCMBDP8S",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_stereo",
             LSP_LV2_URI("sc_mb_dyna_processor_stereo"),
@@ -717,7 +717,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor LeftRight x8",
             "Sidechain Multiband Dynamic Processor LeftRight x8",
-            "SCMBK8LR",
+            "SCMBDP8LR",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_lr",
             LSP_LV2_URI("sc_mb_dyna_processor_lr"),
@@ -741,7 +741,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor MidSide x8",
             "Sidechain Multiband Dynamic Processor MidSide x8",
-            "SCMBK8MS",
+            "SCMBDP8MS",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_ms",
             LSP_LV2_URI("sc_mb_dyna_processor_ms"),
