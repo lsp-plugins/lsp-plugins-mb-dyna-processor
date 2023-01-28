@@ -26,7 +26,7 @@
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MAJOR       1
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MINOR       0
-#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       2
+#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       3
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION  \
     LSP_MODULE_VERSION( \
@@ -41,7 +41,9 @@ namespace lsp
     {
         //-------------------------------------------------------------------------
         // Multiband dynamic processor
-        static const int mb_dyna_processor_classes[] = { C_DYNAMICS, -1 };
+        static const int plugin_classes[]           = { C_DYNAMICS, -1 };
+        static const int clap_features_mono[]       = { CF_AUDIO_EFFECT, CF_MONO, -1 };
+        static const int clap_features_stereo[]     = { CF_AUDIO_EFFECT, CF_STEREO, -1 };
 
         static const port_item_t mb_dyna_sc_modes[] =
         {
@@ -570,7 +572,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor Mono x8",
             "Multiband Dynamic Processor Mono x8",
-            "MBK8M",
+            "MBDP8M",
             &developers::v_sadovnikov,
             "mb_dyna_processor_mono",
             LSP_LV2_URI("mb_dyna_processor_mono"),
@@ -578,8 +580,10 @@ namespace lsp
             "mdp0",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 0,
             LSP_LADSPA_URI("mb_dyna_processor_mono"),
+            LSP_CLAP_URI("mb_dyna_processor_mono"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
-            mb_dyna_processor_classes,
+            plugin_classes,
+            clap_features_mono,
             E_INLINE_DISPLAY,
             mb_dyna_processor_mono_ports,
             "dynamics/processor/multiband/mono.xml",
@@ -592,7 +596,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor Stereo x8",
             "Multiband Dynamic Processor Stereo x8",
-            "MBK8S",
+            "MBDP8S",
             &developers::v_sadovnikov,
             "mb_dyna_processor_stereo",
             LSP_LV2_URI("mb_dyna_processor_stereo"),
@@ -600,8 +604,10 @@ namespace lsp
             "mdp1",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 1,
             LSP_LADSPA_URI("mb_dyna_processor_stereo"),
+            LSP_CLAP_URI("mb_dyna_processor_stereo"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
-            mb_dyna_processor_classes,
+            plugin_classes,
+            clap_features_stereo,
             E_INLINE_DISPLAY,
             mb_dyna_processor_stereo_ports,
             "dynamics/processor/multiband/stereo.xml",
@@ -614,7 +620,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor LeftRight x8",
             "Multiband Dynamic Processor LeftRight x8",
-            "MBK8LR",
+            "MBDP8LR",
             &developers::v_sadovnikov,
             "mb_dyna_processor_lr",
             LSP_LV2_URI("mb_dyna_processor_lr"),
@@ -622,8 +628,10 @@ namespace lsp
             "mdp2",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 2,
             LSP_LADSPA_URI("mb_dyna_processor_lr"),
+            LSP_CLAP_URI("mb_dyna_processor_lr"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
-            mb_dyna_processor_classes,
+            plugin_classes,
+            clap_features_stereo,
             E_INLINE_DISPLAY,
             mb_dyna_processor_lr_ports,
             "dynamics/processor/multiband/lr.xml",
@@ -636,7 +644,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor MidSide x8",
             "Multiband Dynamic Processor MidSide x8",
-            "MBK8MS",
+            "MBDP8MS",
             &developers::v_sadovnikov,
             "mb_dyna_processor_ms",
             LSP_LV2_URI("mb_dyna_processor_ms"),
@@ -644,8 +652,10 @@ namespace lsp
             "mdp3",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 3,
             LSP_LADSPA_URI("mb_dyna_processor_ms"),
+            LSP_CLAP_URI("mb_dyna_processor_ms"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
-            mb_dyna_processor_classes,
+            plugin_classes,
+            clap_features_stereo,
             E_INLINE_DISPLAY,
             mb_dyna_processor_ms_ports,
             "dynamics/processor/multiband/ms.xml",
@@ -659,7 +669,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor Mono x8",
             "Sidechain Multiband Dynamic Processor Mono x8",
-            "SCMBK8M",
+            "SCMBDP8M",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_mono",
             LSP_LV2_URI("sc_mb_dyna_processor_mono"),
@@ -667,8 +677,10 @@ namespace lsp
             "mdp4",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 4,
             LSP_LADSPA_URI("sc_mb_dyna_processor_mono"),
+            LSP_CLAP_URI("sc_mb_dyna_processor_mono"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
-            mb_dyna_processor_classes,
+            plugin_classes,
+            clap_features_mono,
             E_INLINE_DISPLAY,
             sc_mb_dyna_processor_mono_ports,
             "dynamics/processor/multiband/mono.xml",
@@ -681,7 +693,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor Stereo x8",
             "Sidechain Multiband Dynamic Processor Stereo x8",
-            "SCMBK8S",
+            "SCMBDP8S",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_stereo",
             LSP_LV2_URI("sc_mb_dyna_processor_stereo"),
@@ -689,8 +701,10 @@ namespace lsp
             "mdp5",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 5,
             LSP_LADSPA_URI("sc_mb_dyna_processor_stereo"),
+            LSP_CLAP_URI("sc_mb_dyna_processor_stereo"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
-            mb_dyna_processor_classes,
+            plugin_classes,
+            clap_features_stereo,
             E_INLINE_DISPLAY,
             sc_mb_dyna_processor_stereo_ports,
             "dynamics/processor/multiband/stereo.xml",
@@ -703,7 +717,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor LeftRight x8",
             "Sidechain Multiband Dynamic Processor LeftRight x8",
-            "SCMBK8LR",
+            "SCMBDP8LR",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_lr",
             LSP_LV2_URI("sc_mb_dyna_processor_lr"),
@@ -711,8 +725,10 @@ namespace lsp
             "mdp6",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 6,
             LSP_LADSPA_URI("sc_mb_dyna_processor_lr"),
+            LSP_CLAP_URI("sc_mb_dyna_processor_lr"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
-            mb_dyna_processor_classes,
+            plugin_classes,
+            clap_features_stereo,
             E_INLINE_DISPLAY,
             sc_mb_dyna_processor_lr_ports,
             "dynamics/processor/multiband/lr.xml",
@@ -725,7 +741,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor MidSide x8",
             "Sidechain Multiband Dynamic Processor MidSide x8",
-            "SCMBK8MS",
+            "SCMBDP8MS",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_ms",
             LSP_LV2_URI("sc_mb_dyna_processor_ms"),
@@ -733,8 +749,10 @@ namespace lsp
             "mdp7",
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 7,
             LSP_LADSPA_URI("sc_mb_dyna_processor_ms"),
+            LSP_CLAP_URI("sc_mb_dyna_processor_ms"),
             LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION,
-            mb_dyna_processor_classes,
+            plugin_classes,
+            clap_features_stereo,
             E_INLINE_DISPLAY,
             sc_mb_dyna_processor_ms_ports,
             "dynamics/processor/multiband/ms.xml",
