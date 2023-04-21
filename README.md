@@ -1,2 +1,3 @@
 # lsp-plugins-mb-dyna-processor
-Multiband Dynamic Processor Plugin Series
+
+Multiband Dynamics Processor Plugin Series

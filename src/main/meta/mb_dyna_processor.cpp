@@ -40,7 +40,7 @@ namespace lsp
     namespace meta
     {
         //-------------------------------------------------------------------------
-        // Multiband dynamic processor
+        // Multiband dynamics processor
         static const int plugin_classes[]           = { C_DYNAMICS, -1 };
         static const int clap_features_mono[]       = { CF_AUDIO_EFFECT, CF_MONO, -1 };
         static const int clap_features_stereo[]     = { CF_AUDIO_EFFECT, CF_STEREO, -1 };
@@ -144,7 +144,7 @@ namespace lsp
 
         #define MB_COMMON(bands) \
                 BYPASS, \
-                COMBO("mode", "Dynamic Processor mode", 1, mb_global_dyna_modes), \
+                COMBO("mode", "Dynamics Processor mode", 1, mb_global_dyna_modes), \
                 AMP_GAIN("g_in", "Input gain", mb_dyna_processor::IN_GAIN_DFL, 10.0f), \
                 AMP_GAIN("g_out", "Output gain", mb_dyna_processor::OUT_GAIN_DFL, 10.0f), \
                 AMP_GAIN("g_dry", "Dry gain", 0.0f, 10.0f), \
@@ -156,7 +156,7 @@ namespace lsp
                 COMBO("bsel", "Band selection", mb_dyna_processor::SC_BAND_DFL, bands)
 
         #define MB_SPLIT(id, label, enable, freq) \
-                SWITCH("cbe" id, "Dynamic Processor band enable" label, enable), \
+                SWITCH("cbe" id, "Dynamics Processor band enable" label, enable), \
                 LOG_CONTROL_DFL("sf" id, "Split frequency" label, U_HZ, mb_dyna_processor::FREQ, freq)
 
         #define MB_DYNA_POINT(idx, on, id, label, level) \
@@ -557,21 +557,21 @@ namespace lsp
         const meta::bundle_t mb_dyna_processor_bundle =
         {
             "mb_dyna_processor",
-            "Multiband Dynamic Processor",
+            "Multiband Dynamics Processor",
             B_MB_DYNAMICS,
             "6ZuW28u1qns",
-            "This plugin performs multiband dynamic processing of input signal. Flexible sidechain\n"
+            "This plugin performs multiband dynamics processing of input signal. Flexible sidechain\n"
             "control configuration provided. As opposite to most available multiband\n"
-            "processors, this dynamic processor provides numerous special functions: 'modern'\n"
+            "processors, this dynamics processor provides numerous special functions: 'modern'\n"
             "operating mode, 'Sidechain boost', 'Lookahead' option and up to 8 frequency\n"
             "bands for processing."
         };
 
-        // Multiband Dynamic Processor
+        // Multiband Dynamics Processor
         const meta::plugin_t  mb_dyna_processor_mono =
         {
             "Multi-band Dynamikprozessor Mono x8",
-            "Multiband Dynamic Processor Mono x8",
+            "Multiband Dynamics Processor Mono x8",
             "MBDP8M",
             &developers::v_sadovnikov,
             "mb_dyna_processor_mono",
@@ -595,7 +595,7 @@ namespace lsp
         const meta::plugin_t  mb_dyna_processor_stereo =
         {
             "Multi-band Dynamikprozessor Stereo x8",
-            "Multiband Dynamic Processor Stereo x8",
+            "Multiband Dynamics Processor Stereo x8",
             "MBDP8S",
             &developers::v_sadovnikov,
             "mb_dyna_processor_stereo",
@@ -619,7 +619,7 @@ namespace lsp
         const meta::plugin_t  mb_dyna_processor_lr =
         {
             "Multi-band Dynamikprozessor LeftRight x8",
-            "Multiband Dynamic Processor LeftRight x8",
+            "Multiband Dynamics Processor LeftRight x8",
             "MBDP8LR",
             &developers::v_sadovnikov,
             "mb_dyna_processor_lr",
@@ -643,7 +643,7 @@ namespace lsp
         const meta::plugin_t  mb_dyna_processor_ms =
         {
             "Multi-band Dynamikprozessor MidSide x8",
-            "Multiband Dynamic Processor MidSide x8",
+            "Multiband Dynamics Processor MidSide x8",
             "MBDP8MS",
             &developers::v_sadovnikov,
             "mb_dyna_processor_ms",
@@ -668,7 +668,7 @@ namespace lsp
         const meta::plugin_t  sc_mb_dyna_processor_mono =
         {
             "Sidechain Multi-band Dynamikprozessor Mono x8",
-            "Sidechain Multiband Dynamic Processor Mono x8",
+            "Sidechain Multiband Dynamics Processor Mono x8",
             "SCMBDP8M",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_mono",
@@ -692,7 +692,7 @@ namespace lsp
         const meta::plugin_t  sc_mb_dyna_processor_stereo =
         {
             "Sidechain Multi-band Dynamikprozessor Stereo x8",
-            "Sidechain Multiband Dynamic Processor Stereo x8",
+            "Sidechain Multiband Dynamics Processor Stereo x8",
             "SCMBDP8S",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_stereo",
@@ -716,7 +716,7 @@ namespace lsp
         const meta::plugin_t  sc_mb_dyna_processor_lr =
         {
             "Sidechain Multi-band Dynamikprozessor LeftRight x8",
-            "Sidechain Multiband Dynamic Processor LeftRight x8",
+            "Sidechain Multiband Dynamics Processor LeftRight x8",
             "SCMBDP8LR",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_lr",
@@ -740,7 +740,7 @@ namespace lsp
         const meta::plugin_t  sc_mb_dyna_processor_ms =
         {
             "Sidechain Multi-band Dynamikprozessor MidSide x8",
-            "Sidechain Multiband Dynamic Processor MidSide x8",
+            "Sidechain Multiband Dynamics Processor MidSide x8",
             "SCMBDP8MS",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_ms",
