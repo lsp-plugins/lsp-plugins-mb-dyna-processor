@@ -3,7 +3,7 @@
 *******************************************************************************
 
 === 1.0.9 ===
-
+* Implemented Stereo Split mode for the stereo version of plugin.
 
 === 1.0.8 ===
 * Fixed improper behaviour of the bypass switch.
