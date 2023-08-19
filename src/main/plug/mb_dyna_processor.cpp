@@ -1227,7 +1227,7 @@ namespace lsp
         {
             const size_t k = (sample_rate + meta::mb_dyna_processor::FFT_XOVER_FREQ_MIN/2) / meta::mb_dyna_processor::FFT_XOVER_FREQ_MIN;
             const size_t n = int_log2(k);
-            return meta::mb_dyna_processor::FFT_XOVER_RANK_MIN << n;
+            return meta::mb_dyna_processor::FFT_XOVER_RANK_MIN + n;
         }
 
         void mb_dyna_processor::update_sample_rate(long sr)
