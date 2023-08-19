@@ -43,6 +43,7 @@
 		"boost_ing": "Boost",
 		"boosting": "Boosting",
 		"classic": "Classic",
+		"linear_phase": "Linear Phase",
 		"modern": "Modern",
 		"split": "Split",
 		"split_left": "Split Left",

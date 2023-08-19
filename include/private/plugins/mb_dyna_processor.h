@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2020 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2020 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2023 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2023 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-mb-dyna-processor
  * Created on: 25 нояб. 2020 г.
@@ -28,6 +28,7 @@
 #include <lsp-plug.in/dsp-units/filters/Equalizer.h>
 #include <lsp-plug.in/dsp-units/util/Analyzer.h>
 #include <lsp-plug.in/dsp-units/util/Delay.h>
+#include <lsp-plug.in/dsp-units/util/FFTCrossover.h>
 #include <lsp-plug.in/dsp-units/util/Sidechain.h>
 #include <lsp-plug.in/plug-fw/core/IDBuffer.h>
 #include <lsp-plug.in/plug-fw/plug.h>
@@ -56,6 +57,13 @@ namespace lsp
                     MBDP_MS
                 };
 
+                enum xover_mode_t
+                {
+                    XOVER_CLASSIC,                              // Classic mode
+                    XOVER_MODERN,                               // Modern mode
+                    XOVER_LINEAR_PHASE                          // Linear phase mode
+                };
+
             protected:
                 enum sync_t
                 {
@@ -76,6 +84,7 @@ namespace lsp
                     dspu::Filter            sAllFilter;         // All-pass filter for phase compensation
                     dspu::Delay             sScDelay;           // Sidechain delay for lookahead purpose
 
+                    float                  *vBuffer;            // Crossover band data
                     float                  *vTr;                // Transfer function
                     float                  *vVCA;               // Voltage-controlled amplification value for each band
                     float                   fScPreamp;          // Sidechain preamp
@@ -151,7 +160,11 @@ namespace lsp
                     dspu::Bypass            sBypass;            // Bypass
                     dspu::Filter            sEnvBoost[2];       // Envelope boost filter
                     dspu::Delay             sDelay;             // Delay for lookahead compensation purpose
+                    dspu::Delay             sDryDelay;          // Delay for dry signal
+                    dspu::Delay             sAnDelay;           // Delay for analyzer
+                    dspu::Delay             sXOverDelay;        // Delay for crossover
                     dspu::Equalizer         sDryEq;             // Dry equalizer
+                    dspu::FFTCrossover      sFFTXOver;          // FFT crossover for linear phase
 
                     dyna_band_t             vBands[meta::mb_dyna_processor::BANDS_MAX];     // Processor bands
                     split_t                 vSplit[meta::mb_dyna_processor::BANDS_MAX-1];   // Split bands
@@ -194,7 +207,7 @@ namespace lsp
                 size_t                  nMode;                  // Processor mode
                 bool                    bSidechain;             // External side chain
                 bool                    bEnvUpdate;             // Envelope filter update
-                bool                    bModern;                // Modern mode
+                xover_mode_t            enXOver;                // Crossover mode
                 bool                    bStereoSplit;           // Stereo split mode
                 size_t                  nEnvBoost;              // Envelope boost
                 channel_t              *vChannels;              // Processor channels
@@ -231,6 +244,8 @@ namespace lsp
                 static bool compare_bands_for_sort(const dyna_band_t *b1, const dyna_band_t *b2);
 
                 static dspu::sidechain_source_t     decode_sidechain_source(int source, bool split, size_t channel);
+                static size_t                       select_fft_rank(size_t sample_rate);
+                static void                         process_band(void *object, void *subject, size_t band, const float *data, size_t sample, size_t count);
 
             public:
                 explicit mb_dyna_processor(const meta::plugin_t *metadata, bool sc, size_t mode);
@@ -249,6 +264,7 @@ namespace lsp
 
                 virtual void        dump(dspu::IStateDumper *v) const;
         };
+
     } /* namespace plugins */
 } /* namespace lsp */
 

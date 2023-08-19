@@ -88,8 +88,9 @@ namespace lsp
 
         static const port_item_t mb_global_dyna_modes[] =
         {
-            { "Classic",        "mb_dyna_processor.classic" },
-            { "Modern",         "mb_dyna_processor.modern" },
+            { "Classic",        "mb_dyna_processor.classic"         },
+            { "Modern",         "mb_dyna_processor.modern"          },
+            { "Linear Phase",   "mb_dyna_processor.linear_phase"    },
             { NULL, NULL }
         };
 
