@@ -2,6 +2,11 @@
 * RECENT CHANGES
 *******************************************************************************
 
+=== 1.0.9 ===
+* Implemented Stereo Split mode for the stereo version of plugin.
+* Implemented Linear Phase operating mode.
+* Updated build scripts and dependencies.
+
 === 1.0.8 ===
 * Fixed improper behaviour of the bypass switch.
 * Updated build scripts and dependencies.

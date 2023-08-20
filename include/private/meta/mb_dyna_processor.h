@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2020 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2020 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2023 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2023 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-mb-dyna-processor
  * Created on: 25 нояб. 2020 г.
@@ -139,6 +139,9 @@ namespace lsp
             static constexpr size_t DOTS                    = 4;
             static constexpr size_t RANGES                  = DOTS + 1;
 
+            static constexpr size_t FFT_XOVER_RANK_MIN      = 12;
+            static constexpr size_t FFT_XOVER_FREQ_MIN      = 44100;
+
             enum boost_t
             {
                 FB_OFF,
@@ -160,7 +163,8 @@ namespace lsp
         extern const meta::plugin_t sc_mb_dyna_processor_stereo;
         extern const meta::plugin_t sc_mb_dyna_processor_lr;
         extern const meta::plugin_t sc_mb_dyna_processor_ms;
-    }
-}
+
+    } /* namespace meta */
+} /* namespace lsp */
 
 #endif /* PRIVATE_META_MB_DYNA_PROCESSOR_H_ */
