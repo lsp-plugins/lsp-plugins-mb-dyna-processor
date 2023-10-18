@@ -70,8 +70,9 @@ namespace lsp
                     S_DP_CURVE      = 1 << 0,
                     S_DP_MODEL      = 1 << 1,
                     S_EQ_CURVE      = 1 << 2,
+                    S_BAND_CURVE    = 1 << 3,
 
-                    S_ALL           = S_DP_CURVE | S_DP_MODEL | S_EQ_CURVE
+                    S_ALL           = S_DP_CURVE | S_DP_MODEL | S_EQ_CURVE | S_BAND_CURVE
                 };
 
                 typedef struct dyna_band_t
@@ -85,7 +86,8 @@ namespace lsp
                     dspu::Delay             sScDelay;           // Sidechain delay for lookahead purpose
 
                     float                  *vBuffer;            // Crossover band data
-                    float                  *vTr;                // Transfer function
+                    float                  *vSc;                // Transfer function for sidechain
+                    float                  *vTr;                // Transfer function for band
                     float                  *vVCA;               // Voltage-controlled amplification value for each band
                     float                   fScPreamp;          // Sidechain preamp
 
