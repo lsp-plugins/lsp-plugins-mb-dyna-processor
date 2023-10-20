@@ -23,6 +23,7 @@
 #define PRIVATE_PLUGINS_MB_DYNA_PROCESSOR_H_
 
 #include <lsp-plug.in/dsp-units/ctl/Bypass.h>
+#include <lsp-plug.in/dsp-units/ctl/Counter.h>
 #include <lsp-plug.in/dsp-units/dynamics/DynamicProcessor.h>
 #include <lsp-plug.in/dsp-units/filters/DynamicFilters.h>
 #include <lsp-plug.in/dsp-units/filters/Equalizer.h>
@@ -206,6 +207,7 @@ namespace lsp
             protected:
                 dspu::Analyzer          sAnalyzer;              // Analyzer
                 dspu::DynamicFilters    sFilters;               // Dynamic filters for each band in 'modern' mode
+                dspu::Counter           sCounter;               // Sync counter
                 size_t                  nMode;                  // Processor mode
                 bool                    bSidechain;             // External side chain
                 bool                    bEnvUpdate;             // Envelope filter update
