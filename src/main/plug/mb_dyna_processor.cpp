@@ -31,7 +31,7 @@
 #include <private/plugins/mb_dyna_processor.h>
 
 /* The size of temporary buffer for audio processing */
-#define MBDP_BUFFER_SIZE        0x1000U
+#define MBDP_BUFFER_SIZE        0x400U
 
 namespace lsp
 {
