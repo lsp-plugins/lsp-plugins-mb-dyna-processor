@@ -727,6 +727,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor Mono x8",
             "Multiband Dynamics Processor Mono x8",
+            "MB Dynamics Processor Mono",
             "MBDP8M",
             &developers::v_sadovnikov,
             "mb_dyna_processor_mono",
@@ -751,6 +752,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor Stereo x8",
             "Multiband Dynamics Processor Stereo x8",
+            "MB Dynamics Processor Stereo",
             "MBDP8S",
             &developers::v_sadovnikov,
             "mb_dyna_processor_stereo",
@@ -775,6 +777,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor LeftRight x8",
             "Multiband Dynamics Processor LeftRight x8",
+            "MB Dynamics Processor L/R",
             "MBDP8LR",
             &developers::v_sadovnikov,
             "mb_dyna_processor_lr",
@@ -799,6 +802,7 @@ namespace lsp
         {
             "Multi-band Dynamikprozessor MidSide x8",
             "Multiband Dynamics Processor MidSide x8",
+            "MB Dynamics Processor M/S",
             "MBDP8MS",
             &developers::v_sadovnikov,
             "mb_dyna_processor_ms",
@@ -824,6 +828,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor Mono x8",
             "Sidechain Multiband Dynamics Processor Mono x8",
+            "SC MB Dynamics Processor Mono",
             "SCMBDP8M",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_mono",
@@ -848,6 +853,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor Stereo x8",
             "Sidechain Multiband Dynamics Processor Stereo x8",
+            "SC MB Dynamics Processor Stereo",
             "SCMBDP8S",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_stereo",
@@ -872,6 +878,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor LeftRight x8",
             "Sidechain Multiband Dynamics Processor LeftRight x8",
+            "SC MB Dynamics Processor L/R",
             "SCMBDP8LR",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_lr",
@@ -896,6 +903,7 @@ namespace lsp
         {
             "Sidechain Multi-band Dynamikprozessor MidSide x8",
             "Sidechain Multiband Dynamics Processor MidSide x8",
+            "SC MB Dynamics Processor M/S",
             "SCMBDP8MS",
             &developers::v_sadovnikov,
             "sc_mb_dyna_processor_ms",
