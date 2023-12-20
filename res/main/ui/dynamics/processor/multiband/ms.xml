@@ -798,17 +798,17 @@
 										<!-- Markers -->
 										<ui:for id="c" first="0" last="3">
 											<ui:set id="x" value="${c}_${i}"/>
-											<marker id="al${x}m" width="2" color="attack_1" smooth="true" visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :ae${x}m"/>
+											<marker id="al${x}m" editable="true" width="2" pointer="hsize" color="attack_1" hcolor="attack_1" smooth="true" visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :ae${x}m"/>
 											<text x=":al${x}m" y="24 db" text="graph.values.idM_id" text:id="${c}" color="attack_1" halign="-1" valign="-1" visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :ae${x}m"/>
-											<marker id="al${x}s" width="2" color="attack_2" smooth="true" visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :ae${x}s"/>
+											<marker id="al${x}s" editable="true" width="2" pointer="hsize" color="attack_2" hcolor="attack_2" smooth="true" visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :ae${x}s"/>
 											<text x=":al${x}s" y="24 db" text="graph.values.idS_ide" text:id="${c}" color="attack_2" halign="-1" valign="-1" visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :ae${x}s"/>
 										</ui:for>
 										<ui:for id="c" first="0" last="3">
 											<ui:set id="x" value="${c}_${i}"/>
-											<marker id="rl${x}m" width="2" color="release_1" smooth="true" visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :re${x}m"/>
+											<marker id="rl${x}m" editable="true" width="2" pointer="hsize" color="release_1" hcolor="release_1" smooth="true" visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :re${x}m"/>
 											<text x=":rl${x}m" y="-72 db" text="graph.values.idM_id" text:id="${c}" color="release_1" halign="-1" valign="1" visibility="${bvism} and :pe_${i}m and :cmv_${i}m and :re${x}m"/>
 
-											<marker id="rl${x}s" width="2" color="release_2" smooth="true" visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :re${x}s"/>
+											<marker id="rl${x}s" editable="true" width="2" pointer="hsize" color="release_2" hcolor="release_2" smooth="true" visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :re${x}s"/>
 											<text x=":rl${x}s" y="-72 db" text="graph.values.idS_ide" text:id="${c}" color="release_2" halign="-1" valign="1" visibility="${bviss} and :pe_${i}s and :cmv_${i}s and :re${x}s"/>
 										</ui:for>
 

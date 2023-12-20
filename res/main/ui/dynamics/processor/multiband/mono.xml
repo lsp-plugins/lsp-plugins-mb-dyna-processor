@@ -761,12 +761,12 @@
 									<!-- Markers -->
 									<ui:for id="c" first="0" last="3">
 										<ui:set id="x" value="${c}_${i}"/>
-										<marker id="al${x}" width="2" color="attack_1" smooth="true" visibility="${bvis} and :pe_${i} and :cmv_${i} and :ae${x}"/>
+										<marker id="al${x}" editable="true" width="2" pointer="hsize" color="attack_1" hcolor="attack_1" smooth="true" visibility="${bvis} and :pe_${i} and :cmv_${i} and :ae${x}"/>
 										<text x=":al${x}" y="24 db" text="${c}" color="attack_1" halign="-1" valign="-1" visibility="${bvis} and :pe_${i} and :cmv_${i} and :ae${x}"/>
 									</ui:for>
 									<ui:for id="c" first="0" last="3">
 										<ui:set id="x" value="${c}_${i}"/>
-										<marker id="rl${x}" width="2" color="release_1" smooth="true" visibility="${bvis} and :pe_${i} and :cmv_${i} and :re${x}"/>
+										<marker id="rl${x}" editable="true" width="2" pointer="hsize" color="release_1" hcolor="release_1" smooth="true" visibility="${bvis} and :pe_${i} and :cmv_${i} and :re${x}"/>
 										<text x=":rl${x}" y="-72 db" text="${c}" color="release_1" halign="-1" valign="1" visibility="${bvis} and :pe_${i} and :cmv_${i} and :re${x}"/>
 									</ui:for>
 
