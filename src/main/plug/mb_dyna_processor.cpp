@@ -1522,7 +1522,8 @@ namespace lsp
                     vAnalyze[c->nAnOutChannel]  = c->vBuffer;
                 }
 
-                sAnalyzer.process(vAnalyze, to_process);
+                if (sAnalyzer.activity())
+                    sAnalyzer.process(vAnalyze, to_process);
 
                 // Post-process data (if needed)
                 if (nMode == MBDP_MS)
