@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2023 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2023 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2024 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2024 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-mb-dyna-processor
  * Created on: 6 дек. 2023 г.
@@ -33,8 +33,13 @@ namespace lsp
             protected:
                 typedef struct split_t
                 {
-                    mb_dyna_processor_ui  *pUI;
-                    ui::IPort             *pFreq;
+                    mb_dyna_processor_ui   *pUI;
+                    ui::IPort              *pFreq;          // Split frequency port
+                    ui::IPort              *pOn;            // Split enable port
+
+                    size_t                  nChannel;       // Channel (left/right/mid/side)
+                    float                   fFreq;          // Split frequency
+                    bool                    bOn;            // Split is enabled
 
                     tk::GraphMarker       *wMarker;        // Graph marker for editing
                     tk::GraphText         *wNote;          // Text with note and frequency
@@ -42,26 +47,29 @@ namespace lsp
 
             protected:
                 lltl::darray<split_t> vSplits;          // List of split widgets and ports
+                lltl::parray<split_t> vActiveSplits;    // List of active split widgets and ports
                 const char          **fmtStrings;       // List of format strings
 
             protected:
-
                 static status_t slot_split_mouse_in(tk::Widget *sender, void *ptr, void *data);
                 static status_t slot_split_mouse_out(tk::Widget *sender, void *ptr, void *data);
+                static ssize_t  compare_splits_by_freq(const split_t *a, const split_t *b);
 
             protected:
-
                 template <class T>
                 T              *find_split_widget(const char *fmt, const char *base, size_t id);
                 ui::IPort      *find_port(const char *fmt, const char *base, size_t id);
                 split_t        *find_split_by_widget(tk::Widget *widget);
+                split_t        *find_split_by_port(ui::IPort *port);
 
             protected:
                 void            on_split_mouse_in(split_t *s);
                 void            on_split_mouse_out();
 
                 void            add_splits();
+                void            resort_active_splits();
                 void            update_split_note_text(split_t *s);
+                void            toggle_active_split_fequency(split_t *initiator);
 
             public:
                 explicit mb_dyna_processor_ui(const meta::plugin_t *meta);
