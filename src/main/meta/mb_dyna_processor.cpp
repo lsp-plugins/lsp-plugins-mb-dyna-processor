@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2023 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2023 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2024 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2024 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-mb-dyna-processor
  * Created on: 25 нояб. 2020 г.
@@ -734,6 +734,8 @@ namespace lsp
             LSP_LV2_URI("mb_dyna_processor_mono"),
             LSP_LV2UI_URI("mb_dyna_processor_mono"),
             "mdp0",
+            LSP_VST3_UID("mbdp8m  mdp0"),
+            LSP_VST3UI_UID("mbdp8m  mdp0"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 0,
             LSP_LADSPA_URI("mb_dyna_processor_mono"),
             LSP_CLAP_URI("mb_dyna_processor_mono"),
@@ -759,6 +761,8 @@ namespace lsp
             LSP_LV2_URI("mb_dyna_processor_stereo"),
             LSP_LV2UI_URI("mb_dyna_processor_stereo"),
             "mdp1",
+            LSP_VST3_UID("mbdp8s  mdp1"),
+            LSP_VST3UI_UID("mbdp8s  mdp1"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 1,
             LSP_LADSPA_URI("mb_dyna_processor_stereo"),
             LSP_CLAP_URI("mb_dyna_processor_stereo"),
@@ -784,6 +788,8 @@ namespace lsp
             LSP_LV2_URI("mb_dyna_processor_lr"),
             LSP_LV2UI_URI("mb_dyna_processor_lr"),
             "mdp2",
+            LSP_VST3_UID("mbdp8lr mdp2"),
+            LSP_VST3UI_UID("mbdp8lr mdp2"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 2,
             LSP_LADSPA_URI("mb_dyna_processor_lr"),
             LSP_CLAP_URI("mb_dyna_processor_lr"),
@@ -809,6 +815,8 @@ namespace lsp
             LSP_LV2_URI("mb_dyna_processor_ms"),
             LSP_LV2UI_URI("mb_dyna_processor_ms"),
             "mdp3",
+            LSP_VST3_UID("mbdp8ms mdp3"),
+            LSP_VST3UI_UID("mbdp8ms mdp3"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 3,
             LSP_LADSPA_URI("mb_dyna_processor_ms"),
             LSP_CLAP_URI("mb_dyna_processor_ms"),
@@ -835,6 +843,8 @@ namespace lsp
             LSP_LV2_URI("sc_mb_dyna_processor_mono"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_mono"),
             "mdp4",
+            LSP_VST3_UID("scmbdp8mmdp4"),
+            LSP_VST3UI_UID("scmbdp8mmdp4"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 4,
             LSP_LADSPA_URI("sc_mb_dyna_processor_mono"),
             LSP_CLAP_URI("sc_mb_dyna_processor_mono"),
@@ -860,6 +870,8 @@ namespace lsp
             LSP_LV2_URI("sc_mb_dyna_processor_stereo"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_stereo"),
             "mdp5",
+            LSP_VST3_UID("scmbdp8smdp5"),
+            LSP_VST3UI_UID("scmbdp8smdp5"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 5,
             LSP_LADSPA_URI("sc_mb_dyna_processor_stereo"),
             LSP_CLAP_URI("sc_mb_dyna_processor_stereo"),
@@ -885,6 +897,8 @@ namespace lsp
             LSP_LV2_URI("sc_mb_dyna_processor_lr"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_lr"),
             "mdp6",
+            LSP_VST3_UID("scmbdp8lmdp6"),
+            LSP_VST3UI_UID("scmbdp8lmdp6"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 6,
             LSP_LADSPA_URI("sc_mb_dyna_processor_lr"),
             LSP_CLAP_URI("sc_mb_dyna_processor_lr"),
@@ -910,6 +924,8 @@ namespace lsp
             LSP_LV2_URI("sc_mb_dyna_processor_ms"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_ms"),
             "mdp7",
+            LSP_VST3_UID("scmbdp8mmdp7"),
+            LSP_VST3UI_UID("scmbdp8mmdp7"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 7,
             LSP_LADSPA_URI("sc_mb_dyna_processor_ms"),
             LSP_CLAP_URI("sc_mb_dyna_processor_ms"),
