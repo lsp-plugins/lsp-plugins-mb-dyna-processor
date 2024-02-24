@@ -161,6 +161,7 @@ namespace lsp
                 AMP_GAIN("g_out", "Output gain", mb_dyna_processor::OUT_GAIN_DFL, 10.0f), \
                 AMP_GAIN("g_dry", "Dry gain", 0.0f, 10.0f), \
                 AMP_GAIN("g_wet", "Wet gain", 1.0f, 10.0f), \
+                PERCENTS("drywet", "Dry/Wet balance", 100.0f, 0.1f), \
                 LOG_CONTROL("react", "FFT reactivity", U_MSEC, mb_dyna_processor::REACT_TIME), \
                 AMP_GAIN("shift", "Shift gain", 1.0f, 100.0f), \
                 LOG_CONTROL("zoom", "Graph zoom", U_GAIN_AMP, mb_dyna_processor::ZOOM), \
@@ -192,7 +193,7 @@ namespace lsp
                 SWITCH("schc" id, "Sidechain custom hi-cut" label, 0), \
                 LOG_CONTROL_DFL("sclf" id, "Sidechain lo-cut frequency" label, U_HZ, mb_dyna_processor::FREQ, fe), \
                 LOG_CONTROL_DFL("schf" id, "Sidechain hi-cut frequency" label, U_HZ, mb_dyna_processor::FREQ, fs), \
-                MESH("bfc" id, "Side-chain band frequency chart" label, 2, mb_dyna_processor::FILTER_MESH_POINTS), \
+                MESH("bfc" id, "Side-chain band frequency chart" label, 2, mb_dyna_processor::MESH_POINTS + 4), \
                 \
                 SWITCH("pe" id, "Processor enable" label, 1.0f), \
                 SWITCH("bs" id, "Solo band" label, 0.0f), \
@@ -203,6 +204,7 @@ namespace lsp
                 MB_DYNA_POINT(1, 0.0f, id, label, GAIN_AMP_M_24_DB), \
                 MB_DYNA_POINT(2, 0.0f, id, label, GAIN_AMP_M_36_DB), \
                 MB_DYNA_POINT(3, 0.0f, id, label, GAIN_AMP_M_48_DB), \
+                CONTROL("ht" id, "Hold time" label, U_MSEC, mb_dyna_processor::HOLD_TIME), \
                 LOG_CONTROL("llr" id, "Low-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
                 LOG_CONTROL("hlr" id, "High-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
                 LOG_CONTROL("mk" id, "Makeup gain" label, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \

@@ -160,7 +160,7 @@
 			<cell rows="2">
 				<vbox spacing="4">
 					<group text="groups.signal" expand="true">
-						<grid rows="4" cols="2" hspacing="4">
+						<grid rows="5" cols="2" hspacing="4">
 							<knob id="g_in" pad.r="4"/>
 							<vbox vfill="false">
 								<label text="labels.input" halign="0"/>
@@ -173,7 +173,7 @@
 								<value id="g_out" width.min="50" sline="true" halign="0"/>
 							</vbox>
 
-							<knob id="g_dry" balance="0.5" scolor="dry" pad.r="4"/>
+							<knob id="g_dry" scolor="dry" pad.r="4"/>
 							<vbox vfill="false">
 								<label text="labels.signal.dry" halign="0"/>
 								<value id="g_dry" width.min="50" sline="true" halign="0"/>
@@ -183,6 +183,12 @@
 							<vbox vfill="false">
 								<label text="labels.signal.wet" halign="0"/>
 								<value id="g_wet" width.min="50" sline="true" halign="0"/>
+							</vbox>
+							
+							<knob id="drywet" scolor="drywet" pad.r="4"/>
+							<vbox vfill="false">
+								<label text="labels.signal.drywet" halign="0"/>
+								<value id="drywet" width.min="50" sline="true" halign="0"/>
 							</vbox>
 						</grid>
 					</group>
@@ -855,10 +861,9 @@
 
 						<!-- Additional controls -->
 						<cell cols="2">
-							<grid rows="5" cols="9" bg.color="bg_schema">
+							<grid rows="5" cols="11" bg.color="bg_schema">
 
-								<cell cols="9">
-
+								<cell cols="11">
 									<hbox>
 										<ui:attributes bg.color="bg_schema" bg.bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken">
 											<hbox bg.color="bg_schema" spacing="6">
@@ -879,7 +884,7 @@
 										</ui:attributes>
 									</hbox>
 								</cell>
-								<cell cols="9"><hsep bg.color="bg" pad.v="2" vreduce="true"/></cell>
+								<cell cols="11"><hsep bg.color="bg" pad.v="2" vreduce="true"/></cell>
 
 								<label text="labels.ratio_low" pad.h="6" pad.v="4" bg.color="bg_schema" bg.bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken"/>
 								<cell rows="3"><vsep bg.color="bg" pad.h="2" hreduce="true"/></cell>
@@ -889,8 +894,9 @@
 								<cell rows="3"><vsep bg.color="bg" pad.h="2" hreduce="true"/></cell>
 								<label text="labels.attack" pad.h="6" pad.v="4" bg.color="bg_schema" bg.bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken"/>
 								<cell rows="3"><vsep bg.color="bg" pad.h="2" hreduce="true"/></cell>
-
 								<label text="labels.release" bg.color="bg_schema" bg.bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken"/>
+								<cell rows="3"><vsep bg.color="bg" pad.h="2" hreduce="true"/></cell>
+								<label text="labels.hold" bg.color="bg_schema" bg.bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken"/>
 
 								<ui:attributes bg.color="bg_schema" bg.bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${i}) ?  1 : :const_bg_darken">
 									<ui:with pad.h="6" pad.v="4">
@@ -899,12 +905,14 @@
 										<knob id="mk_${i}" size="20" scolor="((${i} ieq 0) or :cbe_${i}) ?  'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
 										<knob id="atd_${i}" size="20" scolor="((${i} ieq 0) or :cbe_${i}) ?  'attack' : 'attack_inactive'"/>
 										<knob id="rtd_${i}" size="20" scolor="((${i} ieq 0) or :cbe_${i}) ?  'release' : 'release_inactive'"/>
+										<knob id="ht_${i}" size="20" scolor="((${i} ieq 0) or :cbe_${i}) ?  'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
 
 										<value id="llr_${i}" same.line="true"/>
 										<value id="hlr_${i}" same.line="true"/>
 										<value id="mk_${i}" same.line="true" wmin="48"/>
 										<value id="atd_${i}" same.line="true" wmin="46"/>
 										<value id="rtd_${i}" same.line="true" wmin="46"/>
+										<value id="ht_${i}" same.line="true" wmin="46"/>
 									</ui:with>
 								</ui:attributes>
 							</grid>

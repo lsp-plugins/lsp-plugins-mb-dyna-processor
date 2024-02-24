@@ -93,6 +93,7 @@
 	<li><b>Output</b> - the amount of gain applied to the output signal before processing.</li>
 	<li><b>Dry</b> - the amount of dry (unprocessed) signal passed to the output.</li>
 	<li><b>Wet</b> - the amount of wet (processed) signal passed to the output.</li>
+	<li><b>Dry/Wet</b> - the knob that controls the balance between the mixed dry and wet signal (see <b>Dry</b> and <b>Wet</b>) and the dry (unprocessed) signal.</li>
 	<li><b>In</b> - the input signal meter.</li>
 	<li><b>Out</b> - the output signal meter.</li>
 </ul>
@@ -197,6 +198,7 @@
 	<li><b>Dynamic Processor Makeup</b> - additional amplification gain after processing stage.</li>
 	<li><b>Dynamic Processor Attack</b> - default attack time of the dynamic processor.</li>
 	<li><b>Dynamic Processor Release</b> - default release time of the dynamic processor.</li>
+	<li><b>Dynamic Processor Hold</b> - the time period the envelope holds it's maximum value before starting the release.</li>
 	<li><b>Dynamic Processor Gain</b> - the amount of gain applied to frequency band by the compression curve.</li>
 	<li><b>Dynamic Processor Ranges</b> - allows to configure up to four additional knees, attack and release ranges:</li>
 	<ul>
