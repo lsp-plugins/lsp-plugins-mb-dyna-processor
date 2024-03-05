@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2023 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2023 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2024 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2024 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-mb-dyna-processor
  * Created on: 25 нояб. 2020 г.
@@ -45,10 +45,6 @@ namespace lsp
          */
         class mb_dyna_processor: public plug::Module
         {
-            private:
-                mb_dyna_processor & operator = (const mb_dyna_processor &);
-                mb_dyna_processor (const mb_dyna_processor &);
-
             public:
                 enum dp_mode_t
                 {
@@ -137,6 +133,7 @@ namespace lsp
                     plug::IPort            *pReleaseOn[meta::mb_dyna_processor::DOTS];          // Release enable
                     plug::IPort            *pReleaseLvl[meta::mb_dyna_processor::DOTS];         // Release levels
                     plug::IPort            *pReleaseTime[meta::mb_dyna_processor::RANGES];      // Release time
+                    plug::IPort            *pHold;              // Hold time
                     plug::IPort            *pLowRatio;          // Low Ratio
                     plug::IPort            *pHighRatio;         // High Ratio
                     plug::IPort            *pMakeup;            // Overall Makeup gain
@@ -164,7 +161,6 @@ namespace lsp
                     dspu::Filter            sEnvBoost[2];       // Envelope boost filter
                     dspu::Delay             sDelay;             // Delay for lookahead compensation purpose
                     dspu::Delay             sDryDelay;          // Delay for dry signal
-                    dspu::Delay             sAnDelay;           // Delay for analyzer
                     dspu::Delay             sXOverDelay;        // Delay for crossover
                     dspu::Equalizer         sDryEq;             // Dry equalizer
                     dspu::FFTCrossover      sFFTXOver;          // FFT crossover for linear phase
@@ -178,13 +174,13 @@ namespace lsp
                     float                  *vOut;               // Output data buffer
                     float                  *vScIn;              // Sidechain data buffer (if present)
 
+                    float                  *vInAnalyze;         // Input signal analysis
                     float                  *vInBuffer;          // Input buffer
                     float                  *vBuffer;            // Common data processing buffer
                     float                  *vScBuffer;          // Sidechain buffer
                     float                  *vExtScBuffer;       // External sidechain buffer
                     float                  *vTr;                // Transfer function
                     float                  *vTrMem;             // Transfer buffer (memory)
-                    float                  *vInAnalyze;         // Input signal analysis
 
                     size_t                  nAnInChannel;       // Analyzer channel used for input signal analysis
                     size_t                  nAnOutChannel;      // Analyzer channel used for output signal analysis
@@ -237,6 +233,7 @@ namespace lsp
                 plug::IPort            *pOutGain;               // Output gain port
                 plug::IPort            *pDryGain;               // Dry gain port
                 plug::IPort            *pWetGain;               // Wet gain port
+                plug::IPort            *pDryWet;                // Dry/Wet gain balance port
                 plug::IPort            *pReactivity;            // Reactivity
                 plug::IPort            *pShiftGain;             // Shift gain port
                 plug::IPort            *pZoom;                  // Zoom port
@@ -255,7 +252,12 @@ namespace lsp
 
             public:
                 explicit mb_dyna_processor(const meta::plugin_t *metadata, bool sc, size_t mode);
+                mb_dyna_processor(const mb_dyna_processor &) = delete;
+                mb_dyna_processor(mb_dyna_processor &&) = delete;
                 virtual ~mb_dyna_processor() override;
+
+                mb_dyna_processor & operator = (const mb_dyna_processor &) = delete;
+                mb_dyna_processor & operator = (mb_dyna_processor &&) = delete;
 
                 virtual void        init(plug::IWrapper *wrapper, plug::IPort **ports) override;
                 virtual void        destroy() override;

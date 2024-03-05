@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2023 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2023 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2024 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2024 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-mb-dyna-processor
  * Created on: 25 нояб. 2020 г.
@@ -26,7 +26,7 @@
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MAJOR       1
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MINOR       0
-#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       13
+#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       14
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION  \
     LSP_MODULE_VERSION( \
@@ -161,6 +161,7 @@ namespace lsp
                 AMP_GAIN("g_out", "Output gain", mb_dyna_processor::OUT_GAIN_DFL, 10.0f), \
                 AMP_GAIN("g_dry", "Dry gain", 0.0f, 10.0f), \
                 AMP_GAIN("g_wet", "Wet gain", 1.0f, 10.0f), \
+                PERCENTS("drywet", "Dry/Wet balance", 100.0f, 0.1f), \
                 LOG_CONTROL("react", "FFT reactivity", U_MSEC, mb_dyna_processor::REACT_TIME), \
                 AMP_GAIN("shift", "Shift gain", 1.0f, 100.0f), \
                 LOG_CONTROL("zoom", "Graph zoom", U_GAIN_AMP, mb_dyna_processor::ZOOM), \
@@ -192,7 +193,7 @@ namespace lsp
                 SWITCH("schc" id, "Sidechain custom hi-cut" label, 0), \
                 LOG_CONTROL_DFL("sclf" id, "Sidechain lo-cut frequency" label, U_HZ, mb_dyna_processor::FREQ, fe), \
                 LOG_CONTROL_DFL("schf" id, "Sidechain hi-cut frequency" label, U_HZ, mb_dyna_processor::FREQ, fs), \
-                MESH("bfc" id, "Side-chain band frequency chart" label, 2, mb_dyna_processor::FILTER_MESH_POINTS), \
+                MESH("bfc" id, "Side-chain band frequency chart" label, 2, mb_dyna_processor::MESH_POINTS + 4), \
                 \
                 SWITCH("pe" id, "Processor enable" label, 1.0f), \
                 SWITCH("bs" id, "Solo band" label, 0.0f), \
@@ -203,6 +204,7 @@ namespace lsp
                 MB_DYNA_POINT(1, 0.0f, id, label, GAIN_AMP_M_24_DB), \
                 MB_DYNA_POINT(2, 0.0f, id, label, GAIN_AMP_M_36_DB), \
                 MB_DYNA_POINT(3, 0.0f, id, label, GAIN_AMP_M_48_DB), \
+                CONTROL("ht" id, "Hold time" label, U_MSEC, mb_dyna_processor::HOLD_TIME), \
                 LOG_CONTROL("llr" id, "Low-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
                 LOG_CONTROL("hlr" id, "High-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
                 LOG_CONTROL("mk" id, "Makeup gain" label, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
@@ -734,6 +736,8 @@ namespace lsp
             LSP_LV2_URI("mb_dyna_processor_mono"),
             LSP_LV2UI_URI("mb_dyna_processor_mono"),
             "mdp0",
+            LSP_VST3_UID("mbdp8m  mdp0"),
+            LSP_VST3UI_UID("mbdp8m  mdp0"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 0,
             LSP_LADSPA_URI("mb_dyna_processor_mono"),
             LSP_CLAP_URI("mb_dyna_processor_mono"),
@@ -759,6 +763,8 @@ namespace lsp
             LSP_LV2_URI("mb_dyna_processor_stereo"),
             LSP_LV2UI_URI("mb_dyna_processor_stereo"),
             "mdp1",
+            LSP_VST3_UID("mbdp8s  mdp1"),
+            LSP_VST3UI_UID("mbdp8s  mdp1"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 1,
             LSP_LADSPA_URI("mb_dyna_processor_stereo"),
             LSP_CLAP_URI("mb_dyna_processor_stereo"),
@@ -784,6 +790,8 @@ namespace lsp
             LSP_LV2_URI("mb_dyna_processor_lr"),
             LSP_LV2UI_URI("mb_dyna_processor_lr"),
             "mdp2",
+            LSP_VST3_UID("mbdp8lr mdp2"),
+            LSP_VST3UI_UID("mbdp8lr mdp2"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 2,
             LSP_LADSPA_URI("mb_dyna_processor_lr"),
             LSP_CLAP_URI("mb_dyna_processor_lr"),
@@ -809,6 +817,8 @@ namespace lsp
             LSP_LV2_URI("mb_dyna_processor_ms"),
             LSP_LV2UI_URI("mb_dyna_processor_ms"),
             "mdp3",
+            LSP_VST3_UID("mbdp8ms mdp3"),
+            LSP_VST3UI_UID("mbdp8ms mdp3"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 3,
             LSP_LADSPA_URI("mb_dyna_processor_ms"),
             LSP_CLAP_URI("mb_dyna_processor_ms"),
@@ -835,6 +845,8 @@ namespace lsp
             LSP_LV2_URI("sc_mb_dyna_processor_mono"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_mono"),
             "mdp4",
+            LSP_VST3_UID("scmbdp8mmdp4"),
+            LSP_VST3UI_UID("scmbdp8mmdp4"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 4,
             LSP_LADSPA_URI("sc_mb_dyna_processor_mono"),
             LSP_CLAP_URI("sc_mb_dyna_processor_mono"),
@@ -860,6 +872,8 @@ namespace lsp
             LSP_LV2_URI("sc_mb_dyna_processor_stereo"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_stereo"),
             "mdp5",
+            LSP_VST3_UID("scmbdp8smdp5"),
+            LSP_VST3UI_UID("scmbdp8smdp5"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 5,
             LSP_LADSPA_URI("sc_mb_dyna_processor_stereo"),
             LSP_CLAP_URI("sc_mb_dyna_processor_stereo"),
@@ -885,6 +899,8 @@ namespace lsp
             LSP_LV2_URI("sc_mb_dyna_processor_lr"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_lr"),
             "mdp6",
+            LSP_VST3_UID("scmbdp8lmdp6"),
+            LSP_VST3UI_UID("scmbdp8lmdp6"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 6,
             LSP_LADSPA_URI("sc_mb_dyna_processor_lr"),
             LSP_CLAP_URI("sc_mb_dyna_processor_lr"),
@@ -910,6 +926,8 @@ namespace lsp
             LSP_LV2_URI("sc_mb_dyna_processor_ms"),
             LSP_LV2UI_URI("sc_mb_dyna_processor_ms"),
             "mdp7",
+            LSP_VST3_UID("scmbdp8mmdp7"),
+            LSP_VST3UI_UID("scmbdp8mmdp7"),
             LSP_LADSPA_MB_DYNA_PROCESSOR_BASE + 7,
             LSP_LADSPA_URI("sc_mb_dyna_processor_ms"),
             LSP_CLAP_URI("sc_mb_dyna_processor_ms"),
