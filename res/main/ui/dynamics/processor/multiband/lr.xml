@@ -249,6 +249,7 @@
 					<combo id="mode" pad.r="8" pad.v="4"/>
 					<label text="labels.sc_boost:"/>
 					<combo id="envb" pad.r="8"/>
+					<shmlink id="link" />
 					<label text="labels.filters" pad.l="6"/>
 					<hbox spacing="4" pad.h="6">
 						<button id="flt_l" text="labels.chan.L_eft" size="22" ui:inject="Button_left"/>
@@ -352,7 +353,7 @@
 										<hbox pad.b="4">
 											<button id="bs_${ch}" text="labels.chan.S_olo" height="19" hfill="true" ui:inject="Button_green_8"/>
 											<button id="bm_${ch}" text="labels.chan.M_ute" height="19" hfill="true" ui:inject="Button_red_8" pad.l="4"/>
-											<button id="sce_${ch}" text="labels.chan.Ext_ernal" height="19" hfill="true" ui:inject="Button_yellow_8" visibility="ex :sce_${ch}" pad.l="4"/>
+											<combo id="sce_${ch}" hfill="true" pad.l="4"/>
 										</hbox>
 									</grid>
 								</cell>
@@ -541,19 +542,7 @@
 													<ui:with pad.h="6" pad.b="4">
 														<combo id="scm_${ch}" fill="true" width.min="74"/>
 														<combo id="scs_${ch}" fill="true"/>
-														<button
-															text="labels.chan.external_sc"
-															id="sce_${ch}"
-															ui:inject="Button_Cycle"
-															hfill="true"
-															height="19"
-															down.color.hue=":hue_${ch}"
-															down.hover.color.hue=":hue_${ch}"
-															text.down.color.hue=":hue_${ch}"
-															text.down.hover.color.hue=":hue_${ch}"
-															border.down.color.hue=":hue_${ch}"
-															border.down.hover.color.hue=":hue_${ch}"
-															visibility="ex :sce_${ch}"/>
+														<combo id ="sce_${ch}" fill="true" />
 													</ui:with>
 												</vbox>
 											</vbox>
