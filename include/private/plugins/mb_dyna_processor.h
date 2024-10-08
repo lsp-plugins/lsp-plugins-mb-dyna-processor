@@ -72,6 +72,13 @@ namespace lsp
                     S_ALL           = S_DP_CURVE | S_DP_MODEL | S_EQ_CURVE | S_BAND_CURVE
                 };
 
+                enum sc_type_t
+                {
+                    SCT_INTERNAL,
+                    SCT_EXTERNAL,
+                    SCT_LINK,
+                };
+
                 typedef struct dyna_band_t
                 {
                     dspu::Sidechain         sSC;                // Sidechain module
@@ -95,18 +102,18 @@ namespace lsp
                     float                   fFreqLCF;           // Cutoff frequency for high-pass filter
                     float                   fMakeup;            // Makeup gain
                     float                   fGainLevel;         // Gain adjustment level
-                    size_t                  nLookahead;         // Lookahead amount
+                    uint32_t                nLookahead;         // Lookahead amount
 
                     bool                    bEnabled;           // Enabled flag
                     bool                    bCustHCF;           // Custom frequency for high-cut filter
                     bool                    bCustLCF;           // Custom frequency for low-cut filter
                     bool                    bMute;              // Mute channel
                     bool                    bSolo;              // Solo channel
-                    bool                    bExtSc;             // External sidechain
-                    size_t                  nSync;              // Synchronize output data flags
-                    size_t                  nFilterID;          // Identifier of the filter
+                    uint32_t                nScType;            // Sidechain type
+                    uint32_t                nSync;              // Synchronize output data flags
+                    uint32_t                nFilterID;          // Identifier of the filter
 
-                    plug::IPort            *pExtSc;             // External sidechain
+                    plug::IPort            *pScType;            // Sidechain type
                     plug::IPort            *pScSource;          // Sidechain source
                     plug::IPort            *pScSpSource;        // Sidechain split source
                     plug::IPort            *pScMode;            // Sidechain mode
@@ -158,7 +165,7 @@ namespace lsp
                 typedef struct channel_t
                 {
                     dspu::Bypass            sBypass;            // Bypass
-                    dspu::Filter            sEnvBoost[2];       // Envelope boost filter
+                    dspu::Filter            sEnvBoost[3];       // Envelope boost filter
                     dspu::Delay             sDelay;             // Delay for lookahead compensation purpose
                     dspu::Delay             sDryDelay;          // Delay for dry signal
                     dspu::Delay             sXOverDelay;        // Delay for crossover
@@ -168,28 +175,31 @@ namespace lsp
                     dyna_band_t             vBands[meta::mb_dyna_processor::BANDS_MAX];     // Processor bands
                     split_t                 vSplit[meta::mb_dyna_processor::BANDS_MAX-1];   // Split bands
                     dyna_band_t            *vPlan[meta::mb_dyna_processor::BANDS_MAX];      // Execution plan (band indexes)
-                    size_t                  nPlanSize;              // Plan size
+                    uint32_t                nPlanSize;          // Plan size
 
                     float                  *vIn;                // Input data buffer
                     float                  *vOut;               // Output data buffer
                     float                  *vScIn;              // Sidechain data buffer (if present)
+                    float                  *vShmIn;             // Shared memory link buffer (if present)
 
                     float                  *vInAnalyze;         // Input signal analysis
                     float                  *vInBuffer;          // Input buffer
                     float                  *vBuffer;            // Common data processing buffer
                     float                  *vScBuffer;          // Sidechain buffer
                     float                  *vExtScBuffer;       // External sidechain buffer
+                    float                  *vShmBuffer;         // Shared memory link buffer
                     float                  *vTr;                // Transfer function
                     float                  *vTrMem;             // Transfer buffer (memory)
 
-                    size_t                  nAnInChannel;       // Analyzer channel used for input signal analysis
-                    size_t                  nAnOutChannel;      // Analyzer channel used for output signal analysis
+                    uint32_t                nAnInChannel;       // Analyzer channel used for input signal analysis
+                    uint32_t                nAnOutChannel;      // Analyzer channel used for output signal analysis
                     bool                    bInFft;             // Input signal FFT enabled
                     bool                    bOutFft;            // Output signal FFT enabled
 
                     plug::IPort            *pIn;                // Input
                     plug::IPort            *pOut;               // Output
                     plug::IPort            *pScIn;              // Sidechain
+                    plug::IPort            *pShmIn;             // Shared memory link input
                     plug::IPort            *pFftIn;             // Pre-processing FFT analysis data
                     plug::IPort            *pFftInSw;           // Pre-processing FFT analysis control port
                     plug::IPort            *pFftOut;            // Post-processing FFT analysis data
@@ -203,12 +213,14 @@ namespace lsp
                 dspu::Analyzer          sAnalyzer;              // Analyzer
                 dspu::DynamicFilters    sFilters;               // Dynamic filters for each band in 'modern' mode
                 dspu::Counter           sCounter;               // Sync counter
-                size_t                  nMode;                  // Processor mode
+                uint32_t                nMode;                  // Processor mode
                 bool                    bSidechain;             // External side chain
                 bool                    bEnvUpdate;             // Envelope filter update
+                bool                    bUseExtSc;              // External sidechain is in use
+                bool                    bUseShmLink;            // Shared memory link is in use
                 xover_mode_t            enXOver;                // Crossover mode
                 bool                    bStereoSplit;           // Stereo split mode
-                size_t                  nEnvBoost;              // Envelope boost
+                uint32_t                nEnvBoost;              // Envelope boost
                 channel_t              *vChannels;              // Processor channels
                 float                   fInGain;                // Input gain
                 float                   fDryGain;               // Dry gain
@@ -249,6 +261,11 @@ namespace lsp
 
             protected:
                 void                do_destroy();
+                void                preprocess_channel_input(size_t count);
+                uint32_t            decode_sidechain_type(uint32_t sc) const;
+                void                process_input_mono(float *out, const float *in, size_t count);
+                void                process_input_stereo(float *l_out, float *r_out, const float *l_in, const float *r_in, size_t count);
+                const float        *select_buffer(const dyna_band_t *band, const channel_t *channel);
 
             public:
                 explicit mb_dyna_processor(const meta::plugin_t *metadata, bool sc, size_t mode);

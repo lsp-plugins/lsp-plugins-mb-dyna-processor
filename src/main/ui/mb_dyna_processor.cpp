@@ -279,7 +279,7 @@ namespace lsp
                 else
                     lc_string.set("lists.mb_dyna_processor.splits.index.split_id");
 
-                lc_string.params()->set_int("id", (vSplits.index_of(s) % (meta::mb_dyna_processor::BANDS_MAX-1))+1);
+                lc_string.params()->set_int("id", (vSplits.index_of(s) % (meta::mb_dyna_processor::BANDS_MAX-1))+2);
                 lc_string.format(&text);
                 params.set_string("id", &text);
                 lc_string.params()->clear();
