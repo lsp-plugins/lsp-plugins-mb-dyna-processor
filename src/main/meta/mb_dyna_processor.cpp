@@ -183,9 +183,9 @@ namespace lsp
                 AMP_GAIN("g_dry", "Dry gain", 0.0f, 10.0f), \
                 AMP_GAIN("g_wet", "Wet gain", 1.0f, 10.0f), \
                 PERCENTS("drywet", "Dry/Wet balance", 100.0f, 0.1f), \
-                LOG_CONTROL("react", "FFT reactivity", U_MSEC, mb_dyna_processor::REACT_TIME), \
+                LOG_CONTROL("react", "FFT reactivity", "Reactivity", U_MSEC, mb_dyna_processor::REACT_TIME), \
                 AMP_GAIN("shift", "Shift gain", 1.0f, 100.0f), \
-                LOG_CONTROL("zoom", "Graph zoom", U_GAIN_AMP, mb_dyna_processor::ZOOM), \
+                LOG_CONTROL("zoom", "Graph zoom", "Zoom", U_GAIN_AMP, mb_dyna_processor::ZOOM), \
                 COMBO("envb", "Envelope boost", mb_dyna_processor::FB_DEFAULT, mb_dyna_sc_boost), \
                 COMBO("bsel", "Band selection", mb_dyna_processor::SC_BAND_DFL, bands)
 
@@ -197,18 +197,18 @@ namespace lsp
                 SWITCH("pe" #idx id, "Point enable " #idx label, on), \
                 LOG_CONTROL_DFL("tl" #idx id, "Threshold " #idx label, "Thresh " #idx alias, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
                 LOG_CONTROL_DFL("gl" #idx id, "Gain " #idx label, "Gain " #idx alias, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
-                LOG_CONTROL("kn" #idx id, "Knee " #idx label, U_GAIN_AMP, mb_dyna_processor::KNEE), \
+                LOG_CONTROL("kn" #idx id, "Knee " #idx label, "Knee " #idx alias, U_GAIN_AMP, mb_dyna_processor::KNEE), \
                 SWITCH("ae" #idx id, "Attack enable " #idx label, 0.0f), \
                 LOG_CONTROL_DFL("al" #idx id, "Attack level " #idx label, "Att lvl " #idx alias, U_GAIN_AMP, mb_dyna_processor::ATTACK_LVL, level), \
-                LOG_CONTROL("at" #idx id, "Attack time " #idx label, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
+                LOG_CONTROL("at" #idx id, "Attack time " #idx label, "Att time " #idx alias, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
                 SWITCH("re" #idx id, "Release enable " #idx label, 0.0f), \
                 LOG_CONTROL_DFL("rl" #idx id, "Release level " #idx label, "Rel lvl " #idx alias, U_GAIN_AMP, mb_dyna_processor::RELEASE_LVL, level), \
-                LOG_CONTROL("rt" #idx id, "Release time " #idx label, U_MSEC, mb_dyna_processor::RELEASE_TIME)
+                LOG_CONTROL("rt" #idx id, "Release time " #idx label, "Rel time " #idx alias, U_MSEC, mb_dyna_processor::RELEASE_TIME)
 
         #define MB_BAND_COMMON(id, label, alias, x, total, fe, fs) \
                 COMBO("scm" id, "Sidechain mode" label, mb_dyna_processor::SC_MODE_DFL, mb_dyna_sc_modes), \
                 CONTROL("sla" id, "Sidechain lookahead" label, U_MSEC, mb_dyna_processor::LOOKAHEAD), \
-                LOG_CONTROL("scr" id, "Sidechain reactivity" label, U_MSEC, mb_dyna_processor::REACTIVITY), \
+                LOG_CONTROL("scr" id, "Sidechain reactivity" label, "SC react" alias, U_MSEC, mb_dyna_processor::REACTIVITY), \
                 AMP_GAIN100("scp" id, "Sidechain preamp" label, GAIN_AMP_0_DB), \
                 SWITCH("sclc" id, "Sidechain custom lo-cut" label, 0), \
                 SWITCH("schc" id, "Sidechain custom hi-cut" label, 0), \
@@ -219,16 +219,16 @@ namespace lsp
                 SWITCH("pe" id, "Processor enable" label, 1.0f), \
                 SWITCH("bs" id, "Solo band" label, 0.0f), \
                 SWITCH("bm" id, "Mute band" label, 0.0f), \
-                LOG_CONTROL("atd" id, "Attack time default" label, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
-                LOG_CONTROL("rtd" id, "Release time default" label, U_MSEC, mb_dyna_processor::RELEASE_TIME), \
+                LOG_CONTROL("atd" id, "Attack time default" label, "Att time" alias, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
+                LOG_CONTROL("rtd" id, "Release time default" label, "Rel time" alias, U_MSEC, mb_dyna_processor::RELEASE_TIME), \
                 MB_DYNA_POINT(0, 1.0f, id, label, alias, GAIN_AMP_M_12_DB), \
                 MB_DYNA_POINT(1, 0.0f, id, label, alias, GAIN_AMP_M_24_DB), \
                 MB_DYNA_POINT(2, 0.0f, id, label, alias, GAIN_AMP_M_36_DB), \
                 MB_DYNA_POINT(3, 0.0f, id, label, alias, GAIN_AMP_M_48_DB), \
                 CONTROL("ht" id, "Hold time" label, U_MSEC, mb_dyna_processor::HOLD_TIME), \
-                LOG_CONTROL("llr" id, "Low-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
-                LOG_CONTROL("hlr" id, "High-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
-                LOG_CONTROL("mk" id, "Makeup gain" label, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
+                LOG_CONTROL("llr" id, "Low-level ratio" label, "Low ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
+                LOG_CONTROL("hlr" id, "High-level ratio" label, "High ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
+                LOG_CONTROL("mk" id, "Makeup gain" label, "Makeup" alias, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
                 SWITCH("cmv" id, "Curve modelling visibility" label, 1.0f), \
                 HUE_CTL("hue" id, "Hue " label, float(x) / float(total)), \
                 \
