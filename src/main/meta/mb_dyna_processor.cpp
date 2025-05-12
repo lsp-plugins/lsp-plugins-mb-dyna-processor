@@ -207,7 +207,7 @@ namespace lsp
 
         #define MB_BAND_COMMON(id, label, alias, x, total, fe, fs) \
                 COMBO("scm" id, "Sidechain mode" label, "SC mode" alias, mb_dyna_processor::SC_MODE_DFL, mb_dyna_sc_modes), \
-                CONTROL("sla" id, "Sidechain lookahead" label, U_MSEC, mb_dyna_processor::LOOKAHEAD), \
+                CONTROL("sla" id, "Sidechain lookahead" label, "SC look" alias, U_MSEC, mb_dyna_processor::LOOKAHEAD), \
                 LOG_CONTROL("scr" id, "Sidechain reactivity" label, "SC react" alias, U_MSEC, mb_dyna_processor::REACTIVITY), \
                 AMP_GAIN100("scp" id, "Sidechain preamp" label, GAIN_AMP_0_DB), \
                 SWITCH("sclc" id, "Sidechain custom lo-cut" label, "SC LCF on" alias, 0), \
@@ -225,7 +225,7 @@ namespace lsp
                 MB_DYNA_POINT(1, 0.0f, id, label, alias, GAIN_AMP_M_24_DB), \
                 MB_DYNA_POINT(2, 0.0f, id, label, alias, GAIN_AMP_M_36_DB), \
                 MB_DYNA_POINT(3, 0.0f, id, label, alias, GAIN_AMP_M_48_DB), \
-                CONTROL("ht" id, "Hold time" label, U_MSEC, mb_dyna_processor::HOLD_TIME), \
+                CONTROL("ht" id, "Hold time" label, "Hold time" alias, U_MSEC, mb_dyna_processor::HOLD_TIME), \
                 LOG_CONTROL("llr" id, "Low-level ratio" label, "Low ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
                 LOG_CONTROL("hlr" id, "High-level ratio" label, "High ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
                 LOG_CONTROL("mk" id, "Makeup gain" label, "Makeup" alias, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
