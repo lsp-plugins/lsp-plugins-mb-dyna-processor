@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2024 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2024 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2025 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2025 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-mb-dyna-processor
  * Created on: 25 нояб. 2020 г.
@@ -26,7 +26,7 @@
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MAJOR       1
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MINOR       0
-#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       21
+#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       22
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION  \
     LSP_MODULE_VERSION( \
@@ -177,59 +177,59 @@ namespace lsp
 
         #define MB_COMMON(bands) \
                 BYPASS, \
-                COMBO("mode", "Dynamics Processor mode", 1, mb_global_dyna_modes), \
-                AMP_GAIN("g_in", "Input gain", mb_dyna_processor::IN_GAIN_DFL, 10.0f), \
-                AMP_GAIN("g_out", "Output gain", mb_dyna_processor::OUT_GAIN_DFL, 10.0f), \
-                AMP_GAIN("g_dry", "Dry gain", 0.0f, 10.0f), \
-                AMP_GAIN("g_wet", "Wet gain", 1.0f, 10.0f), \
-                PERCENTS("drywet", "Dry/Wet balance", 100.0f, 0.1f), \
-                LOG_CONTROL("react", "FFT reactivity", U_MSEC, mb_dyna_processor::REACT_TIME), \
-                AMP_GAIN("shift", "Shift gain", 1.0f, 100.0f), \
-                LOG_CONTROL("zoom", "Graph zoom", U_GAIN_AMP, mb_dyna_processor::ZOOM), \
-                COMBO("envb", "Envelope boost", mb_dyna_processor::FB_DEFAULT, mb_dyna_sc_boost), \
-                COMBO("bsel", "Band selection", mb_dyna_processor::SC_BAND_DFL, bands)
+                COMBO("mode", "Dynamics Processor mode", "Mode", 1, mb_global_dyna_modes), \
+                AMP_GAIN("g_in", "Input gain", "Input gain", mb_dyna_processor::IN_GAIN_DFL, 10.0f), \
+                AMP_GAIN("g_out", "Output gain", "Output gain", mb_dyna_processor::OUT_GAIN_DFL, 10.0f), \
+                AMP_GAIN("g_dry", "Dry gain", "Dry", 0.0f, 10.0f), \
+                AMP_GAIN("g_wet", "Wet gain", "Wet", 1.0f, 10.0f), \
+                PERCENTS("drywet", "Dry/Wet balance", "Dry/Wet", 100.0f, 0.1f), \
+                LOG_CONTROL("react", "FFT reactivity", "Reactivity", U_MSEC, mb_dyna_processor::REACT_TIME), \
+                AMP_GAIN("shift", "Shift gain", "Shift", 1.0f, 100.0f), \
+                LOG_CONTROL("zoom", "Graph zoom", "Zoom", U_GAIN_AMP, mb_dyna_processor::ZOOM), \
+                COMBO("envb", "Envelope boost", "Env boost", mb_dyna_processor::FB_DEFAULT, mb_dyna_sc_boost), \
+                COMBO("bsel", "Band selection", "Band selector", mb_dyna_processor::SC_BAND_DFL, bands)
 
-        #define MB_SPLIT(id, label, enable, freq) \
-                SWITCH("cbe" id, "Dynamics Processor band enable" label, enable), \
-                LOG_CONTROL_DFL("sf" id, "Split frequency" label, U_HZ, mb_dyna_processor::FREQ, freq)
+        #define MB_SPLIT(id, label, alias, enable, freq) \
+                SWITCH("cbe" id, "Dynamics Processor band enable" label, "Split on" alias, enable), \
+                LOG_CONTROL_DFL("sf" id, "Split frequency" label, "Split" alias, U_HZ, mb_dyna_processor::FREQ, freq)
 
-        #define MB_DYNA_POINT(idx, on, id, label, level) \
-                SWITCH("pe" #idx id, "Point enable " #idx label, on), \
-                LOG_CONTROL_DFL("tl" #idx id, "Threshold " #idx label, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
-                LOG_CONTROL_DFL("gl" #idx id, "Gain " #idx label, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
-                LOG_CONTROL("kn" #idx id, "Knee " #idx label, U_GAIN_AMP, mb_dyna_processor::KNEE), \
-                SWITCH("ae" #idx id, "Attack enable " #idx label, 0.0f), \
-                LOG_CONTROL_DFL("al" #idx id, "Attack level " #idx label, U_GAIN_AMP, mb_dyna_processor::ATTACK_LVL, level), \
-                LOG_CONTROL("at" #idx id, "Attack time " #idx label, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
-                SWITCH("re" #idx id, "Release enable " #idx label, 0.0f), \
-                LOG_CONTROL_DFL("rl" #idx id, "Relative level " #idx label, U_GAIN_AMP, mb_dyna_processor::RELEASE_LVL, level), \
-                LOG_CONTROL("rt" #idx id, "Release time " #idx label, U_MSEC, mb_dyna_processor::RELEASE_TIME)
+        #define MB_DYNA_POINT(idx, on, id, label, alias, level) \
+                SWITCH("pe" #idx id, "Point enable " #idx label, "Point on" #idx alias, on), \
+                LOG_CONTROL_DFL("tl" #idx id, "Threshold " #idx label, "Thresh " #idx alias, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
+                LOG_CONTROL_DFL("gl" #idx id, "Gain " #idx label, "Gain " #idx alias, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
+                LOG_CONTROL("kn" #idx id, "Knee " #idx label, "Knee " #idx alias, U_GAIN_AMP, mb_dyna_processor::KNEE), \
+                SWITCH("ae" #idx id, "Attack enable " #idx label, "Att on" #idx alias, 0.0f), \
+                LOG_CONTROL_DFL("al" #idx id, "Attack level " #idx label, "Att lvl " #idx alias, U_GAIN_AMP, mb_dyna_processor::ATTACK_LVL, level), \
+                LOG_CONTROL("at" #idx id, "Attack time " #idx label, "Att time " #idx alias, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
+                SWITCH("re" #idx id, "Release enable " #idx label, "Rel on" #idx alias, 0.0f), \
+                LOG_CONTROL_DFL("rl" #idx id, "Release level " #idx label, "Rel lvl " #idx alias, U_GAIN_AMP, mb_dyna_processor::RELEASE_LVL, level), \
+                LOG_CONTROL("rt" #idx id, "Release time " #idx label, "Rel time " #idx alias, U_MSEC, mb_dyna_processor::RELEASE_TIME)
 
-        #define MB_BAND_COMMON(id, label, x, total, fe, fs) \
-                COMBO("scm" id, "Sidechain mode" label, mb_dyna_processor::SC_MODE_DFL, mb_dyna_sc_modes), \
-                CONTROL("sla" id, "Sidechain lookahead" label, U_MSEC, mb_dyna_processor::LOOKAHEAD), \
-                LOG_CONTROL("scr" id, "Sidechain reactivity" label, U_MSEC, mb_dyna_processor::REACTIVITY), \
-                AMP_GAIN100("scp" id, "Sidechain preamp" label, GAIN_AMP_0_DB), \
-                SWITCH("sclc" id, "Sidechain custom lo-cut" label, 0), \
-                SWITCH("schc" id, "Sidechain custom hi-cut" label, 0), \
-                LOG_CONTROL_DFL("sclf" id, "Sidechain lo-cut frequency" label, U_HZ, mb_dyna_processor::FREQ, fe), \
-                LOG_CONTROL_DFL("schf" id, "Sidechain hi-cut frequency" label, U_HZ, mb_dyna_processor::FREQ, fs), \
+        #define MB_BAND_COMMON(id, label, alias, x, total, fe, fs) \
+                COMBO("scm" id, "Sidechain mode" label, "SC mode" alias, mb_dyna_processor::SC_MODE_DFL, mb_dyna_sc_modes), \
+                CONTROL("sla" id, "Sidechain lookahead" label, "SC look" alias, U_MSEC, mb_dyna_processor::LOOKAHEAD), \
+                LOG_CONTROL("scr" id, "Sidechain reactivity" label, "SC react" alias, U_MSEC, mb_dyna_processor::REACTIVITY), \
+                AMP_GAIN100("scp" id, "Sidechain preamp" label, "SC preamp" alias, GAIN_AMP_0_DB), \
+                SWITCH("sclc" id, "Sidechain custom lo-cut" label, "SC LCF on" alias, 0), \
+                SWITCH("schc" id, "Sidechain custom hi-cut" label, "SC HCF on" alias, 0), \
+                LOG_CONTROL_DFL("sclf" id, "Sidechain lo-cut frequency" label, "SC LCF" alias, U_HZ, mb_dyna_processor::FREQ, fe), \
+                LOG_CONTROL_DFL("schf" id, "Sidechain hi-cut frequency" label, "SC HCF" alias, U_HZ, mb_dyna_processor::FREQ, fs), \
                 MESH("bfc" id, "Side-chain band frequency chart" label, 2, mb_dyna_processor::MESH_POINTS + 4), \
                 \
-                SWITCH("pe" id, "Processor enable" label, 1.0f), \
-                SWITCH("bs" id, "Solo band" label, 0.0f), \
-                SWITCH("bm" id, "Mute band" label, 0.0f), \
-                LOG_CONTROL("atd" id, "Attack time default" label, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
-                LOG_CONTROL("rtd" id, "Release time default" label, U_MSEC, mb_dyna_processor::RELEASE_TIME), \
-                MB_DYNA_POINT(0, 1.0f, id, label, GAIN_AMP_M_12_DB), \
-                MB_DYNA_POINT(1, 0.0f, id, label, GAIN_AMP_M_24_DB), \
-                MB_DYNA_POINT(2, 0.0f, id, label, GAIN_AMP_M_36_DB), \
-                MB_DYNA_POINT(3, 0.0f, id, label, GAIN_AMP_M_48_DB), \
-                CONTROL("ht" id, "Hold time" label, U_MSEC, mb_dyna_processor::HOLD_TIME), \
-                LOG_CONTROL("llr" id, "Low-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
-                LOG_CONTROL("hlr" id, "High-level ratio" label, U_NONE, mb_dyna_processor::RATIO), \
-                LOG_CONTROL("mk" id, "Makeup gain" label, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
-                SWITCH("cmv" id, "Curve modelling visibility" label, 1.0f), \
+                SWITCH("pe" id, "Processor enable" label, "On " alias, 1.0f), \
+                SWITCH("bs" id, "Solo band" label, "Solo " alias, 0.0f), \
+                SWITCH("bm" id, "Mute band" label, "Mute " alias, 0.0f), \
+                LOG_CONTROL("atd" id, "Attack time default" label, "Att time" alias, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
+                LOG_CONTROL("rtd" id, "Release time default" label, "Rel time" alias, U_MSEC, mb_dyna_processor::RELEASE_TIME), \
+                MB_DYNA_POINT(0, 1.0f, id, label, alias, GAIN_AMP_M_12_DB), \
+                MB_DYNA_POINT(1, 0.0f, id, label, alias, GAIN_AMP_M_24_DB), \
+                MB_DYNA_POINT(2, 0.0f, id, label, alias, GAIN_AMP_M_36_DB), \
+                MB_DYNA_POINT(3, 0.0f, id, label, alias, GAIN_AMP_M_48_DB), \
+                CONTROL("ht" id, "Hold time" label, "Hold time" alias, U_MSEC, mb_dyna_processor::HOLD_TIME), \
+                LOG_CONTROL("llr" id, "Low-level ratio" label, "Low ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
+                LOG_CONTROL("hlr" id, "High-level ratio" label, "High ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
+                LOG_CONTROL("mk" id, "Makeup gain" label, "Makeup" alias, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
+                SWITCH("cmv" id, "Curve modelling visibility" label, "Show curve " alias, 1.0f), \
                 HUE_CTL("hue" id, "Hue " label, float(x) / float(total)), \
                 \
                 METER("fre" id, "Frequency range end" label, U_HZ,  mb_dyna_processor::OUT_FREQ), \
@@ -241,49 +241,49 @@ namespace lsp
                 METER_OUT_GAIN("clm" id, "Curve level meter" label, GAIN_AMP_P_36_DB), \
                 METER_OUT_GAIN("rlm" id, "Reduction level meter" label, GAIN_AMP_P_72_DB)
 
-        #define MB_MONO_BAND(id, label, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, 0.0f, mb_dyna_sc_type), \
-                MB_BAND_COMMON(id, label, x, total, fe, fs)
+        #define MB_MONO_BAND(id, label, alias, x, total, fe, fs) \
+                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type), \
+                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
-        #define MB_STEREO_BAND(id, label, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, 0.0f, mb_dyna_sc_type), \
-                COMBO("scs" id, "Sidechain source" label, 0, mb_dyna_sc_source), \
-                COMBO("sscs" id, "Split sidechain source" label, 0, mb_dyna_sc_split_source), \
-                MB_BAND_COMMON(id, label, x, total, fe, fs)
+        #define MB_STEREO_BAND(id, label, alias, x, total, fe, fs) \
+                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type), \
+                COMBO("scs" id, "Sidechain source" label, "SC source" alias, 0, mb_dyna_sc_source), \
+                COMBO("sscs" id, "Split sidechain source" label, "SC split" alias, 0, mb_dyna_sc_split_source), \
+                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
-        #define MB_SPLIT_BAND(id, label, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, 0.0f, mb_dyna_sc_type), \
-                COMBO("scs" id, "Sidechain source" label, dspu::SCS_MIDDLE, mb_dyna_sc_source), \
-                MB_BAND_COMMON(id, label, x, total, fe, fs)
+        #define MB_SPLIT_BAND(id, label, alias, x, total, fe, fs) \
+                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type), \
+                COMBO("scs" id, "Sidechain source" label, "SC source" alias, dspu::SCS_MIDDLE, mb_dyna_sc_source), \
+                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
-        #define MB_SC_MONO_BAND(id, label, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, 0.0f, mb_dyna_sc_type_sc), \
-                MB_BAND_COMMON(id, label, x, total, fe, fs)
+        #define MB_SC_MONO_BAND(id, label, alias, x, total, fe, fs) \
+                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type_sc), \
+                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
-        #define MB_SC_STEREO_BAND(id, label, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, 0.0f, mb_dyna_sc_type_sc), \
-                COMBO("scs" id, "Sidechain source" label, 0, mb_dyna_sc_source), \
-                COMBO("sscs" id, "Split sidechain source" label, 0, mb_dyna_sc_split_source), \
-                MB_BAND_COMMON(id, label, x, total, fe, fs)
+        #define MB_SC_STEREO_BAND(id, label, alias, x, total, fe, fs) \
+                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type_sc), \
+                COMBO("scs" id, "Sidechain source" label, "SC source" alias, 0, mb_dyna_sc_source), \
+                COMBO("sscs" id, "Split sidechain source" label, "SC split" alias, 0, mb_dyna_sc_split_source), \
+                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
-        #define MB_SC_SPLIT_BAND(id, label, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, 0.0f, mb_dyna_sc_type_sc), \
-                COMBO("scs" id, "Sidechain source" label, dspu::SCS_MIDDLE, mb_dyna_sc_source), \
-                MB_BAND_COMMON(id, label, x, total, fe, fs)
+        #define MB_SC_SPLIT_BAND(id, label, alias, x, total, fe, fs) \
+                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type_sc), \
+                COMBO("scs" id, "Sidechain source" label, "SC source" alias, dspu::SCS_MIDDLE, mb_dyna_sc_source), \
+                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
         #define MB_STEREO_CHANNEL \
-                SWITCH("flt", "Band filter curves", 1.0f), \
+                SWITCH("flt", "Band filter curves", "Show filters", 1.0f), \
                 MESH("ag_l", "Pprocessor amplitude graph Left", 2, mb_dyna_processor::FFT_MESH_POINTS), \
                 MESH("ag_r", "Processor amplitude graph Right", 2, mb_dyna_processor::FFT_MESH_POINTS), \
-                SWITCH("ssplit", "Stereo split", 0.0f)
+                SWITCH("ssplit", "Stereo split", "Stereo split", 0.0f)
 
-        #define MB_CHANNEL(id, label) \
-                SWITCH("flt" id, "Band filter curves" label, 1.0f), \
+        #define MB_CHANNEL(id, label, alias) \
+                SWITCH("flt" id, "Band filter curves" label, "Show flt" alias, 1.0f), \
                 MESH("ag" id, "Processor amplitude graph " label, 2, mb_dyna_processor::FFT_MESH_POINTS)
 
-        #define MB_FFT_METERS(id, label) \
-                SWITCH("ife" id, "Input FFT graph enable" label, 1.0f), \
-                SWITCH("ofe" id, "Output FFT graph enable" label, 1.0f), \
+        #define MB_FFT_METERS(id, label, alias) \
+                SWITCH("ife" id, "Input FFT graph enable" label, "FFT In" alias, 1.0f), \
+                SWITCH("ofe" id, "Output FFT graph enable" label, "FFT Out" alias, 1.0f), \
                 MESH("ifg" id, "Input FFT graph" label, 2, mb_dyna_processor::FFT_MESH_POINTS + 2), \
                 MESH("ofg" id, "Output FFT graph" label, 2, mb_dyna_processor::FFT_MESH_POINTS)
 
@@ -308,26 +308,26 @@ namespace lsp
             PORTS_MONO_PLUGIN,
             MB_DYNA_SHM_LINK_MONO,
             MB_COMMON(mb_dyna_sc_bands),
-            MB_CHANNEL("", ""),
-            MB_FFT_METERS("", ""),
+            MB_CHANNEL("", "", ""),
+            MB_FFT_METERS("", "", ""),
             MB_CHANNEL_METERS("", ""),
 
-            MB_SPLIT("_1", " 1", 0.0f, 40.0f),
-            MB_SPLIT("_2", " 2", 1.0f, 100.0f),
-            MB_SPLIT("_3", " 3", 0.0f, 252.0f),
-            MB_SPLIT("_4", " 4", 1.0f, 632.0f),
-            MB_SPLIT("_5", " 5", 0.0f, 1587.0f),
-            MB_SPLIT("_6", " 6", 1.0f, 3984.0f),
-            MB_SPLIT("_7", " 7", 0.0f, 10000.0f),
+            MB_SPLIT("_1", " 1", " 1", 0.0f, 40.0f),
+            MB_SPLIT("_2", " 2", " 2", 1.0f, 100.0f),
+            MB_SPLIT("_3", " 3", " 3", 0.0f, 252.0f),
+            MB_SPLIT("_4", " 4", " 4", 1.0f, 632.0f),
+            MB_SPLIT("_5", " 5", " 5", 0.0f, 1587.0f),
+            MB_SPLIT("_6", " 6", " 6", 1.0f, 3984.0f),
+            MB_SPLIT("_7", " 7", " 7", 0.0f, 10000.0f),
 
-            MB_MONO_BAND("_0", " 0", 0, 8, 10.0f, 40.0f),
-            MB_MONO_BAND("_1", " 1", 1, 8, 40.0f, 100.0f),
-            MB_MONO_BAND("_2", " 2", 2, 8, 100.0f, 252.0f),
-            MB_MONO_BAND("_3", " 3", 3, 8, 252.0f, 632.0f),
-            MB_MONO_BAND("_4", " 4", 4, 8, 632.0f, 1587.0f),
-            MB_MONO_BAND("_5", " 5", 5, 8, 1587.0f, 3984.0f),
-            MB_MONO_BAND("_6", " 6", 6, 8, 3984.0f, 10000.0f),
-            MB_MONO_BAND("_7", " 7", 7, 8, 10000.0f, 20000.0f),
+            MB_MONO_BAND("_0", " 0", " 0", 0, 8, 10.0f, 40.0f),
+            MB_MONO_BAND("_1", " 1", " 1", 1, 8, 40.0f, 100.0f),
+            MB_MONO_BAND("_2", " 2", " 2", 2, 8, 100.0f, 252.0f),
+            MB_MONO_BAND("_3", " 3", " 3", 3, 8, 252.0f, 632.0f),
+            MB_MONO_BAND("_4", " 4", " 4", 4, 8, 632.0f, 1587.0f),
+            MB_MONO_BAND("_5", " 5", " 5", 5, 8, 1587.0f, 3984.0f),
+            MB_MONO_BAND("_6", " 6", " 6", 6, 8, 3984.0f, 10000.0f),
+            MB_MONO_BAND("_7", " 7", " 7", 7, 8, 10000.0f, 20000.0f),
 
             MB_BAND_METERS("_0", " 0"),
             MB_BAND_METERS("_1", " 1"),
@@ -347,27 +347,27 @@ namespace lsp
             MB_DYNA_SHM_LINK_STEREO,
             MB_COMMON(mb_dyna_sc_bands),
             MB_STEREO_CHANNEL,
-            MB_FFT_METERS("_l", " Left"),
+            MB_FFT_METERS("_l", " Left", " L"),
             MB_CHANNEL_METERS("_l", " Left"),
-            MB_FFT_METERS("_r", " Right"),
+            MB_FFT_METERS("_r", " Right", " R"),
             MB_CHANNEL_METERS("_r", " Right"),
 
-            MB_SPLIT("_1", " 1", 0.0f, 40.0f),
-            MB_SPLIT("_2", " 2", 1.0f, 100.0f),
-            MB_SPLIT("_3", " 3", 0.0f, 252.0f),
-            MB_SPLIT("_4", " 4", 1.0f, 632.0f),
-            MB_SPLIT("_5", " 5", 0.0f, 1587.0f),
-            MB_SPLIT("_6", " 6", 1.0f, 3984.0f),
-            MB_SPLIT("_7", " 7", 0.0f, 10000.0f),
+            MB_SPLIT("_1", " 1", " 1", 0.0f, 40.0f),
+            MB_SPLIT("_2", " 2", " 2", 1.0f, 100.0f),
+            MB_SPLIT("_3", " 3", " 3", 0.0f, 252.0f),
+            MB_SPLIT("_4", " 4", " 4", 1.0f, 632.0f),
+            MB_SPLIT("_5", " 5", " 5", 0.0f, 1587.0f),
+            MB_SPLIT("_6", " 6", " 6", 1.0f, 3984.0f),
+            MB_SPLIT("_7", " 7", " 7", 0.0f, 10000.0f),
 
-            MB_STEREO_BAND("_0", " 0", 0, 8, 10.0f, 40.0f),
-            MB_STEREO_BAND("_1", " 1", 1, 8, 40.0f, 100.0f),
-            MB_STEREO_BAND("_2", " 2", 2, 8, 100.0f, 252.0f),
-            MB_STEREO_BAND("_3", " 3", 3, 8, 252.0f, 632.0f),
-            MB_STEREO_BAND("_4", " 4", 4, 8, 632.0f, 1587.0f),
-            MB_STEREO_BAND("_5", " 5", 5, 8, 1587.0f, 3984.0f),
-            MB_STEREO_BAND("_6", " 6", 6, 8, 3984.0f, 10000.0f),
-            MB_STEREO_BAND("_7", " 7", 7, 8, 10000.0f, 20000.0f),
+            MB_STEREO_BAND("_0", " 0", " 0", 0, 8, 10.0f, 40.0f),
+            MB_STEREO_BAND("_1", " 1", " 1", 1, 8, 40.0f, 100.0f),
+            MB_STEREO_BAND("_2", " 2", " 2", 2, 8, 100.0f, 252.0f),
+            MB_STEREO_BAND("_3", " 3", " 3", 3, 8, 252.0f, 632.0f),
+            MB_STEREO_BAND("_4", " 4", " 4", 4, 8, 632.0f, 1587.0f),
+            MB_STEREO_BAND("_5", " 5", " 5", 5, 8, 1587.0f, 3984.0f),
+            MB_STEREO_BAND("_6", " 6", " 6", 6, 8, 3984.0f, 10000.0f),
+            MB_STEREO_BAND("_7", " 7", " 7", 7, 8, 10000.0f, 20000.0f),
 
             MB_BAND_METERS("_0l", " 0 Left"),
             MB_BAND_METERS("_1l", " 1 Left"),
@@ -395,46 +395,46 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             MB_DYNA_SHM_LINK_STEREO,
             MB_COMMON(mb_dyna_sc_lr_bands),
-            MB_CHANNEL("_l", " Left"),
-            MB_CHANNEL("_r", " Right"),
-            MB_FFT_METERS("_l", " Left"),
+            MB_CHANNEL("_l", " Left", " L"),
+            MB_CHANNEL("_r", " Right", " R"),
+            MB_FFT_METERS("_l", " Left", " L"),
             MB_CHANNEL_METERS("_l", " Left"),
-            MB_FFT_METERS("_r", " Right"),
+            MB_FFT_METERS("_r", " Right", " R"),
             MB_CHANNEL_METERS("_r", " Right"),
 
-            MB_SPLIT("_1l", " 1 Left", 0.0f, 40.0f),
-            MB_SPLIT("_2l", " 2 Left", 1.0f, 100.0f),
-            MB_SPLIT("_3l", " 3 Left", 0.0f, 252.0f),
-            MB_SPLIT("_4l", " 4 Left", 1.0f, 632.0f),
-            MB_SPLIT("_5l", " 5 Left", 0.0f, 1587.0f),
-            MB_SPLIT("_6l", " 6 Left", 1.0f, 3984.0f),
-            MB_SPLIT("_7l", " 7 Left", 0.0f, 10000.0f),
+            MB_SPLIT("_1l", " 1 Left", " 1 L", 0.0f, 40.0f),
+            MB_SPLIT("_2l", " 2 Left", " 2 L", 1.0f, 100.0f),
+            MB_SPLIT("_3l", " 3 Left", " 3 L", 0.0f, 252.0f),
+            MB_SPLIT("_4l", " 4 Left", " 4 L", 1.0f, 632.0f),
+            MB_SPLIT("_5l", " 5 Left", " 5 L", 0.0f, 1587.0f),
+            MB_SPLIT("_6l", " 6 Left", " 6 L", 1.0f, 3984.0f),
+            MB_SPLIT("_7l", " 7 Left", " 7 L", 0.0f, 10000.0f),
 
-            MB_SPLIT("_1r", " 1 Right", 0.0f, 40.0f),
-            MB_SPLIT("_2r", " 2 Right", 1.0f, 100.0f),
-            MB_SPLIT("_3r", " 3 Right", 0.0f, 252.0f),
-            MB_SPLIT("_4r", " 4 Right", 1.0f, 632.0f),
-            MB_SPLIT("_5r", " 5 Right", 0.0f, 1587.0f),
-            MB_SPLIT("_6r", " 6 Right", 1.0f, 3984.0f),
-            MB_SPLIT("_7r", " 7 Right", 0.0f, 10000.0f),
+            MB_SPLIT("_1r", " 1 Right", " 1 R", 0.0f, 40.0f),
+            MB_SPLIT("_2r", " 2 Right", " 2 R", 1.0f, 100.0f),
+            MB_SPLIT("_3r", " 3 Right", " 3 R", 0.0f, 252.0f),
+            MB_SPLIT("_4r", " 4 Right", " 4 R", 1.0f, 632.0f),
+            MB_SPLIT("_5r", " 5 Right", " 5 R", 0.0f, 1587.0f),
+            MB_SPLIT("_6r", " 6 Right", " 6 R", 1.0f, 3984.0f),
+            MB_SPLIT("_7r", " 7 Right", " 7 R", 0.0f, 10000.0f),
 
-            MB_SPLIT_BAND("_0l", " 0 Left", 0, 8, 10.0f, 40.0f),
-            MB_SPLIT_BAND("_1l", " 1 Left", 1, 8, 40.0f, 100.0f),
-            MB_SPLIT_BAND("_2l", " 2 Left", 2, 8, 100.0f, 252.0f),
-            MB_SPLIT_BAND("_3l", " 3 Left", 3, 8, 252.0f, 632.0f),
-            MB_SPLIT_BAND("_4l", " 4 Left", 4, 8, 632.0f, 1587.0f),
-            MB_SPLIT_BAND("_5l", " 5 Left", 5, 8, 1587.0f, 3984.0f),
-            MB_SPLIT_BAND("_6l", " 6 Left", 6, 8, 3984.0f, 10000.0f),
-            MB_SPLIT_BAND("_7l", " 7 Left", 7, 8, 10000.0f, 20000.0f),
+            MB_SPLIT_BAND("_0l", " 0 Left", " 0 L", 0, 8, 10.0f, 40.0f),
+            MB_SPLIT_BAND("_1l", " 1 Left", " 1 L", 1, 8, 40.0f, 100.0f),
+            MB_SPLIT_BAND("_2l", " 2 Left", " 2 L", 2, 8, 100.0f, 252.0f),
+            MB_SPLIT_BAND("_3l", " 3 Left", " 3 L", 3, 8, 252.0f, 632.0f),
+            MB_SPLIT_BAND("_4l", " 4 Left", " 4 L", 4, 8, 632.0f, 1587.0f),
+            MB_SPLIT_BAND("_5l", " 5 Left", " 5 L", 5, 8, 1587.0f, 3984.0f),
+            MB_SPLIT_BAND("_6l", " 6 Left", " 6 L", 6, 8, 3984.0f, 10000.0f),
+            MB_SPLIT_BAND("_7l", " 7 Left", " 7 L", 7, 8, 10000.0f, 20000.0f),
 
-            MB_SPLIT_BAND("_0r", " 0 Right", 0, 8, 10.0f, 40.0f),
-            MB_SPLIT_BAND("_1r", " 1 Right", 1, 8, 40.0f, 100.0f),
-            MB_SPLIT_BAND("_2r", " 2 Right", 2, 8, 100.0f, 252.0f),
-            MB_SPLIT_BAND("_3r", " 3 Right", 3, 8, 252.0f, 632.0f),
-            MB_SPLIT_BAND("_4r", " 4 Right", 4, 8, 632.0f, 1587.0f),
-            MB_SPLIT_BAND("_5r", " 5 Right", 5, 8, 1587.0f, 3984.0f),
-            MB_SPLIT_BAND("_6r", " 6 Right", 6, 8, 3984.0f, 10000.0f),
-            MB_SPLIT_BAND("_7r", " 7 Right", 7, 8, 10000.0f, 20000.0f),
+            MB_SPLIT_BAND("_0r", " 0 Right", " 0 R", 0, 8, 10.0f, 40.0f),
+            MB_SPLIT_BAND("_1r", " 1 Right", " 1 R", 1, 8, 40.0f, 100.0f),
+            MB_SPLIT_BAND("_2r", " 2 Right", " 2 R", 2, 8, 100.0f, 252.0f),
+            MB_SPLIT_BAND("_3r", " 3 Right", " 3 R", 3, 8, 252.0f, 632.0f),
+            MB_SPLIT_BAND("_4r", " 4 Right", " 4 R", 4, 8, 632.0f, 1587.0f),
+            MB_SPLIT_BAND("_5r", " 5 Right", " 5 R", 5, 8, 1587.0f, 3984.0f),
+            MB_SPLIT_BAND("_6r", " 6 Right", " 6 R", 6, 8, 3984.0f, 10000.0f),
+            MB_SPLIT_BAND("_7r", " 7 Right", " 7 R", 7, 8, 10000.0f, 20000.0f),
 
             MB_BAND_METERS("_0l", " 0 Left"),
             MB_BAND_METERS("_1l", " 1 Left"),
@@ -462,46 +462,46 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             MB_DYNA_SHM_LINK_STEREO,
             MB_COMMON(mb_dyna_sc_ms_bands),
-            MB_CHANNEL("_m", " Mid"),
-            MB_CHANNEL("_s", " Side"),
-            MB_FFT_METERS("_m", " Mid"),
+            MB_CHANNEL("_m", " Mid", " M"),
+            MB_CHANNEL("_s", " Side", " S"),
+            MB_FFT_METERS("_m", " Mid", " M"),
             MB_CHANNEL_METERS("_l", " Left"),
-            MB_FFT_METERS("_s", " Side"),
+            MB_FFT_METERS("_s", " Side", " S"),
             MB_CHANNEL_METERS("_r", " Right"),
 
-            MB_SPLIT("_1m", " 1 Mid", 0.0f, 40.0f),
-            MB_SPLIT("_2m", " 2 Mid", 1.0f, 100.0f),
-            MB_SPLIT("_3m", " 3 Mid", 0.0f, 252.0f),
-            MB_SPLIT("_4m", " 4 Mid", 1.0f, 632.0f),
-            MB_SPLIT("_5m", " 5 Mid", 0.0f, 1587.0f),
-            MB_SPLIT("_6m", " 6 Mid", 1.0f, 3984.0f),
-            MB_SPLIT("_7m", " 7 Mid", 0.0f, 10000.0f),
+            MB_SPLIT("_1m", " 1 Mid", " 1 M", 0.0f, 40.0f),
+            MB_SPLIT("_2m", " 2 Mid", " 2 M", 1.0f, 100.0f),
+            MB_SPLIT("_3m", " 3 Mid", " 3 M", 0.0f, 252.0f),
+            MB_SPLIT("_4m", " 4 Mid", " 4 M", 1.0f, 632.0f),
+            MB_SPLIT("_5m", " 5 Mid", " 5 M", 0.0f, 1587.0f),
+            MB_SPLIT("_6m", " 6 Mid", " 6 M", 1.0f, 3984.0f),
+            MB_SPLIT("_7m", " 7 Mid", " 7 M", 0.0f, 10000.0f),
 
-            MB_SPLIT("_1s", " 1 Side", 0.0f, 40.0f),
-            MB_SPLIT("_2s", " 2 Side", 1.0f, 100.0f),
-            MB_SPLIT("_3s", " 3 Side", 0.0f, 252.0f),
-            MB_SPLIT("_4s", " 4 Side", 1.0f, 632.0f),
-            MB_SPLIT("_5s", " 5 Side", 0.0f, 1587.0f),
-            MB_SPLIT("_6s", " 6 Side", 1.0f, 3984.0f),
-            MB_SPLIT("_7s", " 7 Side", 0.0f, 10000.0f),
+            MB_SPLIT("_1s", " 1 Side", " 1 S", 0.0f, 40.0f),
+            MB_SPLIT("_2s", " 2 Side", " 2 S", 1.0f, 100.0f),
+            MB_SPLIT("_3s", " 3 Side", " 3 S", 0.0f, 252.0f),
+            MB_SPLIT("_4s", " 4 Side", " 4 S", 1.0f, 632.0f),
+            MB_SPLIT("_5s", " 5 Side", " 5 S", 0.0f, 1587.0f),
+            MB_SPLIT("_6s", " 6 Side", " 6 S", 1.0f, 3984.0f),
+            MB_SPLIT("_7s", " 7 Side", " 7 S", 0.0f, 10000.0f),
 
-            MB_SPLIT_BAND("_0m", " 0 Mid", 0, 8, 10.0f, 40.0f),
-            MB_SPLIT_BAND("_1m", " 1 Mid", 1, 8, 40.0f, 100.0f),
-            MB_SPLIT_BAND("_2m", " 2 Mid", 2, 8, 100.0f, 252.0f),
-            MB_SPLIT_BAND("_3m", " 3 Mid", 3, 8, 252.0f, 632.0f),
-            MB_SPLIT_BAND("_4m", " 4 Mid", 4, 8, 632.0f, 1587.0f),
-            MB_SPLIT_BAND("_5m", " 5 Mid", 5, 8, 1587.0f, 3984.0f),
-            MB_SPLIT_BAND("_6m", " 6 Mid", 6, 8, 3984.0f, 10000.0f),
-            MB_SPLIT_BAND("_7m", " 7 Mid", 7, 8, 10000.0f, 20000.0f),
+            MB_SPLIT_BAND("_0m", " 0 Mid", " 0 M", 0, 8, 10.0f, 40.0f),
+            MB_SPLIT_BAND("_1m", " 1 Mid", " 1 M", 1, 8, 40.0f, 100.0f),
+            MB_SPLIT_BAND("_2m", " 2 Mid", " 2 M", 2, 8, 100.0f, 252.0f),
+            MB_SPLIT_BAND("_3m", " 3 Mid", " 3 M", 3, 8, 252.0f, 632.0f),
+            MB_SPLIT_BAND("_4m", " 4 Mid", " 4 M", 4, 8, 632.0f, 1587.0f),
+            MB_SPLIT_BAND("_5m", " 5 Mid", " 5 M", 5, 8, 1587.0f, 3984.0f),
+            MB_SPLIT_BAND("_6m", " 6 Mid", " 6 M", 6, 8, 3984.0f, 10000.0f),
+            MB_SPLIT_BAND("_7m", " 7 Mid", " 7 M", 7, 8, 10000.0f, 20000.0f),
 
-            MB_SPLIT_BAND("_0s", " 0 Side", 0, 8, 10.0f, 40.0f),
-            MB_SPLIT_BAND("_1s", " 1 Side", 1, 8, 40.0f, 100.0f),
-            MB_SPLIT_BAND("_2s", " 2 Side", 2, 8, 100.0f, 252.0f),
-            MB_SPLIT_BAND("_3s", " 3 Side", 3, 8, 252.0f, 632.0f),
-            MB_SPLIT_BAND("_4s", " 4 Side", 4, 8, 632.0f, 1587.0f),
-            MB_SPLIT_BAND("_5s", " 5 Side", 5, 8, 1587.0f, 3984.0f),
-            MB_SPLIT_BAND("_6s", " 6 Side", 6, 8, 3984.0f, 10000.0f),
-            MB_SPLIT_BAND("_7s", " 7 Side", 7, 8, 10000.0f, 20000.0f),
+            MB_SPLIT_BAND("_0s", " 0 Side", " 0 S", 0, 8, 10.0f, 40.0f),
+            MB_SPLIT_BAND("_1s", " 1 Side", " 1 S", 1, 8, 40.0f, 100.0f),
+            MB_SPLIT_BAND("_2s", " 2 Side", " 2 S", 2, 8, 100.0f, 252.0f),
+            MB_SPLIT_BAND("_3s", " 3 Side", " 3 S", 3, 8, 252.0f, 632.0f),
+            MB_SPLIT_BAND("_4s", " 4 Side", " 4 S", 4, 8, 632.0f, 1587.0f),
+            MB_SPLIT_BAND("_5s", " 5 Side", " 5 S", 5, 8, 1587.0f, 3984.0f),
+            MB_SPLIT_BAND("_6s", " 6 Side", " 6 S", 6, 8, 3984.0f, 10000.0f),
+            MB_SPLIT_BAND("_7s", " 7 Side", " 7 S", 7, 8, 10000.0f, 20000.0f),
 
             MB_BAND_METERS("_0m", " 0 Mid"),
             MB_BAND_METERS("_1m", " 1 Mid"),
@@ -530,26 +530,26 @@ namespace lsp
             PORTS_MONO_SIDECHAIN,
             MB_DYNA_SHM_LINK_MONO,
             MB_COMMON(mb_dyna_sc_bands),
-            MB_CHANNEL("", ""),
-            MB_FFT_METERS("", ""),
+            MB_CHANNEL("", "", ""),
+            MB_FFT_METERS("", "", ""),
             MB_CHANNEL_METERS("", ""),
 
-            MB_SPLIT("_1", " 1", 0.0f, 40.0f),
-            MB_SPLIT("_2", " 2", 1.0f, 100.0f),
-            MB_SPLIT("_3", " 3", 0.0f, 252.0f),
-            MB_SPLIT("_4", " 4", 1.0f, 632.0f),
-            MB_SPLIT("_5", " 5", 0.0f, 1587.0f),
-            MB_SPLIT("_6", " 6", 1.0f, 3984.0f),
-            MB_SPLIT("_7", " 7", 0.0f, 10000.0f),
+            MB_SPLIT("_1", " 1", " 1", 0.0f, 40.0f),
+            MB_SPLIT("_2", " 2", " 2", 1.0f, 100.0f),
+            MB_SPLIT("_3", " 3", " 3", 0.0f, 252.0f),
+            MB_SPLIT("_4", " 4", " 4", 1.0f, 632.0f),
+            MB_SPLIT("_5", " 5", " 5", 0.0f, 1587.0f),
+            MB_SPLIT("_6", " 6", " 6", 1.0f, 3984.0f),
+            MB_SPLIT("_7", " 7", " 7", 0.0f, 10000.0f),
 
-            MB_SC_MONO_BAND("_0", " 0", 0, 8, 10.0f, 40.0f),
-            MB_SC_MONO_BAND("_1", " 1", 1, 8, 40.0f, 100.0f),
-            MB_SC_MONO_BAND("_2", " 2", 2, 8, 100.0f, 252.0f),
-            MB_SC_MONO_BAND("_3", " 3", 3, 8, 252.0f, 632.0f),
-            MB_SC_MONO_BAND("_4", " 4", 4, 8, 632.0f, 1587.0f),
-            MB_SC_MONO_BAND("_5", " 5", 5, 8, 1587.0f, 3984.0f),
-            MB_SC_MONO_BAND("_6", " 6", 6, 8, 3984.0f, 10000.0f),
-            MB_SC_MONO_BAND("_7", " 7", 7, 8, 10000.0f, 20000.0f),
+            MB_SC_MONO_BAND("_0", " 0", " 0", 0, 8, 10.0f, 40.0f),
+            MB_SC_MONO_BAND("_1", " 1", " 1", 1, 8, 40.0f, 100.0f),
+            MB_SC_MONO_BAND("_2", " 2", " 2", 2, 8, 100.0f, 252.0f),
+            MB_SC_MONO_BAND("_3", " 3", " 3", 3, 8, 252.0f, 632.0f),
+            MB_SC_MONO_BAND("_4", " 4", " 4", 4, 8, 632.0f, 1587.0f),
+            MB_SC_MONO_BAND("_5", " 5", " 5", 5, 8, 1587.0f, 3984.0f),
+            MB_SC_MONO_BAND("_6", " 6", " 6", 6, 8, 3984.0f, 10000.0f),
+            MB_SC_MONO_BAND("_7", " 7", " 7", 7, 8, 10000.0f, 20000.0f),
 
             MB_BAND_METERS("_0", " 0"),
             MB_BAND_METERS("_1", " 1"),
@@ -570,27 +570,27 @@ namespace lsp
             MB_DYNA_SHM_LINK_STEREO,
             MB_COMMON(mb_dyna_sc_bands),
             MB_STEREO_CHANNEL,
-            MB_FFT_METERS("_l", " Left"),
+            MB_FFT_METERS("_l", " Left", " L"),
             MB_CHANNEL_METERS("_l", " Left"),
-            MB_FFT_METERS("_r", " Right"),
+            MB_FFT_METERS("_r", " Right", " R"),
             MB_CHANNEL_METERS("_r", " Right"),
 
-            MB_SPLIT("_1", " 1", 0.0f, 40.0f),
-            MB_SPLIT("_2", " 2", 1.0f, 100.0f),
-            MB_SPLIT("_3", " 3", 0.0f, 252.0f),
-            MB_SPLIT("_4", " 4", 1.0f, 632.0f),
-            MB_SPLIT("_5", " 5", 0.0f, 1587.0f),
-            MB_SPLIT("_6", " 6", 1.0f, 3984.0f),
-            MB_SPLIT("_7", " 7", 0.0f, 10000.0f),
+            MB_SPLIT("_1", " 1", " 1", 0.0f, 40.0f),
+            MB_SPLIT("_2", " 2", " 2", 1.0f, 100.0f),
+            MB_SPLIT("_3", " 3", " 3", 0.0f, 252.0f),
+            MB_SPLIT("_4", " 4", " 4", 1.0f, 632.0f),
+            MB_SPLIT("_5", " 5", " 5", 0.0f, 1587.0f),
+            MB_SPLIT("_6", " 6", " 6", 1.0f, 3984.0f),
+            MB_SPLIT("_7", " 7", " 7", 0.0f, 10000.0f),
 
-            MB_SC_STEREO_BAND("_0", " 0", 0, 8, 10.0f, 40.0f),
-            MB_SC_STEREO_BAND("_1", " 1", 1, 8, 40.0f, 100.0f),
-            MB_SC_STEREO_BAND("_2", " 2", 2, 8, 100.0f, 252.0f),
-            MB_SC_STEREO_BAND("_3", " 3", 3, 8, 252.0f, 632.0f),
-            MB_SC_STEREO_BAND("_4", " 4", 4, 8, 632.0f, 1587.0f),
-            MB_SC_STEREO_BAND("_5", " 5", 5, 8, 1587.0f, 3984.0f),
-            MB_SC_STEREO_BAND("_6", " 6", 6, 8, 3984.0f, 10000.0f),
-            MB_SC_STEREO_BAND("_7", " 7", 7, 8, 10000.0f, 20000.0f),
+            MB_SC_STEREO_BAND("_0", " 0", " 0", 0, 8, 10.0f, 40.0f),
+            MB_SC_STEREO_BAND("_1", " 1", " 1", 1, 8, 40.0f, 100.0f),
+            MB_SC_STEREO_BAND("_2", " 2", " 2", 2, 8, 100.0f, 252.0f),
+            MB_SC_STEREO_BAND("_3", " 3", " 3", 3, 8, 252.0f, 632.0f),
+            MB_SC_STEREO_BAND("_4", " 4", " 4", 4, 8, 632.0f, 1587.0f),
+            MB_SC_STEREO_BAND("_5", " 5", " 5", 5, 8, 1587.0f, 3984.0f),
+            MB_SC_STEREO_BAND("_6", " 6", " 6", 6, 8, 3984.0f, 10000.0f),
+            MB_SC_STEREO_BAND("_7", " 7", " 7", 7, 8, 10000.0f, 20000.0f),
 
             MB_BAND_METERS("_0l", " 0 Left"),
             MB_BAND_METERS("_1l", " 1 Left"),
@@ -619,46 +619,46 @@ namespace lsp
             PORTS_STEREO_SIDECHAIN,
             MB_DYNA_SHM_LINK_STEREO,
             MB_COMMON(mb_dyna_sc_lr_bands),
-            MB_CHANNEL("_l", " Left"),
-            MB_CHANNEL("_r", " Right"),
-            MB_FFT_METERS("_l", " Left"),
+            MB_CHANNEL("_l", " Left", " L"),
+            MB_CHANNEL("_r", " Right", " R"),
+            MB_FFT_METERS("_l", " Left", " L"),
             MB_CHANNEL_METERS("_l", " Left"),
-            MB_FFT_METERS("_r", " Right"),
+            MB_FFT_METERS("_r", " Right", " R"),
             MB_CHANNEL_METERS("_r", " Right"),
 
-            MB_SPLIT("_1l", " 1 Left", 0.0f, 40.0f),
-            MB_SPLIT("_2l", " 2 Left", 1.0f, 100.0f),
-            MB_SPLIT("_3l", " 3 Left", 0.0f, 252.0f),
-            MB_SPLIT("_4l", " 4 Left", 1.0f, 632.0f),
-            MB_SPLIT("_5l", " 5 Left", 0.0f, 1587.0f),
-            MB_SPLIT("_6l", " 6 Left", 1.0f, 3984.0f),
-            MB_SPLIT("_7l", " 7 Left", 0.0f, 10000.0f),
+            MB_SPLIT("_1l", " 1 Left", " 1 L", 0.0f, 40.0f),
+            MB_SPLIT("_2l", " 2 Left", " 2 L", 1.0f, 100.0f),
+            MB_SPLIT("_3l", " 3 Left", " 3 L", 0.0f, 252.0f),
+            MB_SPLIT("_4l", " 4 Left", " 4 L", 1.0f, 632.0f),
+            MB_SPLIT("_5l", " 5 Left", " 5 L", 0.0f, 1587.0f),
+            MB_SPLIT("_6l", " 6 Left", " 6 L", 1.0f, 3984.0f),
+            MB_SPLIT("_7l", " 7 Left", " 7 L", 0.0f, 10000.0f),
 
-            MB_SPLIT("_1r", " 1 Right", 0.0f, 40.0f),
-            MB_SPLIT("_2r", " 2 Right", 1.0f, 100.0f),
-            MB_SPLIT("_3r", " 3 Right", 0.0f, 252.0f),
-            MB_SPLIT("_4r", " 4 Right", 1.0f, 632.0f),
-            MB_SPLIT("_5r", " 5 Right", 0.0f, 1587.0f),
-            MB_SPLIT("_6r", " 6 Right", 1.0f, 3984.0f),
-            MB_SPLIT("_7r", " 7 Right", 0.0f, 10000.0f),
+            MB_SPLIT("_1r", " 1 Right", " 1 R", 0.0f, 40.0f),
+            MB_SPLIT("_2r", " 2 Right", " 2 R", 1.0f, 100.0f),
+            MB_SPLIT("_3r", " 3 Right", " 3 R", 0.0f, 252.0f),
+            MB_SPLIT("_4r", " 4 Right", " 4 R", 1.0f, 632.0f),
+            MB_SPLIT("_5r", " 5 Right", " 5 R", 0.0f, 1587.0f),
+            MB_SPLIT("_6r", " 6 Right", " 6 R", 1.0f, 3984.0f),
+            MB_SPLIT("_7r", " 7 Right", " 7 R", 0.0f, 10000.0f),
 
-            MB_SC_SPLIT_BAND("_0l", " 0 Left", 0, 8, 10.0f, 40.0f),
-            MB_SC_SPLIT_BAND("_1l", " 1 Left", 1, 8, 40.0f, 100.0f),
-            MB_SC_SPLIT_BAND("_2l", " 2 Left", 2, 8, 100.0f, 252.0f),
-            MB_SC_SPLIT_BAND("_3l", " 3 Left", 3, 8, 252.0f, 632.0f),
-            MB_SC_SPLIT_BAND("_4l", " 4 Left", 4, 8, 632.0f, 1587.0f),
-            MB_SC_SPLIT_BAND("_5l", " 5 Left", 5, 8, 1587.0f, 3984.0f),
-            MB_SC_SPLIT_BAND("_6l", " 6 Left", 6, 8, 3984.0f, 10000.0f),
-            MB_SC_SPLIT_BAND("_7l", " 7 Left", 7, 8, 10000.0f, 20000.0f),
+            MB_SC_SPLIT_BAND("_0l", " 0 Left", " 0 L", 0, 8, 10.0f, 40.0f),
+            MB_SC_SPLIT_BAND("_1l", " 1 Left", " 1 L", 1, 8, 40.0f, 100.0f),
+            MB_SC_SPLIT_BAND("_2l", " 2 Left", " 2 L", 2, 8, 100.0f, 252.0f),
+            MB_SC_SPLIT_BAND("_3l", " 3 Left", " 3 L", 3, 8, 252.0f, 632.0f),
+            MB_SC_SPLIT_BAND("_4l", " 4 Left", " 4 L", 4, 8, 632.0f, 1587.0f),
+            MB_SC_SPLIT_BAND("_5l", " 5 Left", " 5 L", 5, 8, 1587.0f, 3984.0f),
+            MB_SC_SPLIT_BAND("_6l", " 6 Left", " 6 L", 6, 8, 3984.0f, 10000.0f),
+            MB_SC_SPLIT_BAND("_7l", " 7 Left", " 7 L", 7, 8, 10000.0f, 20000.0f),
 
-            MB_SC_SPLIT_BAND("_0r", " 0 Right", 0, 8, 10.0f, 40.0f),
-            MB_SC_SPLIT_BAND("_1r", " 1 Right", 1, 8, 40.0f, 100.0f),
-            MB_SC_SPLIT_BAND("_2r", " 2 Right", 2, 8, 100.0f, 252.0f),
-            MB_SC_SPLIT_BAND("_3r", " 3 Right", 3, 8, 252.0f, 632.0f),
-            MB_SC_SPLIT_BAND("_4r", " 4 Right", 4, 8, 632.0f, 1587.0f),
-            MB_SC_SPLIT_BAND("_5r", " 5 Right", 5, 8, 1587.0f, 3984.0f),
-            MB_SC_SPLIT_BAND("_6r", " 6 Right", 6, 8, 3984.0f, 10000.0f),
-            MB_SC_SPLIT_BAND("_7r", " 7 Right", 7, 8, 10000.0f, 20000.0f),
+            MB_SC_SPLIT_BAND("_0r", " 0 Right", " 0 R", 0, 8, 10.0f, 40.0f),
+            MB_SC_SPLIT_BAND("_1r", " 1 Right", " 1 R", 1, 8, 40.0f, 100.0f),
+            MB_SC_SPLIT_BAND("_2r", " 2 Right", " 2 R", 2, 8, 100.0f, 252.0f),
+            MB_SC_SPLIT_BAND("_3r", " 3 Right", " 3 R", 3, 8, 252.0f, 632.0f),
+            MB_SC_SPLIT_BAND("_4r", " 4 Right", " 4 R", 4, 8, 632.0f, 1587.0f),
+            MB_SC_SPLIT_BAND("_5r", " 5 Right", " 5 R", 5, 8, 1587.0f, 3984.0f),
+            MB_SC_SPLIT_BAND("_6r", " 6 Right", " 6 R", 6, 8, 3984.0f, 10000.0f),
+            MB_SC_SPLIT_BAND("_7r", " 7 Right", " 7 R", 7, 8, 10000.0f, 20000.0f),
 
             MB_BAND_METERS("_0l", " 0 Left"),
             MB_BAND_METERS("_1l", " 1 Left"),
@@ -687,46 +687,46 @@ namespace lsp
             PORTS_STEREO_SIDECHAIN,
             MB_DYNA_SHM_LINK_STEREO,
             MB_COMMON(mb_dyna_sc_ms_bands),
-            MB_CHANNEL("_m", " Mid"),
-            MB_CHANNEL("_s", " Side"),
-            MB_FFT_METERS("_m", " Mid"),
+            MB_CHANNEL("_m", " Mid", " M"),
+            MB_CHANNEL("_s", " Side", " S"),
+            MB_FFT_METERS("_m", " Mid", " M"),
             MB_CHANNEL_METERS("_l", " Left"),
-            MB_FFT_METERS("_s", " Side"),
+            MB_FFT_METERS("_s", " Side", " S"),
             MB_CHANNEL_METERS("_r", " Right"),
 
-            MB_SPLIT("_1m", " 1 Mid", 0.0f, 40.0f),
-            MB_SPLIT("_2m", " 2 Mid", 1.0f, 100.0f),
-            MB_SPLIT("_3m", " 3 Mid", 0.0f, 252.0f),
-            MB_SPLIT("_4m", " 4 Mid", 1.0f, 632.0f),
-            MB_SPLIT("_5m", " 5 Mid", 0.0f, 1587.0f),
-            MB_SPLIT("_6m", " 6 Mid", 1.0f, 3984.0f),
-            MB_SPLIT("_7m", " 7 Mid", 0.0f, 10000.0f),
+            MB_SPLIT("_1m", " 1 Mid", " 1 M", 0.0f, 40.0f),
+            MB_SPLIT("_2m", " 2 Mid", " 2 M", 1.0f, 100.0f),
+            MB_SPLIT("_3m", " 3 Mid", " 3 M", 0.0f, 252.0f),
+            MB_SPLIT("_4m", " 4 Mid", " 4 M", 1.0f, 632.0f),
+            MB_SPLIT("_5m", " 5 Mid", " 5 M", 0.0f, 1587.0f),
+            MB_SPLIT("_6m", " 6 Mid", " 6 M", 1.0f, 3984.0f),
+            MB_SPLIT("_7m", " 7 Mid", " 7 M", 0.0f, 10000.0f),
 
-            MB_SPLIT("_1s", " 1 Side", 0.0f, 40.0f),
-            MB_SPLIT("_2s", " 2 Side", 1.0f, 100.0f),
-            MB_SPLIT("_3s", " 3 Side", 0.0f, 252.0f),
-            MB_SPLIT("_4s", " 4 Side", 1.0f, 632.0f),
-            MB_SPLIT("_5s", " 5 Side", 0.0f, 1587.0f),
-            MB_SPLIT("_6s", " 6 Side", 1.0f, 3984.0f),
-            MB_SPLIT("_7s", " 7 Side", 0.0f, 10000.0f),
+            MB_SPLIT("_1s", " 1 Side", " 1 S", 0.0f, 40.0f),
+            MB_SPLIT("_2s", " 2 Side", " 2 S", 1.0f, 100.0f),
+            MB_SPLIT("_3s", " 3 Side", " 3 S", 0.0f, 252.0f),
+            MB_SPLIT("_4s", " 4 Side", " 4 S", 1.0f, 632.0f),
+            MB_SPLIT("_5s", " 5 Side", " 5 S", 0.0f, 1587.0f),
+            MB_SPLIT("_6s", " 6 Side", " 6 S", 1.0f, 3984.0f),
+            MB_SPLIT("_7s", " 7 Side", " 7 S", 0.0f, 10000.0f),
 
-            MB_SC_SPLIT_BAND("_0m", " 0 Mid", 0, 8, 10.0f, 40.0f),
-            MB_SC_SPLIT_BAND("_1m", " 1 Mid", 1, 8, 40.0f, 100.0f),
-            MB_SC_SPLIT_BAND("_2m", " 2 Mid", 2, 8, 100.0f, 252.0f),
-            MB_SC_SPLIT_BAND("_3m", " 3 Mid", 3, 8, 252.0f, 632.0f),
-            MB_SC_SPLIT_BAND("_4m", " 4 Mid", 4, 8, 632.0f, 1587.0f),
-            MB_SC_SPLIT_BAND("_5m", " 5 Mid", 5, 8, 1587.0f, 3984.0f),
-            MB_SC_SPLIT_BAND("_6m", " 6 Mid", 6, 8, 3984.0f, 10000.0f),
-            MB_SC_SPLIT_BAND("_7m", " 7 Mid", 7, 8, 10000.0f, 20000.0f),
+            MB_SC_SPLIT_BAND("_0m", " 0 Mid", " 0 M", 0, 8, 10.0f, 40.0f),
+            MB_SC_SPLIT_BAND("_1m", " 1 Mid", " 1 M", 1, 8, 40.0f, 100.0f),
+            MB_SC_SPLIT_BAND("_2m", " 2 Mid", " 2 M", 2, 8, 100.0f, 252.0f),
+            MB_SC_SPLIT_BAND("_3m", " 3 Mid", " 3 M", 3, 8, 252.0f, 632.0f),
+            MB_SC_SPLIT_BAND("_4m", " 4 Mid", " 4 M", 4, 8, 632.0f, 1587.0f),
+            MB_SC_SPLIT_BAND("_5m", " 5 Mid", " 5 M", 5, 8, 1587.0f, 3984.0f),
+            MB_SC_SPLIT_BAND("_6m", " 6 Mid", " 6 M", 6, 8, 3984.0f, 10000.0f),
+            MB_SC_SPLIT_BAND("_7m", " 7 Mid", " 7 M", 7, 8, 10000.0f, 20000.0f),
 
-            MB_SC_SPLIT_BAND("_0s", " 0 Side", 0, 8, 10.0f, 40.0f),
-            MB_SC_SPLIT_BAND("_1s", " 1 Side", 1, 8, 40.0f, 100.0f),
-            MB_SC_SPLIT_BAND("_2s", " 2 Side", 2, 8, 100.0f, 252.0f),
-            MB_SC_SPLIT_BAND("_3s", " 3 Side", 3, 8, 252.0f, 632.0f),
-            MB_SC_SPLIT_BAND("_4s", " 4 Side", 4, 8, 632.0f, 1587.0f),
-            MB_SC_SPLIT_BAND("_5s", " 5 Side", 5, 8, 1587.0f, 3984.0f),
-            MB_SC_SPLIT_BAND("_6s", " 6 Side", 6, 8, 3984.0f, 10000.0f),
-            MB_SC_SPLIT_BAND("_7s", " 7 Side", 7, 8, 10000.0f, 20000.0f),
+            MB_SC_SPLIT_BAND("_0s", " 0 Side", " 0 S", 0, 8, 10.0f, 40.0f),
+            MB_SC_SPLIT_BAND("_1s", " 1 Side", " 1 S", 1, 8, 40.0f, 100.0f),
+            MB_SC_SPLIT_BAND("_2s", " 2 Side", " 2 S", 2, 8, 100.0f, 252.0f),
+            MB_SC_SPLIT_BAND("_3s", " 3 Side", " 3 S", 3, 8, 252.0f, 632.0f),
+            MB_SC_SPLIT_BAND("_4s", " 4 Side", " 4 S", 4, 8, 632.0f, 1587.0f),
+            MB_SC_SPLIT_BAND("_5s", " 5 Side", " 5 S", 5, 8, 1587.0f, 3984.0f),
+            MB_SC_SPLIT_BAND("_6s", " 6 Side", " 6 S", 6, 8, 3984.0f, 10000.0f),
+            MB_SC_SPLIT_BAND("_7s", " 7 Side", " 7 S", 7, 8, 10000.0f, 20000.0f),
 
             MB_BAND_METERS("_0m", " 0 Mid"),
             MB_BAND_METERS("_1m", " 1 Mid"),
