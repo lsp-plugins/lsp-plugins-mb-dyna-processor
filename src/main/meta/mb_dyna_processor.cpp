@@ -175,6 +175,18 @@ namespace lsp
         #define MB_DYNA_SHM_LINK_STEREO \
                 OPT_RETURN_STEREO("link", "shml_", "Side-chain shared memory link")
 
+        #define MB_DYNA_PREMIX \
+                SWITCH("showpmx", "Show pre-mix overlay", "Show premix bar", 0.0f), \
+                AMP_GAIN10("in2lk", "Input to Link mix", "In to Link mix", GAIN_AMP_M_INF_DB), \
+                AMP_GAIN10("lk2in", "Link to Input mix", "Link to In mix", GAIN_AMP_M_INF_DB), \
+                AMP_GAIN10("lk2sc", "Link to Sidechain mix", "Link to SC mix", GAIN_AMP_M_INF_DB)
+
+        #define MB_DYNA_SC_PREMIX \
+                MB_DYNA_PREMIX, \
+                AMP_GAIN10("in2sc", "Input to Sidechain mix", "In to SC mix", GAIN_AMP_M_INF_DB), \
+                AMP_GAIN10("sc2in", "Sidechain to Input mix", "SC to In mix", GAIN_AMP_M_INF_DB), \
+                AMP_GAIN10("sc2lk", "Sidechain to Link mix", "SC to Link mix", GAIN_AMP_M_INF_DB)
+
         #define MB_COMMON(bands) \
                 BYPASS, \
                 COMBO("mode", "Dynamics Processor mode", "Mode", 1, mb_global_dyna_modes), \
@@ -307,6 +319,7 @@ namespace lsp
         {
             PORTS_MONO_PLUGIN,
             MB_DYNA_SHM_LINK_MONO,
+            MB_DYNA_PREMIX,
             MB_COMMON(mb_dyna_sc_bands),
             MB_CHANNEL("", "", ""),
             MB_FFT_METERS("", "", ""),
@@ -345,6 +358,7 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_PREMIX,
             MB_COMMON(mb_dyna_sc_bands),
             MB_STEREO_CHANNEL,
             MB_FFT_METERS("_l", " Left", " L"),
@@ -394,6 +408,7 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_PREMIX,
             MB_COMMON(mb_dyna_sc_lr_bands),
             MB_CHANNEL("_l", " Left", " L"),
             MB_CHANNEL("_r", " Right", " R"),
@@ -461,6 +476,7 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_PREMIX,
             MB_COMMON(mb_dyna_sc_ms_bands),
             MB_CHANNEL("_m", " Mid", " M"),
             MB_CHANNEL("_s", " Side", " S"),
@@ -529,6 +545,7 @@ namespace lsp
             PORTS_MONO_PLUGIN,
             PORTS_MONO_SIDECHAIN,
             MB_DYNA_SHM_LINK_MONO,
+            MB_DYNA_SC_PREMIX,
             MB_COMMON(mb_dyna_sc_bands),
             MB_CHANNEL("", "", ""),
             MB_FFT_METERS("", "", ""),
@@ -568,6 +585,7 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             PORTS_STEREO_SIDECHAIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_SC_PREMIX,
             MB_COMMON(mb_dyna_sc_bands),
             MB_STEREO_CHANNEL,
             MB_FFT_METERS("_l", " Left", " L"),
@@ -618,6 +636,7 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             PORTS_STEREO_SIDECHAIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_SC_PREMIX,
             MB_COMMON(mb_dyna_sc_lr_bands),
             MB_CHANNEL("_l", " Left", " L"),
             MB_CHANNEL("_r", " Right", " R"),
@@ -686,6 +705,7 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             PORTS_STEREO_SIDECHAIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_SC_PREMIX,
             MB_COMMON(mb_dyna_sc_ms_bands),
             MB_CHANNEL("_m", " Mid", " M"),
             MB_CHANNEL("_s", " Side", " S"),
