@@ -533,9 +533,9 @@ namespace lsp
             BIND_PORT(pShiftGain);
             BIND_PORT(pZoom);
             BIND_PORT(pEnvBoost);
-
-            // Skip band selector
             SKIP_PORT("Band selector");
+            if ((nMode == MBDP_LR) || (nMode == MBDP_MS))
+                SKIP_PORT("Separate channels link");
 
             lsp_trace("Binding channel ports");
             for (size_t i=0; i<channels; ++i)
