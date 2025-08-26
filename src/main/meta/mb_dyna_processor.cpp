@@ -26,7 +26,7 @@
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MAJOR       1
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MINOR       0
-#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       22
+#define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION_MICRO       23
 
 #define LSP_PLUGINS_MB_DYNA_PROCESSOR_VERSION  \
     LSP_MODULE_VERSION( \
@@ -170,127 +170,141 @@ namespace lsp
         };
 
         #define MB_DYNA_SHM_LINK_MONO \
-                OPT_RETURN_MONO("link", "shml", "Side-chain shared memory link")
+            OPT_RETURN_MONO("link", "shml", "Side-chain shared memory link")
 
         #define MB_DYNA_SHM_LINK_STEREO \
-                OPT_RETURN_STEREO("link", "shml_", "Side-chain shared memory link")
+            OPT_RETURN_STEREO("link", "shml_", "Side-chain shared memory link")
+
+        #define MB_DYNA_PREMIX \
+            SWITCH("showpmx", "Show pre-mix overlay", "Show premix bar", 0.0f), \
+            AMP_GAIN10("in2lk", "Input to Link mix", "In to Link mix", GAIN_AMP_M_INF_DB), \
+            AMP_GAIN10("lk2in", "Link to Input mix", "Link to In mix", GAIN_AMP_M_INF_DB), \
+            AMP_GAIN10("lk2sc", "Link to Sidechain mix", "Link to SC mix", GAIN_AMP_M_INF_DB)
+
+        #define MB_DYNA_SC_PREMIX \
+            MB_DYNA_PREMIX, \
+            AMP_GAIN10("in2sc", "Input to Sidechain mix", "In to SC mix", GAIN_AMP_M_INF_DB), \
+            AMP_GAIN10("sc2in", "Sidechain to Input mix", "SC to In mix", GAIN_AMP_M_INF_DB), \
+            AMP_GAIN10("sc2lk", "Sidechain to Link mix", "SC to Link mix", GAIN_AMP_M_INF_DB)
 
         #define MB_COMMON(bands) \
-                BYPASS, \
-                COMBO("mode", "Dynamics Processor mode", "Mode", 1, mb_global_dyna_modes), \
-                AMP_GAIN("g_in", "Input gain", "Input gain", mb_dyna_processor::IN_GAIN_DFL, 10.0f), \
-                AMP_GAIN("g_out", "Output gain", "Output gain", mb_dyna_processor::OUT_GAIN_DFL, 10.0f), \
-                AMP_GAIN("g_dry", "Dry gain", "Dry", 0.0f, 10.0f), \
-                AMP_GAIN("g_wet", "Wet gain", "Wet", 1.0f, 10.0f), \
-                PERCENTS("drywet", "Dry/Wet balance", "Dry/Wet", 100.0f, 0.1f), \
-                LOG_CONTROL("react", "FFT reactivity", "Reactivity", U_MSEC, mb_dyna_processor::REACT_TIME), \
-                AMP_GAIN("shift", "Shift gain", "Shift", 1.0f, 100.0f), \
-                LOG_CONTROL("zoom", "Graph zoom", "Zoom", U_GAIN_AMP, mb_dyna_processor::ZOOM), \
-                COMBO("envb", "Envelope boost", "Env boost", mb_dyna_processor::FB_DEFAULT, mb_dyna_sc_boost), \
-                COMBO("bsel", "Band selection", "Band selector", mb_dyna_processor::SC_BAND_DFL, bands)
+            BYPASS, \
+            COMBO("mode", "Dynamics Processor mode", "Mode", 1, mb_global_dyna_modes), \
+            AMP_GAIN("g_in", "Input gain", "Input gain", mb_dyna_processor::IN_GAIN_DFL, 10.0f), \
+            AMP_GAIN("g_out", "Output gain", "Output gain", mb_dyna_processor::OUT_GAIN_DFL, 10.0f), \
+            AMP_GAIN("g_dry", "Dry gain", "Dry", 0.0f, 10.0f), \
+            AMP_GAIN("g_wet", "Wet gain", "Wet", 1.0f, 10.0f), \
+            PERCENTS("drywet", "Dry/Wet balance", "Dry/Wet", 100.0f, 0.1f), \
+            LOG_CONTROL("react", "FFT reactivity", "Reactivity", U_MSEC, mb_dyna_processor::REACT_TIME), \
+            AMP_GAIN("shift", "Shift gain", "Shift", 1.0f, 100.0f), \
+            LOG_CONTROL("zoom", "Graph zoom", "Zoom", U_GAIN_AMP, mb_dyna_processor::ZOOM), \
+            COMBO("envb", "Envelope boost", "Env boost", mb_dyna_processor::FB_DEFAULT, mb_dyna_sc_boost), \
+            COMBO("bsel", "Band selection", "Band selector", mb_dyna_processor::SC_BAND_DFL, bands)
 
         #define MB_SPLIT(id, label, alias, enable, freq) \
-                SWITCH("cbe" id, "Dynamics Processor band enable" label, "Split on" alias, enable), \
-                LOG_CONTROL_DFL("sf" id, "Split frequency" label, "Split" alias, U_HZ, mb_dyna_processor::FREQ, freq)
+            SWITCH("cbe" id, "Dynamics Processor band enable" label, "Split on" alias, enable), \
+            LOG_CONTROL_DFL("sf" id, "Split frequency" label, "Split" alias, U_HZ, mb_dyna_processor::FREQ, freq)
 
         #define MB_DYNA_POINT(idx, on, id, label, alias, level) \
-                SWITCH("pe" #idx id, "Point enable " #idx label, "Point on" #idx alias, on), \
-                LOG_CONTROL_DFL("tl" #idx id, "Threshold " #idx label, "Thresh " #idx alias, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
-                LOG_CONTROL_DFL("gl" #idx id, "Gain " #idx label, "Gain " #idx alias, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
-                LOG_CONTROL("kn" #idx id, "Knee " #idx label, "Knee " #idx alias, U_GAIN_AMP, mb_dyna_processor::KNEE), \
-                SWITCH("ae" #idx id, "Attack enable " #idx label, "Att on" #idx alias, 0.0f), \
-                LOG_CONTROL_DFL("al" #idx id, "Attack level " #idx label, "Att lvl " #idx alias, U_GAIN_AMP, mb_dyna_processor::ATTACK_LVL, level), \
-                LOG_CONTROL("at" #idx id, "Attack time " #idx label, "Att time " #idx alias, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
-                SWITCH("re" #idx id, "Release enable " #idx label, "Rel on" #idx alias, 0.0f), \
-                LOG_CONTROL_DFL("rl" #idx id, "Release level " #idx label, "Rel lvl " #idx alias, U_GAIN_AMP, mb_dyna_processor::RELEASE_LVL, level), \
-                LOG_CONTROL("rt" #idx id, "Release time " #idx label, "Rel time " #idx alias, U_MSEC, mb_dyna_processor::RELEASE_TIME)
+            SWITCH("pe" #idx id, "Point enable " #idx label, "Point on" #idx alias, on), \
+            LOG_CONTROL_DFL("tl" #idx id, "Threshold " #idx label, "Thresh " #idx alias, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
+            LOG_CONTROL_DFL("gl" #idx id, "Gain " #idx label, "Gain " #idx alias, U_GAIN_AMP, mb_dyna_processor::THRESHOLD, level), \
+            LOG_CONTROL("kn" #idx id, "Knee " #idx label, "Knee " #idx alias, U_GAIN_AMP, mb_dyna_processor::KNEE), \
+            SWITCH("ae" #idx id, "Attack enable " #idx label, "Att on" #idx alias, 0.0f), \
+            LOG_CONTROL_DFL("al" #idx id, "Attack level " #idx label, "Att lvl " #idx alias, U_GAIN_AMP, mb_dyna_processor::ATTACK_LVL, level), \
+            LOG_CONTROL("at" #idx id, "Attack time " #idx label, "Att time " #idx alias, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
+            SWITCH("re" #idx id, "Release enable " #idx label, "Rel on" #idx alias, 0.0f), \
+            LOG_CONTROL_DFL("rl" #idx id, "Release level " #idx label, "Rel lvl " #idx alias, U_GAIN_AMP, mb_dyna_processor::RELEASE_LVL, level), \
+            LOG_CONTROL("rt" #idx id, "Release time " #idx label, "Rel time " #idx alias, U_MSEC, mb_dyna_processor::RELEASE_TIME)
 
         #define MB_BAND_COMMON(id, label, alias, x, total, fe, fs) \
-                COMBO("scm" id, "Sidechain mode" label, "SC mode" alias, mb_dyna_processor::SC_MODE_DFL, mb_dyna_sc_modes), \
-                CONTROL("sla" id, "Sidechain lookahead" label, "SC look" alias, U_MSEC, mb_dyna_processor::LOOKAHEAD), \
-                LOG_CONTROL("scr" id, "Sidechain reactivity" label, "SC react" alias, U_MSEC, mb_dyna_processor::REACTIVITY), \
-                AMP_GAIN100("scp" id, "Sidechain preamp" label, "SC preamp" alias, GAIN_AMP_0_DB), \
-                SWITCH("sclc" id, "Sidechain custom lo-cut" label, "SC LCF on" alias, 0), \
-                SWITCH("schc" id, "Sidechain custom hi-cut" label, "SC HCF on" alias, 0), \
-                LOG_CONTROL_DFL("sclf" id, "Sidechain lo-cut frequency" label, "SC LCF" alias, U_HZ, mb_dyna_processor::FREQ, fe), \
-                LOG_CONTROL_DFL("schf" id, "Sidechain hi-cut frequency" label, "SC HCF" alias, U_HZ, mb_dyna_processor::FREQ, fs), \
-                MESH("bfc" id, "Side-chain band frequency chart" label, 2, mb_dyna_processor::MESH_POINTS + 4), \
-                \
-                SWITCH("pe" id, "Processor enable" label, "On " alias, 1.0f), \
-                SWITCH("bs" id, "Solo band" label, "Solo " alias, 0.0f), \
-                SWITCH("bm" id, "Mute band" label, "Mute " alias, 0.0f), \
-                LOG_CONTROL("atd" id, "Attack time default" label, "Att time" alias, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
-                LOG_CONTROL("rtd" id, "Release time default" label, "Rel time" alias, U_MSEC, mb_dyna_processor::RELEASE_TIME), \
-                MB_DYNA_POINT(0, 1.0f, id, label, alias, GAIN_AMP_M_12_DB), \
-                MB_DYNA_POINT(1, 0.0f, id, label, alias, GAIN_AMP_M_24_DB), \
-                MB_DYNA_POINT(2, 0.0f, id, label, alias, GAIN_AMP_M_36_DB), \
-                MB_DYNA_POINT(3, 0.0f, id, label, alias, GAIN_AMP_M_48_DB), \
-                CONTROL("ht" id, "Hold time" label, "Hold time" alias, U_MSEC, mb_dyna_processor::HOLD_TIME), \
-                LOG_CONTROL("llr" id, "Low-level ratio" label, "Low ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
-                LOG_CONTROL("hlr" id, "High-level ratio" label, "High ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
-                LOG_CONTROL("mk" id, "Makeup gain" label, "Makeup" alias, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
-                SWITCH("cmv" id, "Curve modelling visibility" label, "Show curve " alias, 1.0f), \
-                HUE_CTL("hue" id, "Hue " label, float(x) / float(total)), \
-                \
-                METER("fre" id, "Frequency range end" label, U_HZ,  mb_dyna_processor::OUT_FREQ), \
-                MESH("cmg" id, "Curve modelling graph" label, 2, mb_dyna_processor::CURVE_MESH_SIZE), \
-                MESH("ccg" id, "Compression curve graph" label, 2, mb_dyna_processor::CURVE_MESH_SIZE)
+            COMBO("scm" id, "Sidechain mode" label, "SC mode" alias, mb_dyna_processor::SC_MODE_DFL, mb_dyna_sc_modes), \
+            CONTROL("sla" id, "Sidechain lookahead" label, "SC look" alias, U_MSEC, mb_dyna_processor::LOOKAHEAD), \
+            LOG_CONTROL("scr" id, "Sidechain reactivity" label, "SC react" alias, U_MSEC, mb_dyna_processor::REACTIVITY), \
+            AMP_GAIN100("scp" id, "Sidechain preamp" label, "SC preamp" alias, GAIN_AMP_0_DB), \
+            SWITCH("sclc" id, "Sidechain custom lo-cut" label, "SC LCF on" alias, 0), \
+            SWITCH("schc" id, "Sidechain custom hi-cut" label, "SC HCF on" alias, 0), \
+            LOG_CONTROL_DFL("sclf" id, "Sidechain lo-cut frequency" label, "SC LCF" alias, U_HZ, mb_dyna_processor::FREQ, fe), \
+            LOG_CONTROL_DFL("schf" id, "Sidechain hi-cut frequency" label, "SC HCF" alias, U_HZ, mb_dyna_processor::FREQ, fs), \
+            MESH("bfc" id, "Side-chain band frequency chart" label, 2, mb_dyna_processor::MESH_POINTS + 4), \
+            \
+            SWITCH("pe" id, "Processor enable" label, "On " alias, 1.0f), \
+            SWITCH("bs" id, "Solo band" label, "Solo " alias, 0.0f), \
+            SWITCH("bm" id, "Mute band" label, "Mute " alias, 0.0f), \
+            LOG_CONTROL("atd" id, "Attack time default" label, "Att time" alias, U_MSEC, mb_dyna_processor::ATTACK_TIME), \
+            LOG_CONTROL("rtd" id, "Release time default" label, "Rel time" alias, U_MSEC, mb_dyna_processor::RELEASE_TIME), \
+            MB_DYNA_POINT(0, 1.0f, id, label, alias, GAIN_AMP_M_12_DB), \
+            MB_DYNA_POINT(1, 0.0f, id, label, alias, GAIN_AMP_M_24_DB), \
+            MB_DYNA_POINT(2, 0.0f, id, label, alias, GAIN_AMP_M_36_DB), \
+            MB_DYNA_POINT(3, 0.0f, id, label, alias, GAIN_AMP_M_48_DB), \
+            CONTROL("ht" id, "Hold time" label, "Hold time" alias, U_MSEC, mb_dyna_processor::HOLD_TIME), \
+            LOG_CONTROL("llr" id, "Low-level ratio" label, "Low ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
+            LOG_CONTROL("hlr" id, "High-level ratio" label, "High ratio" alias, U_NONE, mb_dyna_processor::RATIO), \
+            LOG_CONTROL("mk" id, "Makeup gain" label, "Makeup" alias, U_GAIN_AMP, mb_dyna_processor::MAKEUP), \
+            SWITCH("cmv" id, "Curve modelling visibility" label, "Show curve " alias, 1.0f), \
+            HUE_CTL("hue" id, "Hue " label, float(x) / float(total)), \
+            \
+            METER("fre" id, "Frequency range end" label, U_HZ,  mb_dyna_processor::OUT_FREQ), \
+            MESH("cmg" id, "Curve modelling graph" label, 2, mb_dyna_processor::CURVE_MESH_SIZE), \
+            MESH("ccg" id, "Compression curve graph" label, 2, mb_dyna_processor::CURVE_MESH_SIZE)
 
         #define MB_BAND_METERS(id, label) \
-                METER_OUT_GAIN("elm" id, "Envelope level meter" label, GAIN_AMP_P_36_DB), \
-                METER_OUT_GAIN("clm" id, "Curve level meter" label, GAIN_AMP_P_36_DB), \
-                METER_OUT_GAIN("rlm" id, "Reduction level meter" label, GAIN_AMP_P_72_DB)
+            METER_OUT_GAIN("elm" id, "Envelope level meter" label, GAIN_AMP_P_36_DB), \
+            METER_OUT_GAIN("clm" id, "Curve level meter" label, GAIN_AMP_P_36_DB), \
+            METER_OUT_GAIN("rlm" id, "Reduction level meter" label, GAIN_AMP_P_72_DB)
 
         #define MB_MONO_BAND(id, label, alias, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type), \
-                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
+            COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type), \
+            MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
         #define MB_STEREO_BAND(id, label, alias, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type), \
-                COMBO("scs" id, "Sidechain source" label, "SC source" alias, 0, mb_dyna_sc_source), \
-                COMBO("sscs" id, "Split sidechain source" label, "SC split" alias, 0, mb_dyna_sc_split_source), \
-                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
+            COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type), \
+            COMBO("scs" id, "Sidechain source" label, "SC source" alias, 0, mb_dyna_sc_source), \
+            COMBO("sscs" id, "Split sidechain source" label, "SC split" alias, 0, mb_dyna_sc_split_source), \
+            MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
         #define MB_SPLIT_BAND(id, label, alias, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type), \
-                COMBO("scs" id, "Sidechain source" label, "SC source" alias, dspu::SCS_MIDDLE, mb_dyna_sc_source), \
-                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
+            COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type), \
+            COMBO("scs" id, "Sidechain source" label, "SC source" alias, dspu::SCS_MIDDLE, mb_dyna_sc_source), \
+            MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
         #define MB_SC_MONO_BAND(id, label, alias, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type_sc), \
-                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
+            COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type_sc), \
+            MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
         #define MB_SC_STEREO_BAND(id, label, alias, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type_sc), \
-                COMBO("scs" id, "Sidechain source" label, "SC source" alias, 0, mb_dyna_sc_source), \
-                COMBO("sscs" id, "Split sidechain source" label, "SC split" alias, 0, mb_dyna_sc_split_source), \
-                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
+            COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type_sc), \
+            COMBO("scs" id, "Sidechain source" label, "SC source" alias, 0, mb_dyna_sc_source), \
+            COMBO("sscs" id, "Split sidechain source" label, "SC split" alias, 0, mb_dyna_sc_split_source), \
+            MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
         #define MB_SC_SPLIT_BAND(id, label, alias, x, total, fe, fs) \
-                COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type_sc), \
-                COMBO("scs" id, "Sidechain source" label, "SC source" alias, dspu::SCS_MIDDLE, mb_dyna_sc_source), \
-                MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
+            COMBO("sce" id, "External sidechain source" label, "Ext SC src" alias, 0.0f, mb_dyna_sc_type_sc), \
+            COMBO("scs" id, "Sidechain source" label, "SC source" alias, dspu::SCS_MIDDLE, mb_dyna_sc_source), \
+            MB_BAND_COMMON(id, label, alias, x, total, fe, fs)
 
         #define MB_STEREO_CHANNEL \
-                SWITCH("flt", "Band filter curves", "Show filters", 1.0f), \
-                MESH("ag_l", "Pprocessor amplitude graph Left", 2, mb_dyna_processor::FFT_MESH_POINTS), \
-                MESH("ag_r", "Processor amplitude graph Right", 2, mb_dyna_processor::FFT_MESH_POINTS), \
-                SWITCH("ssplit", "Stereo split", "Stereo split", 0.0f)
+            SWITCH("flt", "Band filter curves", "Show filters", 1.0f), \
+            MESH("ag_l", "Pprocessor amplitude graph Left", 2, mb_dyna_processor::FFT_MESH_POINTS), \
+            MESH("ag_r", "Processor amplitude graph Right", 2, mb_dyna_processor::FFT_MESH_POINTS), \
+            SWITCH("ssplit", "Stereo split", "Stereo split", 0.0f)
 
         #define MB_CHANNEL(id, label, alias) \
-                SWITCH("flt" id, "Band filter curves" label, "Show flt" alias, 1.0f), \
-                MESH("ag" id, "Processor amplitude graph " label, 2, mb_dyna_processor::FFT_MESH_POINTS)
+            SWITCH("flt" id, "Band filter curves" label, "Show flt" alias, 1.0f), \
+            MESH("ag" id, "Processor amplitude graph " label, 2, mb_dyna_processor::FFT_MESH_POINTS)
 
         #define MB_FFT_METERS(id, label, alias) \
-                SWITCH("ife" id, "Input FFT graph enable" label, "FFT In" alias, 1.0f), \
-                SWITCH("ofe" id, "Output FFT graph enable" label, "FFT Out" alias, 1.0f), \
-                MESH("ifg" id, "Input FFT graph" label, 2, mb_dyna_processor::FFT_MESH_POINTS + 2), \
-                MESH("ofg" id, "Output FFT graph" label, 2, mb_dyna_processor::FFT_MESH_POINTS)
+            SWITCH("ife" id, "Input FFT graph enable" label, "FFT In" alias, 1.0f), \
+            SWITCH("ofe" id, "Output FFT graph enable" label, "FFT Out" alias, 1.0f), \
+            MESH("ifg" id, "Input FFT graph" label, 2, mb_dyna_processor::FFT_MESH_POINTS + 2), \
+            MESH("ofg" id, "Output FFT graph" label, 2, mb_dyna_processor::FFT_MESH_POINTS)
 
         #define MB_CHANNEL_METERS(id, label) \
-                METER_GAIN("ilm" id, "Input level meter" label, GAIN_AMP_P_24_DB), \
-                METER_GAIN("olm" id, "Output level meter" label, GAIN_AMP_P_24_DB)
+            METER_GAIN("ilm" id, "Input level meter" label, GAIN_AMP_P_24_DB), \
+            METER_GAIN("olm" id, "Output level meter" label, GAIN_AMP_P_24_DB)
 
+        #define MB_LINK(id, label, alias) \
+            SWITCH(id, label, alias, 0.0f)
 
     /*
      List of frequencies:
@@ -307,6 +321,7 @@ namespace lsp
         {
             PORTS_MONO_PLUGIN,
             MB_DYNA_SHM_LINK_MONO,
+            MB_DYNA_PREMIX,
             MB_COMMON(mb_dyna_sc_bands),
             MB_CHANNEL("", "", ""),
             MB_FFT_METERS("", "", ""),
@@ -345,6 +360,7 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_PREMIX,
             MB_COMMON(mb_dyna_sc_bands),
             MB_STEREO_CHANNEL,
             MB_FFT_METERS("_l", " Left", " L"),
@@ -394,7 +410,9 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_PREMIX,
             MB_COMMON(mb_dyna_sc_lr_bands),
+            MB_LINK("clink", "Left/Right controls link", "L/R link"),
             MB_CHANNEL("_l", " Left", " L"),
             MB_CHANNEL("_r", " Right", " R"),
             MB_FFT_METERS("_l", " Left", " L"),
@@ -461,7 +479,9 @@ namespace lsp
         {
             PORTS_STEREO_PLUGIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_PREMIX,
             MB_COMMON(mb_dyna_sc_ms_bands),
+            MB_LINK("clink", "Mid/Side controls link", "M/S link"),
             MB_CHANNEL("_m", " Mid", " M"),
             MB_CHANNEL("_s", " Side", " S"),
             MB_FFT_METERS("_m", " Mid", " M"),
@@ -529,6 +549,7 @@ namespace lsp
             PORTS_MONO_PLUGIN,
             PORTS_MONO_SIDECHAIN,
             MB_DYNA_SHM_LINK_MONO,
+            MB_DYNA_SC_PREMIX,
             MB_COMMON(mb_dyna_sc_bands),
             MB_CHANNEL("", "", ""),
             MB_FFT_METERS("", "", ""),
@@ -568,6 +589,7 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             PORTS_STEREO_SIDECHAIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_SC_PREMIX,
             MB_COMMON(mb_dyna_sc_bands),
             MB_STEREO_CHANNEL,
             MB_FFT_METERS("_l", " Left", " L"),
@@ -618,7 +640,9 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             PORTS_STEREO_SIDECHAIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_SC_PREMIX,
             MB_COMMON(mb_dyna_sc_lr_bands),
+            MB_LINK("clink", "Left/Right controls link", "L/R link"),
             MB_CHANNEL("_l", " Left", " L"),
             MB_CHANNEL("_r", " Right", " R"),
             MB_FFT_METERS("_l", " Left", " L"),
@@ -686,7 +710,9 @@ namespace lsp
             PORTS_STEREO_PLUGIN,
             PORTS_STEREO_SIDECHAIN,
             MB_DYNA_SHM_LINK_STEREO,
+            MB_DYNA_SC_PREMIX,
             MB_COMMON(mb_dyna_sc_ms_bands),
+            MB_LINK("clink", "Mid/Side controls link", "M/S link"),
             MB_CHANNEL("_m", " Mid", " M"),
             MB_CHANNEL("_s", " Side", " S"),
             MB_FFT_METERS("_m", " Mid", " M"),
