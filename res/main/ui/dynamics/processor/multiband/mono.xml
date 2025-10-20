@@ -241,7 +241,7 @@
 				<combo id="mode" pad.r="8" pad.v="4"/>
 				<label text="labels.sc_boost:"/>
 				<combo id="envb" pad.r="8"/>
-				<button ui:id="premix_trigger" id="showpmx" text="labels.premix" size="22" />
+				<button ui:id="premix_trigger" id="showpmx" text="labels.premix" size="22"/>
 				<button id="flt" text="labels.filters" size="22" ui:inject="Button_cyan"/>
 
 				<void hexpand="true"/>
@@ -286,14 +286,15 @@
 						<ui:if test=":i ieq 0">
 							<!-- Separator -->
 							<cell rows="12"><vsep pad.h="2" bg.color="bg" hreduce="true"/></cell>
+
 							<ui:with bright="((${i} ieq 0) or :cbe_${i}) ? 1 : :const_bg_darken" bg.bright="((${i} ieq 0) or :cbe_${i}) ? 1.0 : :const_bg_darken">
 								<cell cols="2" bg.color="bg_schema">
 									<button text="labels.chan.num_id" text:id="${:i+1}" value="1" editable="false" pointer="arrow" hfill="true" ui:inject="Button_ne_Cycle" height="19" pad.h="6" pad.v="4"/>
 								</cell>
 								<cell cols="2" fill="false">
-									<vbox height.min="40">
+									<vbox width.min="110" height="36" vreduce="true">
 										<label text="0"/>
-										<value id="fre_${i}" width.min="30" sline="true" detailed="false"/>
+										<value id="fre_${i}" sline="true" detailed="false"/>
 									</vbox>
 								</cell>
 							</ui:with>
@@ -302,6 +303,7 @@
 						<ui:if test=":i ine 0">
 							<!-- Separator -->
 							<cell rows="12"><vsep pad.h="2" bg.color="bg" hreduce="true"/></cell>
+
 							<ui:with bright="((${i} ieq 0) or :cbe_${i}) ? 1 : :const_bg_darken" bg.bright="((${i} ieq 0) or :cbe_${i}) ? 1.0 : :const_bg_darken">
 								<cell cols="2" bg.color="bg_schema">
 									<button
@@ -320,9 +322,12 @@
 										pad.h="6"
 										pad.v="4"/>
 								</cell>
-								<knob id="sf_${i}" size="16" ssize="3" pad.v="4" scolor="((${i} ieq 0) or :cbe_${i}) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
+								<vbox width.min="55">
+									<knob id="sf_${i}" size="16" ssize="3" pad.v="4" scolor="((${i} ieq 0) or :cbe_${i}) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
+								</vbox>
 							</ui:with>
 						</ui:if>
+
 						<ui:with bright="((${i} ieq 0) or :cbe_${i}) ? 1 : :const_bg_darken" bg.bright="((${i} ieq 0) or :cbe_${i}) ? 1.0 : :const_bg_darken">
 							<cell cols="2" pad.h="6" bg.color="bg_schema">
 								<grid rows="2" cols="1" hspacing="4">
@@ -348,6 +353,7 @@
 							<cell cols="2" pad.h="6" bg.color="bg_schema">
 								<combo id="sce_${i}" fill="true" pad.l="4"/>
 							</cell>
+
 							<knob id="scp_${i}" size="16" ssize="3" pad.t="4" scolor="((${i} ieq 0) or :cbe_${i}) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
 							<value id="scp_${i}" pad.b="4" width.min="32" detailed="false"/>
 							<knob id="atd_${i}" size="16" pad.t="4" ssize="3" scolor="((${i} ieq 0) or :cbe_${i}) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
@@ -366,7 +372,9 @@
 										<ui:set id="x" value="${c}_${i}"/>
 										<ui:with bg.bright="(((${i} ieq 0) or (:cbe_${i})) and :pe${x} ine 0) ? 1 : :const_bg_darken" bright="(((${i} ieq 0) or (:cbe_${i})) and :pe${x} ine 0) ? 1 : :const_bg_darken">
 											<button id="pe${x}" pad.t="4" pad.h="6" fill="true" height="10" text="labels.thr_eshold_num_id" text:id="${c}" ui:inject="Button_violet_6"/>
-											<knob id="tl${x}" size="16" pad.t="4" ssize="3" scolor="(((${i} ieq 0) or (:cbe_${i})) and :pe${x} ine 0) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
+											<vbox width.min="55">
+												<knob id="tl${x}" size="16" pad.t="4" ssize="3" scolor="(((${i} ieq 0) or (:cbe_${i})) and :pe${x} ine 0) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
+											</vbox>
 											<value id="tl${x}" pad.b="4" detailed="false"/>
 										</ui:with>
 									</ui:if>
@@ -380,7 +388,9 @@
 										<ui:set id="x" value="${c}_${i}"/>
 										<ui:with bg.bright="(((${i} ieq 0) or (:cbe_${i})) and :pe${x} ine 0) ? 1 : :const_bg_darken" bright="(((${i} ieq 0) or (:cbe_${i})) and :pe${x} ine 0) ? 1 : :const_bg_darken">
 											<button id="pe${x}" pad.t="4" pad.h="6" fill="true" height="10" text="labels.thr_eshold_num_id" text:id="${c}" ui:inject="Button_violet_6"/>
-											<knob id="tl${x}" size="16" pad.t="4" ssize="3" scolor="(((${i} ieq 0) or (:cbe_${i})) and :pe${x} ine 0) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
+											<vbox width.min="55">
+												<knob id="tl${x}" size="16" pad.t="4" ssize="3" scolor="(((${i} ieq 0) or (:cbe_${i})) and :pe${x} ine 0) ? 'cycle' : 'cycle_inactive'" scolor.hue=":hue_${i}"/>
+											</vbox>
 											<value id="tl${x}" pad.b="4" detailed="false"/>
 										</ui:with>
 									</ui:if>
@@ -391,8 +401,8 @@
 						<ui:with bright="((${i} ieq 0) or :cbe_${i}) ? 1 : :const_bg_darken" bg.bright="((${i} ieq 0) or :cbe_${i}) ? 1.0 : :const_bg_darken">
 							<!-- Column 2 -->
 							<ui:if test=":i ine 0">
-								<vbox>
-									<value id="sf_${i}" width.min="30" detailed="false"/>
+								<vbox width.min="55" height="36" vreduce="true">
+									<value id="sf_${i}" detailed="false"/>
 									<value id="fre_${i}" detailed="false" visibility=":cbe_${i}"/>
 									<label text="labels.chan.off" visibility="not :cbe_${i}"/>
 								</vbox>
@@ -528,7 +538,7 @@
 											<vbox fill="false" spacing="1">
 												<ui:with pad.h="6" pad.b="4">
 													<combo id="scm_${i}" fill="true" width.min="74"/>
-													<combo id="sce_${i}" fill="true" />
+													<combo id="sce_${i}" fill="true"/>
 												</ui:with>
 											</vbox>
 										</vbox>
@@ -913,36 +923,36 @@
 		<group text="groups.premix" vexpand="false" ipadding="0">
 			<grid rows="3" cols="${(:is_sidechain) ? 8 : 5}" spacing="0" bg.color="bg_schema" transpose="true">
 				<ui:if test=":is_sidechain">
-					<label text="labels.premix.in_to_sc" pad.h="6" pad.v="4" />
-					<knob id="in2sc" />
-					<value id="in2sc" pad.h="6" pad.v="4" />
+					<label text="labels.premix.in_to_sc" pad.h="6" pad.v="4"/>
+					<knob id="in2sc"/>
+					<value id="in2sc" pad.h="6" pad.v="4"/>
 				</ui:if>
 
-				<label text="labels.premix.in_to_link" pad.h="6" pad.v="4" />
-				<knob id="in2lk" />
-				<value id="in2lk" />
+				<label text="labels.premix.in_to_link" pad.h="6" pad.v="4"/>
+				<knob id="in2lk"/>
+				<value id="in2lk"/>
 
-				<cell rows="3"><vsep pad.h="2" bg.color="bg" reduce="true" /></cell>
+				<cell rows="3"><vsep pad.h="2" bg.color="bg" reduce="true"/></cell>
 
 				<ui:if test=":is_sidechain">
-					<label text="labels.premix.sc_to_in" pad.h="6" pad.v="4" />
-					<knob id="sc2in" />
-					<value id="sc2in" pad.h="6" pad.v="4" />
+					<label text="labels.premix.sc_to_in" pad.h="6" pad.v="4"/>
+					<knob id="sc2in"/>
+					<value id="sc2in" pad.h="6" pad.v="4"/>
 
-					<label text="labels.premix.sc_to_link" pad.h="6" pad.v="4" />
-					<knob id="sc2lk" />
-					<value id="sc2lk" pad.h="6" pad.v="4" />
+					<label text="labels.premix.sc_to_link" pad.h="6" pad.v="4"/>
+					<knob id="sc2lk"/>
+					<value id="sc2lk" pad.h="6" pad.v="4"/>
 
-					<cell rows="3"><vsep pad.h="2" bg.color="bg" reduce="true" /></cell>
+					<cell rows="3"><vsep pad.h="2" bg.color="bg" reduce="true"/></cell>
 				</ui:if>
 
-				<label text="labels.premix.link_to_in" pad.h="6" pad.v="4" />
-				<knob id="lk2in" />
-				<value id="lk2in" pad.h="6" pad.v="4" />
+				<label text="labels.premix.link_to_in" pad.h="6" pad.v="4"/>
+				<knob id="lk2in"/>
+				<value id="lk2in" pad.h="6" pad.v="4"/>
 
-				<label text="labels.premix.link_to_sc" pad.h="6" pad.v="4" />
-				<knob id="lk2sc" />
-				<value id="lk2sc" pad.h="6" pad.v="4" />
+				<label text="labels.premix.link_to_sc" pad.h="6" pad.v="4"/>
+				<knob id="lk2sc"/>
+				<value id="lk2sc" pad.h="6" pad.v="4"/>
 			</grid>
 		</group>
 	</overlay>
