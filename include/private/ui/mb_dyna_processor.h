@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2024 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2024 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2026 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2026 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-mb-dyna-processor
  * Created on: 6 дек. 2023 г.
@@ -73,7 +73,12 @@ namespace lsp
 
             public:
                 explicit mb_dyna_processor_ui(const meta::plugin_t *meta);
+                mb_dyna_processor_ui(const mb_dyna_processor_ui &) = delete;
+                mb_dyna_processor_ui(mb_dyna_processor_ui &&) = delete;
                 virtual ~mb_dyna_processor_ui() override;
+
+                mb_dyna_processor_ui & operator = (const mb_dyna_processor_ui &) = delete;
+                mb_dyna_processor_ui & operator = (mb_dyna_processor_ui &&) = delete;
 
                 virtual status_t    post_init() override;
 
