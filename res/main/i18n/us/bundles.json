@@ -1,7 +1,17 @@
 {
 	"mb_dyna_processor": {
-		"name": "Plugin Template",
-		"description": "This plugin performs multiband dynamic processing of input signsl. Flexible sidechain\ncontrol configuration provided. As opposite to most available multiband\nprocessors, this dynamic processor provides numerous special functions: 'modern'\noperating mode, 'Sidechain boost', 'Lookahead' option and up to 8 frequency\nbands for processing."
+		"description": "This plugin performs multiband dynamic processing of input signsl. Flexible sidechain\ncontrol configuration provided. As opposite to most available multiband\nprocessors, this dynamic processor provides numerous special functions: 'modern'\noperating mode, 'Sidechain boost', 'Lookahead' option and up to 8 frequency\nbands for processing.",
+		"name": "Multiband Dynamics Processor"
+	},
+	"launcher": {
+		"mb_dyna_processor_lr": "Split LR",
+		"mb_dyna_processor_mono": "Mono",
+		"mb_dyna_processor_ms": "Split MS",
+		"mb_dyna_processor_stereo": "Stereo",
+		"sc_mb_dyna_processor_lr": "SC Split LR",
+		"sc_mb_dyna_processor_mono": "SC Mono",
+		"sc_mb_dyna_processor_ms": "SC Split MS",
+		"sc_mb_dyna_processor_stereo": "SC Stereo"
 	}
 }
 
