@@ -814,7 +814,7 @@ namespace lsp
             clap_features_mono,
             E_INLINE_DISPLAY,
             mb_dyna_processor_mono_ports,
-            "dynamics/processor/multiband/mono.xml",
+            "plugins/dynamics/processor/multiband/mono.xml",
             NULL,
             mono_plugin_port_groups,
             &mb_dyna_processor_bundle
@@ -845,7 +845,7 @@ namespace lsp
             clap_features_stereo,
             E_INLINE_DISPLAY,
             mb_dyna_processor_stereo_ports,
-            "dynamics/processor/multiband/stereo.xml",
+            "plugins/dynamics/processor/multiband/stereo.xml",
             NULL,
             stereo_plugin_port_groups,
             &mb_dyna_processor_bundle
@@ -876,7 +876,7 @@ namespace lsp
             clap_features_stereo,
             E_INLINE_DISPLAY,
             mb_dyna_processor_lr_ports,
-            "dynamics/processor/multiband/lr.xml",
+            "plugins/dynamics/processor/multiband/lr.xml",
             NULL,
             stereo_plugin_port_groups,
             &mb_dyna_processor_bundle
@@ -907,7 +907,7 @@ namespace lsp
             clap_features_stereo,
             E_INLINE_DISPLAY,
             mb_dyna_processor_ms_ports,
-            "dynamics/processor/multiband/ms.xml",
+            "plugins/dynamics/processor/multiband/ms.xml",
             NULL,
             stereo_plugin_port_groups,
             &mb_dyna_processor_bundle
@@ -938,7 +938,7 @@ namespace lsp
             clap_features_mono,
             E_INLINE_DISPLAY,
             sc_mb_dyna_processor_mono_ports,
-            "dynamics/processor/multiband/mono.xml",
+            "plugins/dynamics/processor/multiband/mono.xml",
             NULL,
             mono_plugin_sidechain_port_groups,
             &mb_dyna_processor_bundle
@@ -969,7 +969,7 @@ namespace lsp
             clap_features_stereo,
             E_INLINE_DISPLAY,
             sc_mb_dyna_processor_stereo_ports,
-            "dynamics/processor/multiband/stereo.xml",
+            "plugins/dynamics/processor/multiband/stereo.xml",
             NULL,
             stereo_plugin_sidechain_port_groups,
             &mb_dyna_processor_bundle
@@ -1000,7 +1000,7 @@ namespace lsp
             clap_features_stereo,
             E_INLINE_DISPLAY,
             sc_mb_dyna_processor_lr_ports,
-            "dynamics/processor/multiband/lr.xml",
+            "plugins/dynamics/processor/multiband/lr.xml",
             NULL,
             stereo_plugin_sidechain_port_groups,
             &mb_dyna_processor_bundle
@@ -1031,7 +1031,7 @@ namespace lsp
             clap_features_stereo,
             E_INLINE_DISPLAY,
             sc_mb_dyna_processor_ms_ports,
-            "dynamics/processor/multiband/ms.xml",
+            "plugins/dynamics/processor/multiband/ms.xml",
             NULL,
             stereo_plugin_sidechain_port_groups,
             &mb_dyna_processor_bundle
