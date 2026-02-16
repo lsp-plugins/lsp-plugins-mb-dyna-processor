@@ -4,14 +4,13 @@
 		"name": "Многополосный динамический процессор"
 	},
 	"launcher": {
-		"mb_dyna_processor_lr": "Раздельный ЛП",
+		"mb_dyna_processor_lr": "ЛП",
 		"mb_dyna_processor_mono": "Моно",
-		"mb_dyna_processor_ms": "Раздельный ЦС",
+		"mb_dyna_processor_ms": "ЦС",
 		"mb_dyna_processor_stereo": "Стерео",
-		"sc_mb_dyna_processor_lr": "БЦ Раздельный ЛП",
+		"sc_mb_dyna_processor_lr": "БЦ ЛП",
 		"sc_mb_dyna_processor_mono": "БЦ Моно",
-		"sc_mb_dyna_processor_ms": "БЦ Раздельный ЦС",
+		"sc_mb_dyna_processor_ms": "БЦ ЦС",
 		"sc_mb_dyna_processor_stereo": "БЦ Стерео"
 	}
 }
-

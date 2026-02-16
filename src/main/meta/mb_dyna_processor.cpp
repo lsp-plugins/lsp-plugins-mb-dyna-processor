@@ -817,7 +817,8 @@ namespace lsp
             "plugins/dynamics/processor/multiband/mono.xml",
             NULL,
             mono_plugin_port_groups,
-            &mb_dyna_processor_bundle
+            &mb_dyna_processor_bundle,
+            3
         };
         LSP_REGISTER_METADATA(mb_dyna_processor_mono);
 
@@ -848,7 +849,8 @@ namespace lsp
             "plugins/dynamics/processor/multiband/stereo.xml",
             NULL,
             stereo_plugin_port_groups,
-            &mb_dyna_processor_bundle
+            &mb_dyna_processor_bundle,
+            1
         };
         LSP_REGISTER_METADATA(mb_dyna_processor_stereo);
 
@@ -879,7 +881,8 @@ namespace lsp
             "plugins/dynamics/processor/multiband/lr.xml",
             NULL,
             stereo_plugin_port_groups,
-            &mb_dyna_processor_bundle
+            &mb_dyna_processor_bundle,
+            5
         };
         LSP_REGISTER_METADATA(mb_dyna_processor_lr);
 
@@ -910,7 +913,8 @@ namespace lsp
             "plugins/dynamics/processor/multiband/ms.xml",
             NULL,
             stereo_plugin_port_groups,
-            &mb_dyna_processor_bundle
+            &mb_dyna_processor_bundle,
+            7
         };
         LSP_REGISTER_METADATA(mb_dyna_processor_ms);
 
@@ -941,7 +945,8 @@ namespace lsp
             "plugins/dynamics/processor/multiband/mono.xml",
             NULL,
             mono_plugin_sidechain_port_groups,
-            &mb_dyna_processor_bundle
+            &mb_dyna_processor_bundle,
+            4
         };
         LSP_REGISTER_METADATA(sc_mb_dyna_processor_mono);
 
@@ -972,7 +977,8 @@ namespace lsp
             "plugins/dynamics/processor/multiband/stereo.xml",
             NULL,
             stereo_plugin_sidechain_port_groups,
-            &mb_dyna_processor_bundle
+            &mb_dyna_processor_bundle,
+            2
         };
         LSP_REGISTER_METADATA(sc_mb_dyna_processor_stereo);
 
@@ -1003,7 +1009,8 @@ namespace lsp
             "plugins/dynamics/processor/multiband/lr.xml",
             NULL,
             stereo_plugin_sidechain_port_groups,
-            &mb_dyna_processor_bundle
+            &mb_dyna_processor_bundle,
+            6
         };
         LSP_REGISTER_METADATA(sc_mb_dyna_processor_lr);
 
@@ -1034,12 +1041,10 @@ namespace lsp
             "plugins/dynamics/processor/multiband/ms.xml",
             NULL,
             stereo_plugin_sidechain_port_groups,
-            &mb_dyna_processor_bundle
+            &mb_dyna_processor_bundle,
+            8
         };
         LSP_REGISTER_METADATA(sc_mb_dyna_processor_ms);
 
     } /* namespace meta */
 } /* namespace lsp */
-
-
-

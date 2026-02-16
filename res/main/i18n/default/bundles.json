@@ -4,14 +4,13 @@
 		"name": "Multiband Dynamics Processor"
 	},
 	"launcher": {
-		"mb_dyna_processor_lr": "Split LR",
+		"mb_dyna_processor_lr": "LR",
 		"mb_dyna_processor_mono": "Mono",
-		"mb_dyna_processor_ms": "Split MS",
+		"mb_dyna_processor_ms": "MS",
 		"mb_dyna_processor_stereo": "Stereo",
-		"sc_mb_dyna_processor_lr": "SC Split LR",
+		"sc_mb_dyna_processor_lr": "SC LR",
 		"sc_mb_dyna_processor_mono": "SC Mono",
-		"sc_mb_dyna_processor_ms": "SC Split MS",
+		"sc_mb_dyna_processor_ms": "SC MS",
 		"sc_mb_dyna_processor_stereo": "SC Stereo"
 	}
 }
-
