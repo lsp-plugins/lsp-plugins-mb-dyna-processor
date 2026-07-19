@@ -1485,14 +1485,6 @@ namespace lsp
             c->vScIn                = sc_buf;
             c->vShmIn               = link_buf;
 
-            // Update pointers
-            sPremix.vIn[channel]   += count;
-            sPremix.vOut[channel]  += count;
-            if (sPremix.vSc[channel] != NULL)
-                sPremix.vSc[channel]   += count;
-            if (sPremix.vLink[channel] != NULL)
-                sPremix.vLink[channel] += count;
-
             // Perform transformation
             const float g_in2link   = sPremix.fInToLink * fInGain;
 
@@ -1629,6 +1621,20 @@ namespace lsp
                     else
                         dsp::mul_k3(c->vShmIn, in_buf, g_in2link, count);
                 }
+            }
+        }
+
+        void mb_dyna_processor::advance_premix(size_t channels, size_t count)
+        {
+            // Update pointers
+            for (size_t i=0; i<channels; ++i)
+            {
+                sPremix.vIn[i]     += count;
+                sPremix.vOut[i]    += count;
+                if (sPremix.vSc[i] != NULL)
+                    sPremix.vSc[i]     += count;
+                if (sPremix.vLink[i] != NULL)
+                    sPremix.vLink[i]   += count;
             }
         }
 
@@ -1854,9 +1860,12 @@ namespace lsp
                     c->pOutLvl->set_value(level);
 
                     // Apply bypass
-                    c->sDryDelay.process(vBuffer, c->vIn, to_process);
+                    c->sDryDelay.process(vBuffer, sPremix.vIn[i], to_process);
                     c->sBypass.process(c->vOut, vBuffer, c->vBuffer, to_process);
                 }
+
+                // Update pointers and offsets
+                advance_premix(channels, to_process);
                 offset     += to_process;
             }
 
