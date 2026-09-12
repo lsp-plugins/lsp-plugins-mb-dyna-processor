@@ -5,6 +5,7 @@
 === 1.0.33 ===
 * Optimized CPU consumption: FFT analysis is not performed when UI is not active.
 * Fixed regression in the DSP modules which could produce NaN (not-a-number) values.
+* Added possibility to change the crossover slope.
 
 === 1.0.32 ===
 * Updated build scripts and dependencies.

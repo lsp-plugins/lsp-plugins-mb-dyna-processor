@@ -92,19 +92,19 @@ namespace lsp
         mb_dyna_processor::mb_dyna_processor(const meta::plugin_t *metadata, bool sc, size_t mode):
             Module(metadata)
         {
+            vChannels       = NULL;
             nMode           = mode;
+            nSlope          = 0;
+            enXOver         = XOVER_MODERN;
+            nEnvBoost       = meta::mb_dyna_processor::FB_DEFAULT;
             bSidechain      = sc;
             bEnvUpdate      = true;
             bUseShmLink     = false;
-            enXOver         = XOVER_MODERN;
             bStereoSplit    = false;
-            nEnvBoost       = meta::mb_dyna_processor::FB_DEFAULT;
-            vChannels       = NULL;
             fInGain         = GAIN_AMP_0_DB;
             fDryGain        = GAIN_AMP_M_INF_DB;
             fWetGain        = GAIN_AMP_0_DB;
             fZoom           = GAIN_AMP_0_DB;
-            pData           = NULL;
             vTr             = NULL;
             vFreqs          = NULL;
             vCurve          = NULL;
@@ -146,6 +146,7 @@ namespace lsp
 
             pBypass         = NULL;
             pMode           = NULL;
+            pSlope          = NULL;
             pInGain         = NULL;
             pDryGain        = NULL;
             pWetGain        = NULL;
@@ -156,6 +157,8 @@ namespace lsp
             pZoom           = NULL;
             pEnvBoost       = NULL;
             pStereoSplit    = NULL;
+
+            pData           = NULL;
         }
 
         mb_dyna_processor::~mb_dyna_processor()
@@ -516,6 +519,7 @@ namespace lsp
             lsp_trace("Binding common ports");
             BIND_PORT(pBypass);
             BIND_PORT(pMode);
+            BIND_PORT(pSlope);
             BIND_PORT(pInGain);
             BIND_PORT(pOutGain);
             BIND_PORT(pDryGain);
@@ -759,6 +763,240 @@ namespace lsp
             return dspu::SCS_MIDDLE;
         }
 
+        dspu::crossover_slope_t mb_dyna_processor::classic_xover_slope(size_t slope)
+        {
+            switch (slope)
+            {
+                case meta::mb_dyna_processor::SLOPE_6DBO:  return dspu::CROSS_SLOPE_6DBO;
+                case meta::mb_dyna_processor::SLOPE_12DBO: return dspu::CROSS_SLOPE_12DBO;
+                case meta::mb_dyna_processor::SLOPE_18DBO: return dspu::CROSS_SLOPE_18DBO;
+                case meta::mb_dyna_processor::SLOPE_24DBO: return dspu::CROSS_SLOPE_24DBO;
+                case meta::mb_dyna_processor::SLOPE_48DBO: return dspu::CROSS_SLOPE_48DBO;
+                case meta::mb_dyna_processor::SLOPE_72DBO: return dspu::CROSS_SLOPE_72DBO;
+                default: break;
+            }
+            return dspu::CROSS_SLOPE_48DBO;
+        }
+
+        float mb_dyna_processor::lp_xover_slope(size_t slope)
+        {
+            switch (slope)
+            {
+                case meta::mb_dyna_processor::SLOPE_6DBO:  return -6.0f;
+                case meta::mb_dyna_processor::SLOPE_12DBO: return -12.0f;
+                case meta::mb_dyna_processor::SLOPE_18DBO: return -18.0f;
+                case meta::mb_dyna_processor::SLOPE_24DBO: return -24.0f;
+                case meta::mb_dyna_processor::SLOPE_48DBO: return -48.0f;
+                case meta::mb_dyna_processor::SLOPE_72DBO: return -72.0f;
+                default: break;
+            }
+            return -48.0f;
+        }
+
+        void mb_dyna_processor::modern_xover_params(dspu::filter_params_t *fp, modern_filter_t type, size_t slope)
+        {
+            switch (type)
+            {
+                case FTYPE_NONE:
+                    fp->nType           = dspu::FLT_NONE;
+                    fp->nSlope          = 0;
+                    return;
+
+                case FTYPE_AMPLIFIER:
+                    fp->nType           = dspu::FLT_AMPLIFIER;
+                    fp->nSlope          = 1;
+                    return;
+
+                case FTYPE_LOSHELF:
+                    switch (slope)
+                    {
+                        case meta::mb_dyna_processor::SLOPE_6DBO:
+                            fp->nType       = dspu::FLT_BT_RLC_LOSHELF;
+                            fp->nSlope      = 1;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_12DBO:
+                            fp->nType       = dspu::FLT_BT_RLC_LOSHELF;
+                            fp->nSlope      = 2;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_18DBO:
+                            fp->nType       = dspu::FLT_BT_RLC_LOSHELF;
+                            fp->nSlope      = 3;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_24DBO:
+                            fp->nType       = dspu::FLT_BT_LRX_LOSHELF;
+                            fp->nSlope      = 1;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_48DBO:
+                        default:
+                            fp->nType       = dspu::FLT_BT_LRX_LOSHELF;
+                            fp->nSlope      = 2;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_72DBO:
+                            fp->nType       = dspu::FLT_BT_LRX_LOSHELF;
+                            fp->nSlope      = 4;
+                            return;
+                    }
+                    break;
+                case FTYPE_HISHELF:
+                    switch (slope)
+                    {
+                        case meta::mb_dyna_processor::SLOPE_6DBO:
+                            fp->nType       = dspu::FLT_BT_RLC_HISHELF;
+                            fp->nSlope      = 1;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_12DBO:
+                            fp->nType       = dspu::FLT_BT_RLC_HISHELF;
+                            fp->nSlope      = 2;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_18DBO:
+                            fp->nType       = dspu::FLT_BT_RLC_HISHELF;
+                            fp->nSlope      = 3;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_24DBO:
+                            fp->nType       = dspu::FLT_BT_LRX_HISHELF;
+                            fp->nSlope      = 1;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_48DBO:
+                        default:
+                            fp->nType       = dspu::FLT_BT_LRX_HISHELF;
+                            fp->nSlope      = 2;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_72DBO:
+                            fp->nType       = dspu::FLT_BT_LRX_HISHELF;
+                            fp->nSlope      = 4;
+                            return;
+                    }
+                    break;
+                case FTYPE_LADDER:
+                    switch (slope)
+                    {
+                        case meta::mb_dyna_processor::SLOPE_6DBO:
+                            fp->nType       = dspu::FLT_BT_RLC_LADDERPASS;
+                            fp->nSlope      = 1;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_12DBO:
+                            fp->nType       = dspu::FLT_BT_RLC_LADDERPASS;
+                            fp->nSlope      = 2;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_18DBO:
+                            fp->nType       = dspu::FLT_BT_RLC_LADDERPASS;
+                            fp->nSlope      = 3;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_24DBO:
+                            fp->nType       = dspu::FLT_BT_LRX_LADDERPASS;
+                            fp->nSlope      = 1;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_48DBO:
+                        default:
+                            fp->nType       = dspu::FLT_BT_LRX_LADDERPASS;
+                            fp->nSlope      = 2;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_72DBO:
+                            fp->nType       = dspu::FLT_BT_LRX_LADDERPASS;
+                            fp->nSlope      = 4;
+                            return;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            fp->nType           = dspu::FLT_NONE;
+            fp->nSlope          = 0.0f;
+        }
+
+        void mb_dyna_processor::sidechain_filter_params(dspu::filter_params_t *fp, modern_filter_t type, size_t slope)
+        {
+            switch (type)
+            {
+                case FTYPE_NONE:
+                    fp->nType           = dspu::FLT_NONE;
+                    fp->nSlope          = 0;
+                    fp->fQuality        = 0.0f;
+                    return;
+
+                case FTYPE_LOPASS:
+                    switch (slope)
+                    {
+                        case meta::mb_dyna_processor::SLOPE_6DBO:
+                            fp->nType           = dspu::FLT_BT_RLC_LOPASS;
+                            fp->nSlope          = 1;
+                            fp->fQuality        = 0.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_12DBO:
+                            fp->nType           = dspu::FLT_BT_RLC_LOPASS;
+                            fp->nSlope          = 2;
+                            fp->fQuality        = 0.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_18DBO:
+                            fp->nType           = dspu::FLT_BT_RLC_LOPASS;
+                            fp->nSlope          = 3;
+                            fp->fQuality        = 1.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_24DBO:
+                            fp->nType           = dspu::FLT_BT_LRX_LOPASS;
+                            fp->nSlope          = 1;
+                            fp->fQuality        = 0.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_48DBO:
+                        default:
+                            fp->nType           = dspu::FLT_BT_LRX_LOPASS;
+                            fp->nSlope          = 2;
+                            fp->fQuality        = 0.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_72DBO:
+                            fp->nType           = dspu::FLT_BT_LRX_LOPASS;
+                            fp->nSlope          = 4;
+                            fp->fQuality        = 0.0f;
+                            return;
+                    }
+                    break;
+                case FTYPE_HIPASS:
+                    switch (slope)
+                    {
+                        case meta::mb_dyna_processor::SLOPE_6DBO:
+                            fp->nType           = dspu::FLT_BT_RLC_HIPASS;
+                            fp->nSlope          = 1;
+                            fp->fQuality        = 0.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_12DBO:
+                            fp->nType           = dspu::FLT_BT_RLC_HIPASS;
+                            fp->nSlope          = 2;
+                            fp->fQuality        = 0.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_18DBO:
+                            fp->nType           = dspu::FLT_BT_RLC_HIPASS;
+                            fp->nSlope          = 3;
+                            fp->fQuality        = 1.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_24DBO:
+                            fp->nType           = dspu::FLT_BT_LRX_HIPASS;
+                            fp->nSlope          = 1;
+                            fp->fQuality        = 0.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_48DBO:
+                        default:
+                            fp->nType           = dspu::FLT_BT_LRX_HIPASS;
+                            fp->nSlope          = 2;
+                            fp->fQuality        = 0.0f;
+                            return;
+                        case meta::mb_dyna_processor::SLOPE_72DBO:
+                            fp->nType           = dspu::FLT_BT_LRX_HIPASS;
+                            fp->nSlope          = 4;
+                            fp->fQuality        = 0.0f;
+                            return;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            fp->nType           = dspu::FLT_NONE;
+            fp->nSlope          = 0;
+            fp->fQuality        = 0.0f;
+        }
+
         void mb_dyna_processor::ui_activated()
         {
             const size_t channels   = (nMode == MBDP_MONO) ? 1 : 2;
@@ -828,15 +1066,18 @@ namespace lsp
 
             // Determine work mode: classic, modern or linear phase
             xover_mode_t xover  = xover_mode_t(pMode->value());
-            if (xover != enXOver)
+            const size_t slope  = pSlope->value();
+            if ((xover != enXOver) || (slope != nSlope))
             {
                 enXOver             = xover;
+                nSlope              = slope;
                 for (size_t i=0; i<channels; ++i)
                 {
                     vChannels[i].nPlanSize      = 0;
                     vChannels[i].sXOverDelay.clear();
                 }
             }
+
             bStereoSplit        = (pStereoSplit != NULL) ? pStereoSplit->value() >= 0.5f : false;
 
             // Store gain
@@ -1122,24 +1363,18 @@ namespace lsp
                         for (size_t k=0; k<channels; ++k)
                         {
                             // Configure lo-pass filter
-                            fp.nType        = ((j != (c->nPlanSize-1)) || (b->bCustHCF)) ? dspu::FLT_BT_LRX_LOPASS : dspu::FLT_NONE;
+                            sidechain_filter_params(&fp, ((j != (c->nPlanSize-1)) || (b->bCustHCF)) ? FTYPE_LOPASS : FTYPE_NONE, slope);
                             fp.fFreq        = (b->bCustHCF) ? b->pScHcfFreq->value() : b->pFreqEnd->value();
                             fp.fFreq2       = fp.fFreq;
-                            fp.fQuality     = 0.0f;
                             fp.fGain        = 1.0f;
-                            fp.fQuality     = 0.0f;
-                            fp.nSlope       = 2;
 
                             b->sEQ[k].set_params(0, &fp);
 
                             // Configure hi-pass filter
-                            fp.nType        = ((j != 0) || (b->bCustLCF)) ? dspu::FLT_BT_LRX_HIPASS : dspu::FLT_NONE;
+                            sidechain_filter_params(&fp, ((j != 0) || (b->bCustLCF)) ? FTYPE_HIPASS : FTYPE_NONE, slope);
                             fp.fFreq        = (b->bCustLCF) ? b->pScLcfFreq->value() : b->fFreqStart;
                             fp.fFreq2       = fp.fFreq;
-                            fp.fQuality     = 0.0f;
                             fp.fGain        = 1.0f;
-                            fp.fQuality     = 0.0f;
-                            fp.nSlope       = 2;
 
                             b->sEQ[k].set_params(1, &fp);
                         }
@@ -1154,25 +1389,24 @@ namespace lsp
                             // Configure filter for band
                             if (j <= 0)
                             {
-                                fp.nType        = (c->nPlanSize > 1) ? dspu::FLT_BT_LRX_LOSHELF : dspu::FLT_AMPLIFIER;
+                                modern_xover_params(&fp, (c->nPlanSize > 1) ? FTYPE_LOSHELF : FTYPE_AMPLIFIER, slope);
                                 fp.fFreq        = b->fFreqEnd;
                                 fp.fFreq2       = b->fFreqEnd;
                             }
                             else if (j >= (c->nPlanSize - 1))
                             {
-                                fp.nType        = dspu::FLT_BT_LRX_HISHELF;
+                                modern_xover_params(&fp, FTYPE_HISHELF, slope);
                                 fp.fFreq        = b->fFreqStart;
                                 fp.fFreq2       = b->fFreqStart;
                             }
                             else
                             {
-                                fp.nType        = dspu::FLT_BT_LRX_LADDERPASS;
+                                modern_xover_params(&fp, FTYPE_LADDER, slope);
                                 fp.fFreq        = b->fFreqStart;
                                 fp.fFreq2       = b->fFreqEnd;
                             }
 
                             fp.fGain        = 1.0f;
-                            fp.nSlope       = 2;
                             fp.fQuality     = 0.0f;
 
                             lsp_trace("Filter type=%d, from=%f, to=%f", int(fp.nType), fp.fFreq, fp.fFreq2);
@@ -1193,6 +1427,8 @@ namespace lsp
                 } // nPlanSize
 
                 // Enable/disable dynamic filters and bands
+                const dspu::crossover_slope_t cslope = classic_xover_slope(slope);
+                const float lslope = lp_xover_slope(slope);
                 for (size_t j=0; j<meta::mb_dyna_processor::BANDS_MAX; ++j)
                 {
                     dyna_band_t * const b   = &c->vBands[j];
@@ -1200,8 +1436,8 @@ namespace lsp
                     if (j > 0)
                     {
                         const bool split_on     = c->vSplit[j-1].bEnabled;
-                        c->sXOver.set_slope(j-1, (split_on) ? dspu::CROSS_SLOPE_48DBO : dspu::CROSS_SLOPE_OFF);
-                        c->sLPXOver.set_slope(j-1, (split_on) ? -48.0f : 0.0f);
+                        c->sXOver.set_slope(j-1, (split_on) ? cslope : dspu::CROSS_SLOPE_OFF);
+                        c->sLPXOver.set_slope(j-1, (split_on) ? lslope : 0.0f);
                     }
                 }
 
@@ -2091,7 +2327,7 @@ namespace lsp
 
             for (size_t i=0; i<channels; ++i)
             {
-                channel_t *c    = &vChannels[i];
+                channel_t * const c    = &vChannels[i];
 
                 for (size_t j=0; j<width; ++j)
                 {
@@ -2123,13 +2359,7 @@ namespace lsp
             v->write_object("sAnalyzer", &sAnalyzer);
             v->write_object("sFilters", &sFilters);
             v->write_object("sCounter", &sCounter);
-            v->write("nMode", nMode);
-            v->write("bSidechain", bSidechain);
-            v->write("bEnvUpdate", bEnvUpdate);
-            v->write("bUseShmLink", bUseShmLink);
-            v->write("enXOver", enXOver);
-            v->write("bStereoSplit", bStereoSplit);
-            v->write("nEnvBoost", nEnvBoost);
+
             v->begin_array("vChannels", vChannels, channels);
             {
                 for (size_t i=0; i<channels; ++i)
@@ -2273,11 +2503,20 @@ namespace lsp
                 }
             }
             v->end_array();
+
+            v->write("nMode", nMode);
+            v->write("nSlope", nSlope);
+            v->write("enXOver", enXOver);
+            v->write("nEnvBoost", nEnvBoost);
+            v->write("bSidechain", bSidechain);
+            v->write("bEnvUpdate", bEnvUpdate);
+            v->write("bUseShmLink", bUseShmLink);
+            v->write("bStereoSplit", bStereoSplit);
+
             v->write("fInGain", fInGain);
             v->write("fDryGain", fDryGain);
             v->write("fWetGain", fWetGain);
             v->write("fZoom", fZoom);
-            v->write("pData", pData);
             v->writev("vSc", vSc, 2);
             v->writev("vAnalyze", vAnalyze, 4);
             v->write("vBuffer", vBuffer);
@@ -2316,6 +2555,7 @@ namespace lsp
 
             v->write("pBypass", pBypass);
             v->write("pMode", pMode);
+            v->write("pSlope", pSlope);
             v->write("pInGain", pInGain);
             v->write("pOutGain", pOutGain);
             v->write("pDryGain", pDryGain);
@@ -2326,6 +2566,8 @@ namespace lsp
             v->write("pZoom", pZoom);
             v->write("pEnvBoost", pEnvBoost);
             v->write("pStereoSplit", pStereoSplit);
+
+            v->write("pData", pData);
         }
 
     } /* namespace plugins */
