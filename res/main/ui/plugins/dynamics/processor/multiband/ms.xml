@@ -701,7 +701,7 @@
 											<cell cols="2"><hsep bg.color="bg" pad.v="2" vreduce="true"/></cell>
 											<cell cols="2"><hsep bg.color="bg" pad.v="2" vreduce="true"/></cell>
 
-											<cell rows="2" hreduce="true" pad.h="4" wmin="19"><label text="${c}" bg.bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken"/></cell>
+											<cell rows="2" hreduce="true" pad.h="4" wmin="19"><label text="${:c + 1}" bg.bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken"/></cell>
 											<cell rows="2">
 												<vbox fill="false" pad="6" spacing="4" bg.bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken" bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken">
 													<ui:with bright="((${i} ieq 0) or :cbe_${ch}) ?  1 : :const_bg_darken">
@@ -862,8 +862,8 @@
 										</ui:for>
 										<ui:for id="c" first="0" last="3">
 											<ui:set id="x" value="${c}_${i}"/>
-											<text x=":tl${x}m" y=":gl${x}m" text="graph.values.idM_id" text:id="${c}" color="mid" halign="-1" valign="1" visibility="${bvism} and :pe_${i}m and :pe${x}m"/>
-											<text x=":tl${x}s" y=":gl${x}s" text="graph.values.idS_ide" text:id="${c}" color="side" halign="-1" valign="1" visibility="${bviss} and :pe_${i}s and :pe${x}s"/>
+											<text x=":tl${x}m" y=":gl${x}m" text="graph.values.idM_id" text:id="${:c + 1}" color="mid" halign="-1" valign="1" visibility="${bvism} and :pe_${i}m and :pe${x}m"/>
+											<text x=":tl${x}s" y=":gl${x}s" text="graph.values.idS_ide" text:id="${:c + 1}" color="side" halign="1" valign="-1" visibility="${bviss} and :pe_${i}s and :pe${x}s"/>
 										</ui:for>
 
 										<dot x.id="elm_${i}m" y.id="clm_${i}m" color="mid" bcolor="mid" visibility="${bvism} and :pe_${i}m"/>
