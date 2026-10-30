@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2025 Linux Studio Plugins Project <https://lsp-plug.in/>
- *           (C) 2025 Vladimir Sadovnikov <sadko4u@gmail.com>
+ * Copyright (C) 2026 Linux Studio Plugins Project <https://lsp-plug.in/>
+ *           (C) 2026 Vladimir Sadovnikov <sadko4u@gmail.com>
  *
  * This file is part of lsp-plugins-mb-dyna-processor
  * Created on: 25 нояб. 2020 г.
@@ -29,7 +29,7 @@
 #include <lsp-plug.in/dsp-units/filters/Equalizer.h>
 #include <lsp-plug.in/dsp-units/util/Analyzer.h>
 #include <lsp-plug.in/dsp-units/util/Delay.h>
-#include <lsp-plug.in/dsp-units/util/FFTCrossover.h>
+#include <lsp-plug.in/dsp-units/util/LPCrossover.h>
 #include <lsp-plug.in/dsp-units/util/Sidechain.h>
 #include <lsp-plug.in/plug-fw/core/IDBuffer.h>
 #include <lsp-plug.in/plug-fw/plug.h>
@@ -54,6 +54,7 @@ namespace lsp
                     MBDP_MS
                 };
 
+            protected:
                 enum xover_mode_t
                 {
                     XOVER_CLASSIC,                              // Classic mode
@@ -61,7 +62,6 @@ namespace lsp
                     XOVER_LINEAR_PHASE                          // Linear phase mode
                 };
 
-            protected:
                 enum sync_t
                 {
                     S_DP_CURVE      = 1 << 0,
@@ -79,6 +79,18 @@ namespace lsp
                     SCT_LINK,
                 };
 
+                enum modern_filter_t
+                {
+                    FTYPE_NONE,
+                    FTYPE_LOSHELF,
+                    FTYPE_LADDER,
+                    FTYPE_HISHELF,
+                    FTYPE_AMPLIFIER,
+                    FTYPE_LOPASS,
+                    FTYPE_HIPASS
+                };
+
+            protected:
                 typedef struct premix_t
                 {
                     float                   fInToSc;            // Input -> Sidechain mix
@@ -111,9 +123,6 @@ namespace lsp
                     dspu::Sidechain         sSC;                // Sidechain module
                     dspu::Equalizer         sEQ[2];             // Sidechain equalizers
                     dspu::DynamicProcessor  sProc;              // Dynamic Processor
-                    dspu::Filter            sPassFilter;        // Passing filter for 'classic' mode
-                    dspu::Filter            sRejFilter;         // Rejection filter for 'classic' mode
-                    dspu::Filter            sAllFilter;         // All-pass filter for phase compensation
                     dspu::Delay             sScDelay;           // Sidechain delay for lookahead purpose
 
                     float                  *vBuffer;            // Crossover band data
@@ -197,7 +206,8 @@ namespace lsp
                     dspu::Delay             sDryDelay;          // Delay for dry signal
                     dspu::Delay             sXOverDelay;        // Delay for crossover
                     dspu::Equalizer         sDryEq;             // Dry equalizer
-                    dspu::FFTCrossover      sFFTXOver;          // FFT crossover for linear phase
+                    dspu::Crossover         sXOver;             // Classic crossover
+                    dspu::LPCrossover       sLPXOver;           // Linear phase crossover
 
                     dyna_band_t             vBands[meta::mb_dyna_processor::BANDS_MAX];     // Processor bands
                     split_t                 vSplit[meta::mb_dyna_processor::BANDS_MAX-1];   // Split bands
@@ -240,26 +250,24 @@ namespace lsp
                 dspu::Analyzer          sAnalyzer;              // Analyzer
                 dspu::DynamicFilters    sFilters;               // Dynamic filters for each band in 'modern' mode
                 dspu::Counter           sCounter;               // Sync counter
+                channel_t              *vChannels;              // Processor channels
                 uint32_t                nMode;                  // Processor mode
+                uint32_t                nSlope;                 // Current crossover slope
+                xover_mode_t            enXOver;                // Crossover mode
+                uint32_t                nEnvBoost;              // Envelope boost
                 bool                    bSidechain;             // External side chain
                 bool                    bEnvUpdate;             // Envelope filter update
                 bool                    bUseShmLink;            // Shared memory link is in use
-                xover_mode_t            enXOver;                // Crossover mode
                 bool                    bStereoSplit;           // Stereo split mode
-                uint32_t                nEnvBoost;              // Envelope boost
-                channel_t              *vChannels;              // Processor channels
                 float                   fInGain;                // Input gain
                 float                   fDryGain;               // Dry gain
                 float                   fWetGain;               // Wet gain
                 float                   fZoom;                  // Zoom
-                uint8_t                *pData;                  // Aligned data pointer
                 float                  *vSc[2];                 // Sidechain signal data
                 float                  *vAnalyze[4];            // Analysis buffer
                 float                  *vBuffer;                // Temporary buffer
                 float                  *vEnv;                   // Processor envelope buffer
                 float                  *vTr;                    // Transfer buffer
-                float                  *vPFc;                   // Pass filter characteristics buffer
-                float                  *vRFc;                   // Reject filter characteristics buffer
                 float                  *vFreqs;                 // Analyzer FFT frequencies
                 float                  *vCurve;                 // Curve
                 uint32_t               *vIndexes;               // Analyzer FFT indexes
@@ -269,6 +277,7 @@ namespace lsp
 
                 plug::IPort            *pBypass;                // Bypass port
                 plug::IPort            *pMode;                  // Global mode
+                plug::IPort            *pSlope;                 // Crossover slope
                 plug::IPort            *pInGain;                // Input gain port
                 plug::IPort            *pOutGain;               // Output gain port
                 plug::IPort            *pDryGain;               // Dry gain port
@@ -280,12 +289,18 @@ namespace lsp
                 plug::IPort            *pEnvBoost;              // Envelope adjust
                 plug::IPort            *pStereoSplit;           // Split left/right independently
 
+                uint8_t                *pData;                  // Aligned data pointer
+
             protected:
                 static bool compare_bands_for_sort(const dyna_band_t *b1, const dyna_band_t *b2);
 
                 static dspu::sidechain_source_t     decode_sidechain_source(int source, bool split, size_t channel);
                 static size_t                       select_fft_rank(size_t sample_rate);
                 static void                         process_band(void *object, void *subject, size_t band, const float *data, size_t sample, size_t count);
+                static dspu::crossover_slope_t      classic_xover_slope(size_t slope);
+                static float                        lp_xover_slope(size_t slope);
+                static void                         modern_xover_params(dspu::filter_params_t *fp, modern_filter_t type, size_t slope);
+                static void                         sidechain_filter_params(dspu::filter_params_t *fp, modern_filter_t type, size_t slope);
 
             protected:
                 void                do_destroy();
@@ -314,6 +329,7 @@ namespace lsp
                 virtual void        update_settings() override;
                 virtual void        update_sample_rate(long sr) override;
                 virtual void        ui_activated() override;
+                virtual void        ui_deactivated() override;
 
                 virtual void        process(size_t samples) override;
                 virtual bool        inline_display(plug::ICanvas *cv, size_t width, size_t height) override;
